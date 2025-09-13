@@ -25,6 +25,9 @@ export class Car {
 
   @Prop({ required: true, min: 1, max: 20 })
   size: number;
+
+  @Prop({ default: false })
+  isReserved: boolean;
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car);

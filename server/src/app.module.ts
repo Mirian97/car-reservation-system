@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { RolesGuard } from './roles/roles.guard';
 import { UsersModule } from './users/users.module';
 import { CarsModule } from './cars/cars.module';
+import { ReservationsModule } from './reservations/reservations.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CarsModule } from './cars/cars.module';
     UsersModule,
     AuthModule,
     CarsModule,
+    ReservationsModule,
   ],
   controllers: [AppController],
   providers: [
