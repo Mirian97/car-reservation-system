@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CarsService } from 'src/cars/cars.service';
+import { CarsModule } from 'src/cars/cars.module';
+import { UsersModule } from 'src/users/users.module';
 import { Reservation, ReservationSchema } from './entities/reservation.entity';
 import { ReservationsController } from './reservations.controller';
 import { ReservationsService } from './reservations.service';
@@ -10,8 +11,10 @@ import { ReservationsService } from './reservations.service';
     MongooseModule.forFeature([
       { name: Reservation.name, schema: ReservationSchema },
     ]),
+    CarsModule,
+    UsersModule,
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService, CarsService],
+  providers: [ReservationsService],
 })
 export class ReservationsModule {}

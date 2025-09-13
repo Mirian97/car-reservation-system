@@ -8,5 +8,6 @@ import { Car, CarSchema } from './entities/car.entity';
   imports: [MongooseModule.forFeature([{ name: Car.name, schema: CarSchema }])],
   controllers: [CarsController],
   providers: [CarsService],
+  exports: [CarsService],
 })
 export class CarsModule {}
