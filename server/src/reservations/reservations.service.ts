@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CarsService } from 'src/cars/cars.service';
+import { CarIsAlreadyReservedException } from 'src/reservations/exception/car-is-already-reserved.exception';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
+import { ActiveUserReservationException } from './exception/active-user-reservation.exception';
 import { ReservationNotFoundException } from './exception/reservation-not-found.exception';
 
 @Injectable()
@@ -15,6 +17,19 @@ export class ReservationsService {
   ) {}
 
   async create(createReservationDto: CreateReservationDto) {
+    const user = await this.reservationModel.findOne({
+      userId: createReservationDto.userId,
+      isActive: true,
+    });
+    if (user) {
+      throw new ActiveUserReservationException();
+    }
+    const car = await this.carsService.findOne(createReservationDto.carId);
+    if (car.isReserved) {
+      throw new CarIsAlreadyReservedException();
+    }
+    const carId = car._id.toHexString();
+    this.carsService.setIsReserved(carId, true);
     const reservation =
       await this.reservationModel.create(createReservationDto);
     return reservation.save();
