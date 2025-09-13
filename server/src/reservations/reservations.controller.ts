@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { ParseObjectIdPipe } from '@nestjs/mongoose';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsService } from './reservations.service';
@@ -14,7 +15,7 @@ export class ReservationsController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseObjectIdPipe) id: string,
     @Body() updateReservationDto: UpdateReservationDto,
   ) {
     return this.reservationsService.update(id, updateReservationDto);
@@ -26,12 +27,12 @@ export class ReservationsController {
   }
 
   @Get('user/:id')
-  findByUserId(@Param('id') id: string) {
+  findByUserId(@Param('id', ParseObjectIdPipe) id: string) {
     return this.reservationsService.findByUserId(id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseObjectIdPipe) id: string) {
     return this.reservationsService.findOne(id);
   }
 }
