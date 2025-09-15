@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
-import { User } from 'src/users/entities/user.entity';
+import { User, UserDocument } from 'src/users/entities/user.entity';
 import { EmailInUseException } from 'src/users/exception/email-in-use.exception';
 import { InvalidCredentialsException } from 'src/users/exception/invalid-credentials-exception';
 import { UsersService } from 'src/users/users.service';
@@ -18,6 +18,14 @@ export class AuthService {
     private jwtService: JwtService,
     private userService: UsersService,
   ) {}
+
+  private async generateToken(user: UserDocument): Promise<string> {
+    return await this.jwtService.signAsync({
+      id: user._id,
+      name: user.name,
+      roles: user.roles,
+    });
+  }
 
   async signUp({
     name,
@@ -34,7 +42,7 @@ export class AuthService {
       email,
       password: hashedPassword,
     });
-    const token = await this.jwtService.signAsync({ id: user._id });
+    const token = await this.generateToken(user);
     return { token };
   }
 
@@ -47,7 +55,7 @@ export class AuthService {
     if (!passwordMatch) {
       throw new InvalidCredentialsException();
     }
-    const token = await this.jwtService.signAsync({ id: user._id });
+    const token = await this.generateToken(user);
     return { token };
   }
 
@@ -60,7 +68,7 @@ export class AuthService {
       const existingUser = await this.userModel.findOne({
         email: updateUserDto.email,
       });
-      if (existingUser && existingUser._id?.toString() !== id) {
+      if (existingUser && !existingUser._id.equals(id)) {
         throw new EmailInUseException();
       }
     }

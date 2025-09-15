@@ -9,6 +9,7 @@ import { CarsModule } from './cars/cars.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { RolesGuard } from './roles/roles.guard';
 import { UsersModule } from './users/users.module';
+import { AuthGuard } from './auth/auth.guard';
 
 @Module({
   imports: [
@@ -24,6 +25,10 @@ import { UsersModule } from './users/users.module';
   ],
   controllers: [AppController],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
