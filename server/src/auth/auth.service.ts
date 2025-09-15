@@ -68,7 +68,7 @@ export class AuthService {
       const existingUser = await this.userModel.findOne({
         email: updateUserDto.email,
       });
-      if (existingUser && existingUser._id?.toString() !== id) {
+      if (existingUser && !existingUser._id.equals(id)) {
         throw new EmailInUseException();
       }
     }
