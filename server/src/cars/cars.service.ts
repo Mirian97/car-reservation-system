@@ -38,4 +38,15 @@ export class CarsService {
     await this.findOne(id);
     return await this.carModel.findByIdAndDelete(id);
   }
+
+  async setIsReserved(id: string, isReserved: boolean) {
+    await this.findOne(id);
+    return await this.carModel.findByIdAndUpdate(
+      id,
+      { isReserved },
+      {
+        new: true,
+      },
+    );
+  }
 }
