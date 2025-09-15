@@ -7,11 +7,14 @@ import { UserSchema } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth.guard';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
+      global: true,
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
@@ -26,6 +29,10 @@ import { AuthService } from './auth.service';
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService],
+  providers: [
+    { provide: APP_GUARD, useClass: AuthGuard },
+    AuthService,
+    UsersService,
+  ],
 })
 export class AuthModule {}
