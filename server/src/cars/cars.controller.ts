@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ParseObjectIdPipe } from '@nestjs/mongoose';
 import { CarsService } from './cars.service';
@@ -18,8 +19,8 @@ import { Role } from 'src/roles/enums/role.enum';
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
-  @Roles(Role.Admin)
   @Post()
+  @Roles(Role.Admin)
   create(@Body() createCarDto: CreateCarDto) {
     return this.carsService.create(createCarDto);
   }

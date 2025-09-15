@@ -34,7 +34,11 @@ export class AuthService {
       email,
       password: hashedPassword,
     });
-    const token = await this.jwtService.signAsync({ id: user._id });
+    const token = await this.jwtService.signAsync({
+      id: user._id,
+      name: user.name,
+      roles: user.roles,
+    });
     return { token };
   }
 
@@ -47,7 +51,11 @@ export class AuthService {
     if (!passwordMatch) {
       throw new InvalidCredentialsException();
     }
-    const token = await this.jwtService.signAsync({ id: user._id });
+    const token = await this.jwtService.signAsync({
+      id: user._id,
+      name: user.name,
+      roles: user.roles,
+    });
     return { token };
   }
 
