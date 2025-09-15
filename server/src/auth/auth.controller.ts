@@ -12,16 +12,19 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 import { LoginDto } from '../users/dto/login.dto';
 import { AuthService } from './auth.service';
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('sign-up')
   signUp(@Body() signupDto: CreateUserDto) {
     return this.authService.signUp(signupDto);
   }
 
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() loginDto: LoginDto) {
