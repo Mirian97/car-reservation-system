@@ -23,7 +23,9 @@ export class AuthService {
         }
       }),
       catchError((error) =>
-        throwError(() => error.message || 'Falha inesperada, tente novamente'),
+        throwError(
+          () => error.error.message || 'Falha inesperada, tente novamente',
+        ),
       ),
     );
   }
