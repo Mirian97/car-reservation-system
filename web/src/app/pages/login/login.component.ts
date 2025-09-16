@@ -7,11 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { InputComponent } from '../../components/input/input.component';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
