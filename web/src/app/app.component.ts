@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'Guardians | Car Reservation';
+  title = 'Guardians | Reserva de Carro';
 }
