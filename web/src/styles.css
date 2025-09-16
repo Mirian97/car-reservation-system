@@ -2,6 +2,9 @@
 @import 'tailwindcss';
 
 @theme inline {
+  --font-inter: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
@@ -14,5 +17,5 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  @apply font-inter;
 }
