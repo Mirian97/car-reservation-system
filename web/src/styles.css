@@ -19,3 +19,25 @@
 body {
   @apply font-inter;
 }
+
+.colored-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+  border-radius: 8px;
+  color: white;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+  border-radius: 8px;
+  color: white;
+}
+
+.colored-toast .swal2-title {
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.colored-toast .swal2-html-container {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
