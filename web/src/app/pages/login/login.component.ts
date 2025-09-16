@@ -44,14 +44,10 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.authService.login(email, password).subscribe({
-        next: () => {
-          this.router.navigate(['/home']);
-        },
-        error: (error) => {
-          toast.error(error);
-        },
+      const formValues = this.loginForm.value;
+      this.authService.login(formValues).subscribe({
+        next: () => this.router.navigate(['/home']),
+        error: (error) => toast.error({ text: error }),
       });
     } else {
       toast.error({ text: 'Por favor, preencha os dados corretamente' });

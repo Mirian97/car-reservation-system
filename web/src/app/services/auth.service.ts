@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { LoginForm, Token } from '../types/auth.type';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +11,15 @@ export class AuthService {
   readonly API_URL = `${environment.apiUrl}auth`;
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
+  login(form: LoginForm): Observable<any> {
     return this.http
-      .post<any>(`${this.API_URL}/login`, { email, password })
+      .post<Token>(`${this.API_URL}/login`, form)
       .pipe(
-        catchError((error) => {
-          return throwError(() => new Error('Falha no login'));
-        }),
+        catchError((error) =>
+          throwError(
+            () => error.message || 'Falha inesperada, tente novamente',
+          ),
+        ),
       );
   }
 }

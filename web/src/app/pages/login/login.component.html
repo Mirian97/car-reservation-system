@@ -10,8 +10,18 @@
     class="flex flex-col gap-4 mt-auto"
   >
     <app-logo className="mb-12" />
-    <app-input placeholder="E-mail" type="email" formControlName="email" />
-    <app-input placeholder="Senha" type="password" formControlName="password" />
+    <app-input
+      placeholder="E-mail"
+      type="email"
+      formControlName="email"
+      name="email"
+    />
+    <app-input
+      placeholder="Senha"
+      type="password"
+      formControlName="password"
+      name="password"
+    />
     <app-button
       variant="secondary"
       className="uppercase mt-12"
