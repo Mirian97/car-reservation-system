@@ -1,9 +1,11 @@
 <input
   [type]="type"
+  [name]="name"
   [value]="value"
   [disabled]="disabled"
   [placeholder]="placeholder"
-  (input)="onChange?.($event)"
+  (input)="onInput($event)"
+  (blur)="onTouched()"
   [ngClass]="[
     'w-full',
     'font-poppins',
@@ -20,6 +22,7 @@
     'focus:outline-secondary/90',
     'rounded-full',
     'min-h-[62px]',
+    showError ? 'border-red-500' : 'border-gray-300',
     className
   ]"
 />

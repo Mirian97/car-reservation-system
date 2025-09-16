@@ -3,7 +3,7 @@
   [disabled]="disabled"
   (click)="onClick?.()"
   [ngClass]="[
-    'text-white py-2 px-6 rounded-full w-full',
+    'text-white py-2 px-6 rounded-full w-full cursor-pointer disabled:cursor-default disabled:opacity-75 transition-all duration-300',
     variant === 'primary'
       ? 'bg-primary text-[18px] min-h-[56px]'
       : 'bg-secondary text-xl font-bold min-h-[60px]',
