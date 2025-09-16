@@ -24,7 +24,7 @@ export class SvgIconComponent {
     private cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
-    private svgIconService: SvgIconService
+    private svgIconService: SvgIconService,
   ) {}
 
   public ngOnInit(): void {
@@ -33,7 +33,7 @@ export class SvgIconComponent {
 
   private loadSvg(): void {
     if (!this.iconName) return;
-    const svgPath = `/svgs/${this.iconName}.svg`;
+    const svgPath = `/assets/svgs/${this.iconName}.svg`;
 
     if (!this.svgIconService.svgIconMap.has(svgPath)) {
       const svg$ = this.http.get(svgPath, { responseType: 'text' }).pipe(
@@ -44,7 +44,7 @@ export class SvgIconComponent {
           svg = svg.replace(/class=".*?"/, `class="${this.class}"`);
           return this.sanitizer.bypassSecurityTrustHtml(svg);
         }),
-        shareReplay(1)
+        shareReplay(1),
       );
 
       this.svgIconService.svgIconMap.set(svgPath, svg$);
