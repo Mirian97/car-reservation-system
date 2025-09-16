@@ -1,6 +1,9 @@
 <main
-  class="bg-primary h-dvh flex flex-col items-center w-full justify-center px-9"
+  class="relative z-[1] bg-primary h-dvh flex flex-col items-center w-full justify-center px-9 overflow-hidden"
 >
+  <div class="text-white/5 z-0 absolute -top-14 translate-x-32">
+    <app-svg-icon iconName="logo" [height]="320" [width]="290"></app-svg-icon>
+  </div>
   <form class="flex flex-col gap-4 mt-auto">
     <app-logo className="mb-12" />
     <app-input placeholder="E-mail" type="email" />
@@ -16,4 +19,3 @@
     Ainda não tem cadastro? <a class="underline">Criar conta</a>
   </p>
 </main>
-z
