@@ -1,0 +1,25 @@
+<input
+  [type]="type"
+  [value]="value"
+  [disabled]="disabled"
+  [placeholder]="placeholder"
+  (input)="onChange?.($event)"
+  [ngClass]="[
+    'w-full',
+    'font-poppins',
+    'transition-all',
+    'bg-white',
+    'text-[18px]',
+    'px-8 py-2',
+    'text-primary',
+    'placeholder:text-tertiary',
+    'border',
+    'border-tertiary',
+    'focus:border-secondary',
+    'focus:outline-2',
+    'focus:outline-secondary/90',
+    'rounded-full',
+    'min-h-[62px]',
+    className
+  ]"
+/>

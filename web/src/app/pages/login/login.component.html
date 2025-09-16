@@ -1,4 +1,18 @@
-<main class="bg-primary h-dvh flex items-center w-full justify-center">
-  <app-button variant="secondary" className="uppercase">Entrar</app-button>
+<main
+  class="bg-primary h-dvh flex flex-col items-center w-full justify-center px-9"
+>
+  <form class="flex flex-col gap-4 flex-1 my-auto">
+    <app-input placeholder="E-mail" type="email" />
+    <app-input placeholder="Senha" type="password" />
+    <app-button
+      variant="secondary"
+      className="uppercase mt-12"
+      [type]="'submit'"
+      >Entrar</app-button
+    >
+  </form>
+  <p class="text-white text-base self-end mb-24 mx-auto">
+    Ainda não tem cadastro? <a class="underline">Criar conta</a>
+  </p>
 </main>
 z
