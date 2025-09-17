@@ -52,7 +52,7 @@ export class SignUpComponent {
     }
     const formValues = this.signUpForm.value;
     this.authService.signUp(formValues).subscribe({
-      next: () => this.router.navigate(['/home']),
+      next: () => this.router.navigate(['/inicio']),
       error: (error) => toast.error({ text: error }),
       complete: () => (this.isLoading = false),
     });
