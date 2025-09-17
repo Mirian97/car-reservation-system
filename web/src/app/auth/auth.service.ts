@@ -4,7 +4,8 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { LoginForm, Token } from '../types/auth.type';
+import { errorMessages } from '../constants/errorMessages';
+import { LoginForm, SignUpForm, Token } from '../types/auth.type';
 
 @Injectable({
   providedIn: 'root',
@@ -44,9 +45,20 @@ export class AuthService {
         }
       }),
       catchError((error) =>
-        throwError(
-          () => error.error.message || 'Falha inesperada, tente novamente',
-        ),
+        throwError(() => error.error.message || errorMessages.unexpected),
+      ),
+    );
+  }
+
+  signUp(form: SignUpForm): Observable<any> {
+    return this.http.post<Token>(`${this.API_URL}/sign-up`, form).pipe(
+      tap((response: Token) => {
+        if (response.token) {
+          this.setToken(response.token);
+        }
+      }),
+      catchError((error) =>
+        throwError(() => error.error.message || errorMessages.unexpected),
       ),
     );
   }

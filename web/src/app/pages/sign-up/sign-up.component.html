@@ -1,1 +1,40 @@
-<p>sign-up works!</p>
+<main
+  class="relative z-[1] bg-primary h-dvh flex flex-col items-center w-full justify-center px-9 overflow-hidden"
+>
+  <div class="text-white/5 z-0 absolute -top-14 translate-x-32">
+    <app-svg-icon iconName="logo" [height]="320" [width]="290"></app-svg-icon>
+  </div>
+  <form
+    [formGroup]="signUpForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4 mt-auto"
+  >
+    <h2 class="text-white text-3xl mb-8 text-center font-semibold">
+      Cadastre<span class="text-secondary">-se</span>
+    </h2>
+    <app-input placeholder="Nome" formControlName="name" name="name" />
+    <app-input
+      placeholder="E-mail"
+      type="email"
+      formControlName="email"
+      name="email"
+    />
+    <app-input
+      placeholder="Senha"
+      type="password"
+      formControlName="password"
+      name="password"
+    />
+    <app-button
+      variant="secondary"
+      className="mt-12 text-xl"
+      [type]="'submit'"
+      [disabled]="signUpForm.invalid"
+      >Criar conta</app-button
+    >
+  </form>
+  <p class="text-white text-base self-end justify-end mt-auto mb-24 mx-auto">
+    Já tem cadastro?
+    <a class="underline" routerLink="/login">Faça login</a>
+  </p>
+</main>
