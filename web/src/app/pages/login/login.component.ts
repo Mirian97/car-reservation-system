@@ -1,3 +1,4 @@
+import { errorMessages } from '@/app/constants/errorMessages';
 import { toast } from '@/app/helpers/toast';
 import { Component } from '@angular/core';
 import {
@@ -45,7 +46,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (!this.loginForm.valid) {
-      toast.error({ text: 'Por favor, preencha os dados corretamente' });
+      toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
     const formValues = this.loginForm.value;
