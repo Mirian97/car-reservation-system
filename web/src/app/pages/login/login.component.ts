@@ -28,6 +28,7 @@ import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  isLoading: boolean = false;
 
   constructor(
     readonly formBuilder: FormBuilder,
@@ -43,14 +44,15 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      const formValues = this.loginForm.value;
-      this.authService.login(formValues).subscribe({
-        next: () => this.router.navigate(['/home']),
-        error: (error) => toast.error({ text: error }),
-      });
-    } else {
+    if (!this.loginForm.valid) {
       toast.error({ text: 'Por favor, preencha os dados corretamente' });
+      return;
     }
+    const formValues = this.loginForm.value;
+    this.authService.login(formValues).subscribe({
+      next: () => this.router.navigate(['/home']),
+      error: (error) => toast.error({ text: error }),
+      complete: () => (this.isLoading = false),
+    });
   }
 }

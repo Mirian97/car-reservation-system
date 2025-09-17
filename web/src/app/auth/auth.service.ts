@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -11,19 +12,27 @@ import { LoginForm, Token } from '../types/auth.type';
 export class AuthService {
   readonly API_URL = `${environment.apiUrl}auth`;
   readonly AUTHENTICATION_TOKEN = 'AUTHENTICATION_TOKEN';
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: object,
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem(this.AUTHENTICATION_TOKEN);
+    const token = this.getToken();
     return !!token;
   }
 
   getToken(): string | null {
+    if (!this.isBrowser) return null;
     return localStorage.getItem(this.AUTHENTICATION_TOKEN);
   }
 
   setToken(token: string): void {
+    if (!this.isBrowser) return;
     localStorage.setItem(this.AUTHENTICATION_TOKEN, token);
   }
 
