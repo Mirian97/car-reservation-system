@@ -5,21 +5,33 @@ import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { LoginForm, Token } from '../types/auth.type';
 
-export const AUTHENTICATION_TOKEN = 'AUTHENTICATION_TOKEN';
-
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   readonly API_URL = `${environment.apiUrl}auth`;
+  readonly AUTHENTICATION_TOKEN = 'AUTHENTICATION_TOKEN';
 
   constructor(private http: HttpClient) {}
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem(this.AUTHENTICATION_TOKEN);
+    return !!token;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.AUTHENTICATION_TOKEN);
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem(this.AUTHENTICATION_TOKEN, token);
+  }
 
   login(form: LoginForm): Observable<any> {
     return this.http.post<Token>(`${this.API_URL}/login`, form).pipe(
       tap((response: Token) => {
         if (response.token) {
-          localStorage.setItem(AUTHENTICATION_TOKEN, response.token);
+          this.setToken(response.token);
         }
       }),
       catchError((error) =>
