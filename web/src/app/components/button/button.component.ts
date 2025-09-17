@@ -13,4 +13,5 @@ export class ButtonComponent {
   @Input() className: string = '';
   @Input() variant: 'primary' | 'secondary' = 'primary';
   @Input() onClick?: () => void = () => {};
+  @Input() isLoading?: boolean = false;
 }
