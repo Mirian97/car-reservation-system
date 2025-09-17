@@ -5,13 +5,14 @@ services:
       dockerfile: Dockerfile
     container_name: nestjs-container
     ports:
-      - '3000:3000'
+      - '3005:3000'
     volumes:
       - .:/app
       - /app/node_modules
     depends_on:
       - mongodb
     environment:
+      - PORT=3000
       - MONGODB_URI=${MONGODB_URI}
 
   mongodb:

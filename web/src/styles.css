@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --font-inter: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+}
+
+:root {
+  --primary: #1d2b3a;
+  --secondary: #c61d35;
+  --tertiary: #c3b9b5;
+}
+
+body {
+  @apply font-inter;
+}
+
+.colored-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+  border-radius: 8px;
+  color: white;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+  border-radius: 8px;
+  color: white;
+}
+
+.colored-toast .swal2-title {
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.colored-toast .swal2-html-container {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
