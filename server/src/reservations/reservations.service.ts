@@ -40,9 +40,11 @@ export class ReservationsService {
   }
 
   async findByUserId(id: string) {
-    return await this.reservationModel.find({
-      userId: new Types.ObjectId(id).toHexString(),
-    });
+    return await this.reservationModel
+      .find({
+        userId: new Types.ObjectId(id).toHexString(),
+      })
+      .populate('carId');
   }
 
   async findOne(id: string) {
