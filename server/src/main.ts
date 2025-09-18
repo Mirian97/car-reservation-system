@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { I18nValidationPipe } from 'nestjs-i18n';
+import { I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -11,6 +11,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.useGlobalFilters(new I18nValidationExceptionFilter());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

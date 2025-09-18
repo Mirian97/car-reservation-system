@@ -13,18 +13,27 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { RolesGuard } from './roles/roles.guard';
 import { UsersModule } from './users/users.module';
 
+const localesPath = path.resolve(process.cwd(), 'locales/');
+console.log('🌐 Locales path:', localesPath);
+
 @Module({
   imports: [
     I18nModule.forRoot({
       fallbackLanguage: 'pt',
       loaderOptions: {
-        path: path.join(process.cwd(), 'src/i18n/'),
+        path: path.resolve(process.cwd(), 'locales/'),
         watch: true,
+        throwMissing: true,
       },
       resolvers: [
         { use: QueryResolver, options: ['lang'] },
         AcceptLanguageResolver,
       ],
+      typesOutputPath: path.join(
+        __dirname,
+        '../src/generated/i18n.generated.ts',
+      ),
+      logging: true,
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',

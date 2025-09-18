@@ -1,0 +1,32 @@
+{
+  "validation": {
+    "required": "O campo {property} é obrigatório.",
+    "email": "O campo {property} deve ser um email válido.",
+    "array": "O campo {property} dever ser um array.",
+    "minLength": "O campo {property} deve ter no mínimo {constraints.0} caracteres.",
+    "maxLength": "O campo {property} deve ter no máximo {constraints.0} caracteres.",
+    "isString": "O campo {property} deve ser um texto válido.",
+    "isNumber": "O campo {property} deve ser um número válido.",
+    "date": "O campo {property} deve ser uma data válida.",
+    "boolean": "O campo {property} deve ser verdadeiro ou falso.",
+    "min": "O campo {property} deve ser no mínimo {constraints.0}.",
+    "max": "O campo {property} deve ser no máximo {constraints.0}.",
+    "isEnum": "O campo {property} deve ser um dos seguintes valores: {constraints}.",
+    "isMongoId": "O campo {property} deve ser um ID MongoDB válido.",
+    "isNotEmpty": "O campo {property} não pode estar vazio.",
+    "isDateString": "O campo {property} deve ser uma data válida."
+  },
+  "user": {
+    "notFound": "Usuário não encontrado.",
+    "emailInUse": "Email já está cadastrado.",
+    "invalidCredentials": "E-mail ou senha inválidos."
+  },
+  "car": {
+    "notFound": "Carro não encontrado."
+  },
+  "reservation": {
+    "notFound": "Reserva não encontrado.",
+    "userHasOneActive": "Usuário possui uma reserva ativa.",
+    "carAlreadyReserved": "Carro já está reservado."
+  }
+}

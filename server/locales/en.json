@@ -1,0 +1,32 @@
+{
+  "validation": {
+    "required": "The {property} field is required.",
+    "email": "The {property} field must be a valid email.",
+    "array": "The {property} field must be an array.",
+    "minLength": "The {property} field must have at least {constraints.0} characters.",
+    "maxLength": "The {property} field must have at most {constraints.0} characters.",
+    "isString": "The {property} field must be a valid text.",
+    "isNumber": "The {property} field must be a valid number.",
+    "date": "The {property} field must be a valid date.",
+    "boolean": "The {property} field must be true or false.",
+    "min": "The {property} field must be at least {constraints.0}.",
+    "max": "The {property} field must be at most {constraints.0}.",
+    "isEnum": "The {property} field must be one of the following values: {constraints}.",
+    "isMongoId": "The {property} field must be a valid MongoDB ID.",
+    "isNotEmpty": "The {property} field cannot be empty.",
+    "isDateString": "The {property} field must be a valid date."
+  },
+  "user": {
+    "notFound": "User not found.",
+    "emailInUse": "Email is already registered.",
+    "invalidCredentials": "Invalid email or password."
+  },
+  "car": {
+    "notFound": "Car not found."
+  },
+  "reservation": {
+    "notFound": "Reservation not found.",
+    "userHasOneActive": "User already has an active reservation.",
+    "carAlreadyReserved": "Car is already reserved."
+  }
+}
