@@ -3,11 +3,12 @@ import { ReservationService } from '@/app/services/reservation.service';
 import { CarReservationByUser } from '@/app/types/car.type';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CarCardComponent } from '../car-card/car-card.component';
 
 @Component({
   selector: 'app-last-reservations',
   standalone: true,
-  imports: [],
+  imports: [CarCardComponent],
   templateUrl: './last-reservations.component.html',
 })
 export class LastReservationsComponent implements OnInit {
