@@ -4,7 +4,7 @@ export class ReservationNotFoundException extends HttpException {
   constructor() {
     super(
       {
-        message: 'Reservation not found',
+        message: 'Reserva não encontrada',
         error: 'RESERVATION_NOT_FOUND',
       },
       HttpStatus.NOT_FOUND,
