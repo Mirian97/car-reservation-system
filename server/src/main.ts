@@ -8,7 +8,6 @@ async function bootstrap() {
   app.useGlobalPipes(
     new I18nValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true,
       transform: true,
     }),
   );

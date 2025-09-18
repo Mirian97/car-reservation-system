@@ -18,7 +18,7 @@ import { UsersModule } from './users/users.module';
     I18nModule.forRoot({
       fallbackLanguage: 'pt',
       loaderOptions: {
-        path: path.join(__dirname, '/i18n/'),
+        path: path.join(process.cwd(), 'src/i18n/'),
         watch: true,
       },
       resolvers: [
