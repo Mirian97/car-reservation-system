@@ -1,4 +1,4 @@
-import { errorMessages } from '@/app/constants/errorMessages';
+import { errorMessages } from '@/app/constants/error-messages.constant';
 import { toast } from '@/app/helpers/toast';
 import { Component } from '@angular/core';
 import {

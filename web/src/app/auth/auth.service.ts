@@ -4,7 +4,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { errorMessages } from '../constants/errorMessages';
+import { errorMessages } from '../constants/error-messages.constant';
 import { LoginForm, SignUpForm, Token } from '../types/auth.type';
 
 @Injectable({
