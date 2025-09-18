@@ -2,14 +2,14 @@
   class="group bg-white border border-gray-100 shadow-md rounded-lg px-4 pt-6 pb-7 text-primary min-h-72 w-[240px] max-w-full text-[18px]"
 >
   <img
-    src="http://media.istockphoto.com/id/1157655660/pt/foto/generic-red-suv-on-a-white-background-side-view.jpg?s=612x612&w=0&k=20&c=SwmLFK_KmRw0oQFCDscipI-N2gSj1PItzTkC69BdlpA="
-    alt="Car Image"
+    alt="Carro {{ car.name }}"
+    src="/assets/images/default-car.png"
     class="min-h-32 object-fill w-full mb-2 group-hover:scale-110 transition-all duration-300"
   />
-  <h3 class="font-bold mb-1">Jeep Compass</h3>
+  <h3 class="font-bold mb-1">{{ car.name }}</h3>
   <div class="text-base">
-    <p>SUV Médio</p>
-    <p>Motor 1.6</p>
-    <p>7 lugares</p>
+    <p>{{ car.type }}</p>
+    <p>Motor {{ car.engine }}</p>
+    <p>{{ car.size }} {{ car.size | pluralize : 'lugar' : 'lugares' }}</p>
   </div>
 </div>
