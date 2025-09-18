@@ -44,7 +44,8 @@ export class ReservationsService {
       .find({
         userId: new Types.ObjectId(id).toHexString(),
       })
-      .populate('carId');
+      .populate('carId')
+      .select('carId userId');
   }
 
   async findOne(id: string) {
