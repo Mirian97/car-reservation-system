@@ -19,6 +19,11 @@ export const routes: Routes = [
       { path: 'inicio', component: HomeComponent },
       { path: 'agendamentos', component: ReservationComponent },
       { path: 'perfil', component: ProfileComponent },
+      {
+        path: '',
+        redirectTo: 'inicio',
+        pathMatch: 'full',
+      },
     ],
   },
   {
