@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 import { errorMessages } from '../constants/error-messages.constant';
 import { LoginForm, SignUpForm, Token } from '../types/auth.type';
 
@@ -11,7 +10,7 @@ import { LoginForm, SignUpForm, Token } from '../types/auth.type';
   providedIn: 'root',
 })
 export class AuthService {
-  readonly API_URL = `${environment.apiUrl}auth`;
+  readonly BASE_PATH = 'auth/';
   readonly AUTHENTICATION_TOKEN = 'AUTHENTICATION_TOKEN';
   private isBrowser: boolean;
 
@@ -38,7 +37,7 @@ export class AuthService {
   }
 
   login(form: LoginForm): Observable<any> {
-    return this.http.post<Token>(`${this.API_URL}/login`, form).pipe(
+    return this.http.post<Token>(`${this.BASE_PATH}login`, form).pipe(
       tap((response: Token) => {
         if (response.token) {
           this.setToken(response.token);
@@ -51,7 +50,7 @@ export class AuthService {
   }
 
   signUp(form: SignUpForm): Observable<any> {
-    return this.http.post<Token>(`${this.API_URL}/sign-up`, form).pipe(
+    return this.http.post<Token>(`${this.BASE_PATH}sign-up`, form).pipe(
       tap((response: Token) => {
         if (response.token) {
           this.setToken(response.token);
