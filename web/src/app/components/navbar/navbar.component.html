@@ -1,5 +1,7 @@
-<nav class="bg-white shadow-navbar min-h-24 flex items-center justify-center">
-  <ul class="flex items-center justify-evenly w-full">
+<nav
+  class="bg-white shadow-navbar min-h-24 flex fixed inset-x-0 z-[1] bottom-0"
+>
+  <ul class="flex items-center justify-evenly w-full m-auto">
     @for (item of navbarList; track item.location) {
     <li>
       <a

@@ -1,1 +1,26 @@
-<p>home works!</p>
+<div
+  class="bg-primary bg-[url('/assets/images/bg-cars.png')] min-h-60 bg-blend-overlay w-full flex items-center justify-center"
+></div>
+<div class="flex px-8 gap-3.5 -mt-5 justify-center">
+  <label
+    class="bg-white max-w-full px-4.5 py-2 font-poppins min-h-14 items-center gap-2.5 rounded-lg text-sm flex shadow-xl focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+  >
+    <app-svg-icon iconName="search" class="text-secondary"></app-svg-icon>
+    <input
+      type="text"
+      name="search"
+      placeholder="Buscar carro"
+      class="max-w-40 focus:ring-0 focus:outline-none"
+    />
+  </label>
+  <button
+    class="bg-white w-26 max-w-full px-4.5 cursor-pointer font-poppins min-h-14 rounded-lg text-sm gap-2 flex items-center justify-center shadow-xl"
+  >
+    <app-svg-icon
+      iconName="filter"
+      class="text-secondary"
+      [height]="20"
+    ></app-svg-icon>
+    Filtrar
+  </button>
+</div>
