@@ -4,7 +4,9 @@
     <li>
       <a
         [routerLink]="item.location"
-        class="flex flex-col items-center font-poppins text-primary text-[10px] uppercase gap-2 hover:text-secondary"
+        routerLinkActive="text-secondary font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex flex-col items-center font-poppins text-primary text-[10px] uppercase gap-2 hover:text-secondary transition-all ease-in-out hover:scale-110"
       >
         <app-svg-icon
           [iconName]="item.iconName"
