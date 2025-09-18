@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCarDto } from './dto/create-car.dto';
+import { SearchCarsPartialDto } from './dto/search-cars.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
 import { CarNotFoundException } from './exception/car-not-found.exception';
@@ -15,8 +16,24 @@ export class CarsService {
     return car.save();
   }
 
-  async findAll() {
-    return await this.carModel.find();
+  async findAll(query?: SearchCarsPartialDto) {
+    const filters: Record<string, any> = { isReserved: false };
+    if (!query) {
+      return await this.carModel.find({ isReserved: false });
+    }
+    if (query.name) {
+      filters.name = { $regex: query.name, $options: 'i' };
+    }
+    if (query.type && query.type.length > 0) {
+      filters.type = { $in: query.type };
+    }
+    if (query.engine && query.engine.length > 0) {
+      filters.engine = { $in: query.engine };
+    }
+    if (query.size && query.size.length > 0) {
+      filters.size = { $in: query.size };
+    }
+    return this.carModel.find(filters);
   }
 
   async findOne(id: string) {

@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ParseObjectIdPipe } from '@nestjs/mongoose';
 import { Role } from 'src/roles/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
+import { SearchCarsPartialDto } from './dto/search-cars.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 
 @Controller('cars')
@@ -25,8 +27,8 @@ export class CarsController {
   }
 
   @Get()
-  findAll() {
-    return this.carsService.findAll();
+  findAll(@Query() query?: SearchCarsPartialDto) {
+    return this.carsService.findAll(query);
   }
 
   @Get(':id')
