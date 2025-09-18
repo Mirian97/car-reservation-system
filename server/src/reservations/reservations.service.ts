@@ -14,7 +14,7 @@ export class ReservationsService {
   constructor(
     @InjectModel(Reservation.name) private reservationModel: Model<Reservation>,
     private readonly carsService: CarsService,
-  ) { }
+  ) {}
 
   async create(createReservationDto: CreateReservationDto) {
     const user = await this.reservationModel.findOne({
@@ -29,7 +29,7 @@ export class ReservationsService {
       throw new CarIsAlreadyReservedException();
     }
     const carId = car._id.toHexString();
-    this.carsService.setIsReserved(carId, true);
+    await this.carsService.setIsReserved(carId, true);
     const reservation =
       await this.reservationModel.create(createReservationDto);
     return reservation.save();
@@ -40,7 +40,9 @@ export class ReservationsService {
   }
 
   async findByUserId(id: string) {
-    return await this.reservationModel.find({ userId: new Types.ObjectId(id).toHexString() });
+    return await this.reservationModel.find({
+      userId: new Types.ObjectId(id).toHexString(),
+    });
   }
 
   async findOne(id: string) {
@@ -54,7 +56,7 @@ export class ReservationsService {
   async update(id: string, updateReservationDto: UpdateReservationDto) {
     const reservation = await this.findOne(id);
     if (updateReservationDto.isActive === false) {
-      const carId = reservation?.carId?.toString()
+      const carId = reservation?.carId?.toString();
       await this.carsService.setIsReserved(carId, false);
     }
     return await this.reservationModel.findByIdAndUpdate(

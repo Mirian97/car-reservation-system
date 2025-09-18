@@ -4,7 +4,7 @@ export class ActiveUserReservationException extends HttpException {
   constructor() {
     super(
       {
-        message: 'User has an active reservation',
+        message: 'reservation.userHasOneActive',
         error: 'USER_HAS_ACTIVE_RESERVATION',
       },
       HttpStatus.BAD_REQUEST,

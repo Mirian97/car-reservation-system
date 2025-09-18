@@ -4,7 +4,7 @@ export class EmailInUseException extends HttpException {
   constructor() {
     super(
       {
-        message: 'E-mail already registered',
+        message: 'user.emailInUse',
         error: 'EMAIL_IN_USE',
       },
       HttpStatus.CONFLICT,

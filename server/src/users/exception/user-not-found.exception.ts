@@ -4,7 +4,7 @@ export class UserNotFoundException extends HttpException {
   constructor() {
     super(
       {
-        message: 'User not found',
+        message: 'user.notFound',
         error: 'USER_NOT_FOUND',
       },
       HttpStatus.NOT_FOUND,

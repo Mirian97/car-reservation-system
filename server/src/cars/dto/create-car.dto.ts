@@ -3,26 +3,26 @@ import { IsEnum, IsInt, IsNumber, IsString, Max, Min } from 'class-validator';
 import { CarType } from '../enums/car-type.enum';
 
 export class CreateCarDto {
-  @IsString()
+  @IsString({ message: 'validation.isString' })
   name: string;
 
   @Type(() => Number)
-  @IsInt()
-  @Min(1900)
-  @Max(new Date().getFullYear())
+  @IsInt({ message: 'validation.isNumber' })
+  @Min(1980, { message: 'validation.min' })
+  @Max(new Date().getFullYear(), { message: 'validation.max' })
   year: number;
 
-  @IsEnum(CarType)
+  @IsEnum(CarType, { message: 'validation.isEnum' })
   type: CarType;
 
   @Type(() => Number)
-  @IsNumber({ maxDecimalPlaces: 1 })
-  @Min(0.0)
+  @IsNumber({ maxDecimalPlaces: 1 }, { message: 'validation.isNumber' })
+  @Min(0.0, { message: 'validation.min' })
   engine: number;
 
   @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  @Max(20)
+  @IsInt({ message: 'validation.isNumber' })
+  @Min(1, { message: 'validation.min' })
+  @Max(20, { message: 'validation.max' })
   size: number;
 }

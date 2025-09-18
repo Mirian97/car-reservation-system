@@ -1,10 +1,11 @@
-import { IsBoolean, IsOptional } from 'class-validator';
+import { IsBoolean, IsDateString, IsOptional } from 'class-validator';
 
 export class UpdateReservationDto {
-  @IsBoolean()
+  @IsBoolean({ message: 'validation.boolean' })
   @IsOptional()
   isActive?: boolean;
 
   @IsOptional()
+  @IsDateString({}, { message: 'validation.isDateString' })
   releasedAt?: Date;
 }

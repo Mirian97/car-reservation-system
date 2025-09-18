@@ -1,0 +1,32 @@
+{
+  "validation": {
+    "required": "The {{field}} field is required.",
+    "email": "The {{field}} field must be a valid email.",
+    "array": "The {{field}} field must be an array.",
+    "minLength": "The {{field}} field must have at least {{length}} characters.",
+    "maxLength": "The {{field}} field must have at most {{length}} characters.",
+    "isString": "The {{field}} field must be a valid text.",
+    "isNumber": "The {{field}} field must be a valid number.",
+    "date": "The {{field}} field must be a valid date.",
+    "boolean": "The {{field}} field must be true or false.",
+    "min": "The {{field}} field must be at least {{value}}.",
+    "max": "The {{field}} field must be at most {{value}}.",
+    "isEnum": "The {{field}} field must be one of the following values: {{values}}.",
+    "isMongoId": "The {{field}} field must be a valid MongoDB ID.",
+    "isNotEmpty": "The {{field}} field cannot be empty.",
+    "isDateString": "The {{field}} field must be a valid date."
+  },
+  "user": {
+    "notFound": "User not found.",
+    "emailInUse": "Email is already registered.",
+    "invalidCredentials": "Invalid email or password."
+  },
+  "car": {
+    "notFound": "Car not found."
+  },
+  "reservation": {
+    "notFound": "Reservation not found.",
+    "userHasOneActive": "User already has an active reservation.",
+    "carAlreadyReserved": "Car is already reserved."
+  }
+}

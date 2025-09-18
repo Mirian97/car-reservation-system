@@ -4,7 +4,7 @@ export class CarIsAlreadyReservedException extends HttpException {
   constructor() {
     super(
       {
-        message: 'Car is already reserved',
+        message: 'reservation.carAlreadyReserved',
         error: 'CAR_IS_ALREADY_RESERVED',
       },
       HttpStatus.CONFLICT,

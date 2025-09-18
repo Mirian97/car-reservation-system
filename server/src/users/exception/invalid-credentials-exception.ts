@@ -4,7 +4,7 @@ export class InvalidCredentialsException extends HttpException {
   constructor() {
     super(
       {
-        message: 'Invalid e-mail or password',
+        message: 'user.invalidCredentials',
         error: 'INVALID_CREDENTIALS',
       },
       HttpStatus.UNAUTHORIZED,

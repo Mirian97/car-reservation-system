@@ -6,7 +6,7 @@ export class Car {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true, min: 1900, max: new Date().getFullYear() })
+  @Prop({ required: true, min: 1980, max: new Date().getFullYear() })
   year: number;
 
   @Prop({
