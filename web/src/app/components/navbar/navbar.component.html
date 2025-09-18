@@ -1,0 +1,21 @@
+<nav
+  class="bg-red-400 shadow-navbar mt-auto min-h-24 flex items-center justify-center"
+>
+  <ul class="flex items-center justify-evenly w-full">
+    @for (item of navbarList; track item.location) {
+    <li>
+      <a
+        [routerLink]="item.location"
+        class="flex flex-col items-center font-poppins text-primary text-[10px] uppercase gap-1.5"
+      >
+        <app-svg-icon
+          [iconName]="item.iconName"
+          [width]="26"
+          [height]="26"
+        ></app-svg-icon>
+        <span>{{ item.name }}</span>
+      </a>
+    </li>
+    }
+  </ul>
+</nav>
