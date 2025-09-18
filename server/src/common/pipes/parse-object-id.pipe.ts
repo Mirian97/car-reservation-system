@@ -6,7 +6,7 @@ export class ParseObjectIdPipe implements PipeTransform<string> {
   transform(value: string) {
     if (!isValidObjectId(value)) {
       throw new BadRequestException(
-        `The ObjectId provided "${value}" is not valid.`,
+        `O ObjectId fornecido "${value}" não é válido.`,
       );
     }
     return value;

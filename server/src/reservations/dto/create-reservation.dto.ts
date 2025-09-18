@@ -6,15 +6,15 @@ import {
 } from 'class-validator';
 
 export class CreateReservationDto {
-  @IsMongoId()
-  @IsNotEmpty()
+  @IsMongoId({ message: 'ID de usuário inválido' })
+  @IsNotEmpty({ message: 'ID de usuário é obrigatório' })
   userId: string;
 
-  @IsMongoId()
-  @IsNotEmpty()
+  @IsMongoId({ message: 'ID de carro inválido' })
+  @IsNotEmpty({ message: 'ID de carro é obrigatório' })
   carId: string;
 
   @IsOptional()
-  @IsDateString()
+  @IsDateString({}, { message: 'Data deve ser uma string de data válida' })
   reservedAt?: string;
 }
