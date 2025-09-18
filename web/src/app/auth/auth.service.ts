@@ -4,7 +4,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { errorMessages } from '../constants/error-messages.constant';
-import { LoginForm, SignUpForm, Token } from '../types/auth.type';
+import { AuthResponse, LoginForm, SignUpForm, User } from '../types/auth.type';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,7 @@ import { LoginForm, SignUpForm, Token } from '../types/auth.type';
 export class AuthService {
   readonly BASE_PATH = 'auth/';
   readonly AUTHENTICATION_TOKEN = 'AUTHENTICATION_TOKEN';
+  readonly AUTHENTICATED_USER = 'AUTHENTICATED_USER';
   private isBrowser: boolean;
 
   constructor(
@@ -36,11 +37,23 @@ export class AuthService {
     localStorage.setItem(this.AUTHENTICATION_TOKEN, token);
   }
 
+  getUser(): User | null {
+    if (!this.isBrowser) return null;
+    const user = localStorage.getItem(this.AUTHENTICATED_USER);
+    return user ? JSON.parse(user) : null;
+  }
+
+  setUser(user: User): void {
+    if (!this.isBrowser) return;
+    localStorage.setItem(this.AUTHENTICATED_USER, JSON.stringify(user));
+  }
+
   login(form: LoginForm): Observable<any> {
-    return this.http.post<Token>(`${this.BASE_PATH}login`, form).pipe(
-      tap((response: Token) => {
+    return this.http.post<AuthResponse>(`${this.BASE_PATH}login`, form).pipe(
+      tap((response) => {
         if (response.token) {
           this.setToken(response.token);
+          this.setUser(response.user);
         }
       }),
       catchError((error) =>
@@ -50,10 +63,11 @@ export class AuthService {
   }
 
   signUp(form: SignUpForm): Observable<any> {
-    return this.http.post<Token>(`${this.BASE_PATH}sign-up`, form).pipe(
-      tap((response: Token) => {
+    return this.http.post<AuthResponse>(`${this.BASE_PATH}sign-up`, form).pipe(
+      tap((response) => {
         if (response.token) {
           this.setToken(response.token);
+          this.setUser(response.user);
         }
       }),
       catchError((error) =>

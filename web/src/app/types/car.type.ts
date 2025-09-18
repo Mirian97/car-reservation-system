@@ -24,3 +24,8 @@ export interface Car {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface CarReservationByUser {
+  carId: Car;
+  userId: string;
+}

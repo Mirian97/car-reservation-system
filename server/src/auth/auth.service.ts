@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,6 +11,7 @@ import { EmailInUseException } from 'src/users/exception/email-in-use.exception'
 import { InvalidCredentialsException } from 'src/users/exception/invalid-credentials-exception';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from '../users/dto/login.dto';
+import { AuthResponse } from './auth.type';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +33,7 @@ export class AuthService {
     name,
     email,
     password,
-  }: CreateUserDto): Promise<{ token: string }> {
+  }: CreateUserDto): Promise<AuthResponse> {
     const existingUser = await this.userModel.findOne({ email });
     if (existingUser) {
       throw new EmailInUseException();
@@ -43,10 +45,11 @@ export class AuthService {
       password: hashedPassword,
     });
     const token = await this.generateToken(user);
-    return { token };
+    const { password: _, ...userWithoutPassword } = user.toObject();
+    return { token, user: userWithoutPassword };
   }
 
-  async login({ email, password }: LoginDto): Promise<{ token: string }> {
+  async login({ email, password }: LoginDto): Promise<AuthResponse> {
     const user = await this.userModel.findOne({ email }).select('+password');
     if (!user) {
       throw new InvalidCredentialsException();
@@ -56,7 +59,8 @@ export class AuthService {
       throw new InvalidCredentialsException();
     }
     const token = await this.generateToken(user);
-    return { token };
+    const { password: _, ...userWithoutPassword } = user.toObject();
+    return { token, user: userWithoutPassword };
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
