@@ -1,8 +1,8 @@
-<div class="w-full space-y-4">
-  <h2 class="font-poppins text-[18px]">Últimas reservas</h2>
+<div class="w-full space-y-4 px-6">
+  <h2 class="text-primary text-[18px] font-bold">Últimas reservas</h2>
   <div>
     <app-car-card
-      *ngFor="let carReservation of reservations"
+      *ngFor="let carReservation of reservations$ | async"
       [car]="carReservation.carId"
     ></app-car-card>
   </div>

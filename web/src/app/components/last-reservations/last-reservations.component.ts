@@ -1,6 +1,7 @@
 import { AuthService } from '@/app/auth/auth.service';
 import { ReservationService } from '@/app/services/reservation.service';
 import { CarReservationByUser } from '@/app/types/car.type';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CarCardComponent } from '../car-card/car-card.component';
@@ -8,7 +9,7 @@ import { CarCardComponent } from '../car-card/car-card.component';
 @Component({
   selector: 'app-last-reservations',
   standalone: true,
-  imports: [CarCardComponent],
+  imports: [CommonModule, CarCardComponent],
   templateUrl: './last-reservations.component.html',
 })
 export class LastReservationsComponent implements OnInit {
@@ -19,7 +20,9 @@ export class LastReservationsComponent implements OnInit {
     private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getReservations();
+  }
 
   getReservations(): void {
     const userId = this.authService.getUser()?._id;

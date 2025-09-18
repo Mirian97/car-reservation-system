@@ -14,7 +14,7 @@ export class ReservationService {
 
   getReservationsByUser(userId: string): Observable<CarReservationByUser[]> {
     return this.http
-      .get<CarReservationByUser[]>(`${this.BASE_PATH}/user/${userId}`)
+      .get<CarReservationByUser[]>(`${this.BASE_PATH}user/${userId}`)
       .pipe(
         catchError((error) =>
           throwError(() => error.error.message || errorMessages.unexpected),
