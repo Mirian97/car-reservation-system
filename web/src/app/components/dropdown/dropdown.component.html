@@ -1,0 +1,17 @@
+<div class="bg-white w-full transition-all">
+  <button
+    class="bg-tertiary/15 w-full text-primary px-9 flex items-center justify-between min-h-[50px]"
+    (click)="toggleDropdown()"
+  >
+    <span>{{ title }}</span>
+    <span [ngClass]="[isOpen ? '-rotate-90' : 'rotate-[180deg]']">
+      <app-svg-icon
+        class="text-secondary"
+        iconName="arrow"
+        [height]="17"
+        [width]="17"
+      />
+    </span>
+  </button>
+  <ng-content *ngIf="isOpen" />
+</div>

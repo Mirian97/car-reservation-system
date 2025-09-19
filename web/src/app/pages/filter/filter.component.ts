@@ -1,4 +1,5 @@
 import { ButtonComponent } from '@/app/components/button/button.component';
+import { DropdownComponent } from '@/app/components/dropdown/dropdown.component';
 import { FilterButtonComponent } from '@/app/components/filter-button/filter-button.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { Component } from '@angular/core';
@@ -12,6 +13,7 @@ import { RouterLink } from '@angular/router';
     SvgIconComponent,
     RouterLink,
     FilterButtonComponent,
+    DropdownComponent,
   ],
   templateUrl: './filter.component.html',
 })
