@@ -5,18 +5,10 @@
       <app-car-card
         *ngFor="let carReservation of reservations"
         [car]="carReservation.carId"
-      ></app-car-card>
+      />
     </div>
     <ng-template #emptyState>
-      <div class="flex flex-col w-full mt-16">
-        <app-svg-icon
-          iconName="manage-search"
-          class="text-gray-400 mx-auto"
-          [height]="52"
-          [width]="52"
-        ></app-svg-icon>
-        <p class="text-gray-500 text-sm italic text-center">Faça uma busca.</p>
-      </div>
+      <app-no-car-results />
     </ng-template>
   </ng-container>
 </div>
