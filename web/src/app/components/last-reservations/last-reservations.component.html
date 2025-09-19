@@ -1,6 +1,8 @@
 <div [ngClass]="['w-full', clasName]">
   <ng-container *ngIf="reservations$ | async as reservations" class="space-y-5">
-    <h2 class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all">
+    <h2
+      class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all md:text-center"
+    >
       {{ title }}
     </h2>
     <div
@@ -13,7 +15,17 @@
       />
     </div>
     <ng-template #emptyState>
-      <app-no-car-results />
+      <div class="flex flex-col w-full mt-16">
+        <app-svg-icon
+          iconName="empty-inbox"
+          class="text-gray-400 mx-auto"
+          [height]="80"
+          [width]="80"
+        ></app-svg-icon>
+        <p class="text-gray-500 text-sm italic text-center">
+          Sem agendamentos recentes.
+        </p>
+      </div>
     </ng-template>
   </ng-container>
 </div>

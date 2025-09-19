@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CarCardComponent } from '../car-card/car-card.component';
-import { NoCarResultsComponent } from '../no-car-results/no-car-results.component';
+import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 
 @Component({
   selector: 'app-last-reservations',
   standalone: true,
-  imports: [CommonModule, CarCardComponent, NoCarResultsComponent],
+  imports: [CommonModule, CarCardComponent, SvgIconComponent],
   templateUrl: './last-reservations.component.html',
 })
 export class LastReservationsComponent implements OnInit {
