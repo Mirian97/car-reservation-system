@@ -43,7 +43,7 @@
     <app-dropdown title="Quantidade de lugares">
       <div class="flex flex-wrap gap-x-4.5 gap-y-3">
         <app-toggle-button *ngFor="let size of seatList" className="min-w-12">
-          {{ size }}
+          {{ size | padStartTwoDigits }}
         </app-toggle-button>
       </div>
     </app-dropdown>

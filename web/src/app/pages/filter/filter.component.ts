@@ -1,3 +1,4 @@
+import { PadStartTwoDigitsPipe } from '@/app/common/pipes/pad-start-two-digits.pipe';
 import { ButtonComponent } from '@/app/components/button/button.component';
 import { DropdownComponent } from '@/app/components/dropdown/dropdown.component';
 import { FilterButtonComponent } from '@/app/components/filter-button/filter-button.component';
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
+    PadStartTwoDigitsPipe,
     ButtonComponent,
     SvgIconComponent,
     RouterLink,
