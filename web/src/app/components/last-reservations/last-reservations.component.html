@@ -1,11 +1,17 @@
-<div class="w-full px-6">
+<div class="w-full">
   <ng-container *ngIf="reservations$ | async as reservations">
     <div *ngIf="reservations.length > 0; else emptyState" class="space-y-6">
-      <h2 class="text-primary text-[18px] font-bold">Últimas reservas</h2>
-      <app-car-card
-        *ngFor="let carReservation of reservations"
-        [car]="carReservation.carId"
-      />
+      <h2
+        class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all"
+      >
+        Últimas reservas
+      </h2>
+      <div class="flex overflow-x-auto gap-4 px-6 sm:px-12 transition-all">
+        <app-car-card
+          *ngFor="let carReservation of reservations"
+          [car]="carReservation.carId"
+        />
+      </div>
     </div>
     <ng-template #emptyState>
       <app-no-car-results />

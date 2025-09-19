@@ -1,8 +1,14 @@
-<div class="w-full px-6">
+<div class="w-full">
   <ng-container *ngIf="cars$ | async as cars">
     <div *ngIf="cars.length > 0; else emptyState" class="space-y-6">
-      <h2 class="text-primary text-[18px] font-bold">Resultados</h2>
-      <app-car-card *ngFor="let car of cars" [car]="car" />
+      <h2
+        class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all"
+      >
+        Resultados
+      </h2>
+      <div class="flex overflow-x-auto gap-4 px-6 sm:px-12 transition-all">
+        <app-car-card *ngFor="let car of cars" [car]="car" />
+      </div>
     </div>
     <ng-template #emptyState>
       <app-no-car-results />
