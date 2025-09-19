@@ -2,7 +2,7 @@ import { AuthService } from '@/app/auth/auth.service';
 import { ReservationService } from '@/app/services/reservation.service';
 import { CarReservationByUser } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CarCardComponent } from '../car-card/car-card.component';
 import { NoCarResultsComponent } from '../no-car-results/no-car-results.component';
@@ -14,6 +14,8 @@ import { NoCarResultsComponent } from '../no-car-results/no-car-results.componen
   templateUrl: './last-reservations.component.html',
 })
 export class LastReservationsComponent implements OnInit {
+  @Input() title?: string = 'Últimas reservas';
+  @Input() clasName?: string = '';
   reservations$!: Observable<CarReservationByUser[]>;
 
   constructor(
