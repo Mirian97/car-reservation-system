@@ -1,1 +1,20 @@
-<p>filter works!</p>
+<main class="min-h-dvh w-full flex flex-col bg-white">
+  <div class="bg-primary min-h-36 w-full flex items-center justify-center">
+    <a
+      routerLink="/inicio"
+      title="Volta a Busca"
+      class="text-white text-xl flex justify-center items-center gap-2 uppercase font-poppins cursor-pointer"
+    >
+      <app-svg-icon iconName="manage-search" class="text-secondary" />
+      Busca</a
+    >
+  </div>
+  <div></div>
+  <div
+    class="bg-white shadow-navbar min-h-24 fixed inset-x-0 grid place-items-center z-[1] bottom-0 px-9 w-full"
+  >
+    <div class="max-w-md w-full">
+      <app-button className="uppercase">Aplicar Filtro</app-button>
+    </div>
+  </div>
+</main>
