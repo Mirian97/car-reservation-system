@@ -20,6 +20,11 @@ import { UpdateCarDto } from './dto/update-car.dto';
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
+  @Get('/type')
+  getCarType() {
+    return this.carsService.getCarType();
+  }
+
   @Post()
   @Roles(Role.Admin)
   create(@Body() createCarDto: CreateCarDto) {

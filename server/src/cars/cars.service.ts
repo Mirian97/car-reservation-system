@@ -5,6 +5,7 @@ import { CreateCarDto } from './dto/create-car.dto';
 import { SearchCarsPartialDto } from './dto/search-cars.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
+import { CarType } from './enums/car-type.enum';
 import { CarNotFoundException } from './exception/car-not-found.exception';
 
 @Injectable()
@@ -65,5 +66,9 @@ export class CarsService {
         new: true,
       },
     );
+  }
+
+  getCarType() {
+    return Object.values(CarType).map((value) => value);
   }
 }
