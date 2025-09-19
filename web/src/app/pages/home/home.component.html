@@ -10,7 +10,8 @@
       class="max-w-40 sm:max-w-96 focus:ring-0 focus:outline-none transition-all"
     />
   </label>
-  <button
+  <a
+    routerLink="/inicio/filtrar"
     class="bg-white w-26 max-w-full px-4.5 cursor-pointer font-poppins min-h-14 rounded-lg text-sm gap-2 flex items-center justify-center shadow-lg"
   >
     <app-svg-icon
@@ -19,7 +20,7 @@
       [height]="20"
     ></app-svg-icon>
     Filtrar
-  </button>
+  </a>
 </div>
 <!-- <app-last-reservations /> -->
 <app-list-cars />

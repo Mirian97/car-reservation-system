@@ -1,13 +1,14 @@
 import { AuthService } from '@/app/auth/auth.service';
-import { LastReservationsComponent } from '@/app/components/last-reservations/last-reservations.component';
 import { ListCarsComponent } from '@/app/components/list-cars/list-cars.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SvgIconComponent, LastReservationsComponent, ListCarsComponent],
+  imports: [CommonModule, SvgIconComponent, ListCarsComponent, RouterLink],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {

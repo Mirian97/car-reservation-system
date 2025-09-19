@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
   { path: 'cadastro', component: SignUpComponent, canActivate: [loginGuard] },
   {
-    path: 'inicio/filtros',
+    path: 'inicio/filtrar',
     component: FilterComponent,
     canActivate: [authGuard],
   },
