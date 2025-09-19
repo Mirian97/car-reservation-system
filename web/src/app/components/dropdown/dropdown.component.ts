@@ -12,7 +12,7 @@ export class DropdownComponent {
   @Input() title: string = '';
   @Input() options: { label: string; value: string }[] = [];
 
-  isOpen = false;
+  isOpen = true;
   selectedValues: string[] = [];
 
   toggleDropdown() {

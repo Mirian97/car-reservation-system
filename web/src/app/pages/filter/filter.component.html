@@ -9,7 +9,6 @@
       Busca</a
     >
   </div>
-  <div></div>
   <div
     class="bg-white shadow-navbar min-h-24 fixed inset-x-0 grid place-items-center z-[1] bottom-0 px-9 w-full"
   >
@@ -22,7 +21,19 @@
     <app-filter-button [disabled]="true">Filtros</app-filter-button>
     <app-filter-button>Limpar</app-filter-button>
   </div>
-  <app-dropdown title="Tipos de carrocerias">Tipos</app-dropdown>
+  <app-dropdown title="Tipos de carrocerias">
+    <ng-container *ngIf="carTypeList$ | async as types">
+      <div class="grid grid-cols-2">
+        <label
+          *ngFor="let type of types"
+          class="text-primary text-sm flex items-baseline gap-2 font-poppins"
+        >
+          <input type="checkbox" class="accent-secondary" />
+          {{ type }}
+        </label>
+      </div>
+    </ng-container>
+  </app-dropdown>
   <app-dropdown title="Tipos de motores">Tipos</app-dropdown>
   <app-dropdown title="Quantidade de lugares">Tipos</app-dropdown>
 </main>
