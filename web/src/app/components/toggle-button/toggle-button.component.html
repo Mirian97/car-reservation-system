@@ -1,0 +1,12 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  (click)="onClick?.()"
+  [ngClass]="[
+    'shadow-md border border-gray-200 rounded-lg px-3.5 min-h-[38px]',
+    isActive ? 'bg-secondary text-white' : 'bg-white text-primary',
+    className
+  ]"
+>
+  <ng-content />
+</button>
