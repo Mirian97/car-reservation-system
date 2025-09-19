@@ -4,7 +4,7 @@
     (click)="toggleDropdown()"
   >
     <span>{{ title }}</span>
-    <span [ngClass]="[isOpen ? '-rotate-90' : 'rotate-[180deg]']">
+    <span [ngClass]="['transition-all', isOpen ? 'rotate-90' : '']">
       <app-svg-icon
         class="text-secondary"
         iconName="arrow"
@@ -13,5 +13,7 @@
       />
     </span>
   </button>
-  <ng-content *ngIf="isOpen" />
+  <div *ngIf="isOpen" class="px-9 pt-4 pb-5 transition-all">
+    <ng-content />
+  </div>
 </div>
