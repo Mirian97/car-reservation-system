@@ -1,0 +1,11 @@
+<button
+  [type]="type"
+  (click)="(onClick)"
+  [disabled]="disabled"
+  [ngClass]="[
+    'text-base text-primary px-5 py-3 cursor-pointer disabled:cursor-default disabled:pointer-events-none uppercase hover:font-medium hover:text-secondary transition-all duration-200 hover:scale-105',
+    className
+  ]"
+>
+  <ng-content />
+</button>
