@@ -1,5 +1,7 @@
-<main class="min-h-dvh w-full flex flex-col bg-white">
-  <div class="bg-primary min-h-36 w-full flex items-center justify-center">
+<main class="min-h-dvh w-full flex flex-col bg-white font-poppins">
+  <div
+    class="bg-primary min-h-36 w-full flex items-center justify-center font-inter"
+  >
     <a
       routerLink="/inicio"
       title="Volta a Busca"
@@ -9,31 +11,48 @@
       Busca</a
     >
   </div>
-  <div
-    class="bg-white shadow-navbar min-h-24 fixed inset-x-0 grid place-items-center z-[1] bottom-0 px-9 w-full"
-  >
-    <div class="max-w-md w-full">
-      <app-button className="uppercase">Aplicar Filtro</app-button>
-    </div>
-  </div>
   <div class="flex min-h-[60px] items-center justify-evenly">
     <app-filter-button>Cancelar</app-filter-button>
     <app-filter-button [disabled]="true">Filtros</app-filter-button>
     <app-filter-button>Limpar</app-filter-button>
   </div>
-  <app-dropdown title="Tipos de carrocerias">
-    <ng-container *ngIf="carTypeList$ | async as types">
-      <div class="grid grid-cols-2">
-        <label
-          *ngFor="let type of types"
-          class="text-primary text-sm flex items-baseline gap-2 font-poppins"
+  <div class="flex-1">
+    <app-dropdown title="Tipos de carrocerias">
+      <ng-container *ngIf="carTypeList$ | async as types">
+        <div class="grid grid-cols-2 gap-1">
+          <label
+            *ngFor="let type of types"
+            class="text-primary text-sm flex items-baseline gap-2 cursor-pointer w-fit"
+          >
+            <input type="checkbox" class="accent-secondary" />
+            {{ type }}
+          </label>
+        </div>
+      </ng-container>
+    </app-dropdown>
+    <app-dropdown title="Tipos de motores">
+      <div class="flex flex-wrap gap-x-4.5 gap-y-3">
+        <app-toggle-button
+          *ngFor="let engine of engineList"
+          className="min-w-[106px]"
         >
-          <input type="checkbox" class="accent-secondary" />
-          {{ type }}
-        </label>
+          {{ 'Motor ' + engine }}
+        </app-toggle-button>
       </div>
-    </ng-container>
-  </app-dropdown>
-  <app-dropdown title="Tipos de motores">Tipos</app-dropdown>
-  <app-dropdown title="Quantidade de lugares">Tipos</app-dropdown>
+    </app-dropdown>
+    <app-dropdown title="Quantidade de lugares">
+      <div class="flex flex-wrap gap-x-4.5 gap-y-3">
+        <app-toggle-button *ngFor="let size of seatList" className="min-w-12">
+          {{ size }}
+        </app-toggle-button>
+      </div>
+    </app-dropdown>
+  </div>
+  <div
+    class="bg-white shadow-navbar min-h-24 sticky inset-x-0 grid place-items-center z-[1] bottom-0 px-9 w-full"
+  >
+    <div class="max-w-md w-full">
+      <app-button className="uppercase">Aplicar Filtro</app-button>
+    </div>
+  </div>
 </main>

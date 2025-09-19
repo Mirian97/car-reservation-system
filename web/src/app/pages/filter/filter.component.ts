@@ -2,6 +2,9 @@ import { ButtonComponent } from '@/app/components/button/button.component';
 import { DropdownComponent } from '@/app/components/dropdown/dropdown.component';
 import { FilterButtonComponent } from '@/app/components/filter-button/filter-button.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
+import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
+import { engineListValues } from '@/app/constants/engine-list.constants';
+import { seatListValues } from '@/app/constants/seat-list.constants';
 import { CarService } from '@/app/services/car.service';
 import { CarType } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
@@ -19,11 +22,14 @@ import { Observable } from 'rxjs';
     RouterLink,
     FilterButtonComponent,
     DropdownComponent,
+    ToggleButtonComponent,
   ],
   templateUrl: './filter.component.html',
 })
 export class FilterComponent implements OnInit {
   carTypeList$!: Observable<CarType[]>;
+  engineList = engineListValues;
+  seatList = seatListValues;
 
   constructor(private carService: CarService) {}
 
