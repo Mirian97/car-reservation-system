@@ -2,14 +2,14 @@
   <div
     class="bg-primary min-h-36 w-full flex items-center justify-center font-inter"
   >
-    <a
-      routerLink="/inicio"
+    <button
+      (click)="quitFilters()"
       title="Volta a Busca"
       class="text-white text-xl flex justify-center items-center gap-2 uppercase font-poppins cursor-pointer"
     >
       <app-svg-icon iconName="manage-search" class="text-secondary" />
-      Busca</a
-    >
+      Busca
+    </button>
   </div>
   <div class="flex min-h-[60px] items-center justify-evenly">
     <app-filter-button (click)="quitFilters()">Cancelar</app-filter-button>

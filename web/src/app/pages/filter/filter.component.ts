@@ -47,7 +47,7 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCarTypeList();
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams?.subscribe((params) => {
       this.previousQueryParams = { ...params };
       this.filtersForm = this.formBuilder.group({
         name: [params?.['name'] || defaultCarFilters.name],
