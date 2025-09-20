@@ -39,6 +39,7 @@ import { ToggleButtonComponent } from '../toggle-button/toggle-button.component'
 export class CreateCarDrawerComponent implements OnInit {
   @Input() isOpen = false;
   @Output() closeDrawer = new EventEmitter<void>();
+  @Output() carsUpdated = new EventEmitter<void>();
   carTypeList$!: Observable<CarType[]>;
   createCarForm!: FormGroup;
   isLoading: boolean = false;
@@ -90,7 +91,12 @@ export class CreateCarDrawerComponent implements OnInit {
     this.carService
       .create(formValues)
       .subscribe({
-        next: () => {},
+        next: () => {
+          toast.success({ text: 'Carro cadastrado!' });
+          this.onClose();
+          this.carsUpdated.emit();
+          this.createCarForm.reset();
+        },
         error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));

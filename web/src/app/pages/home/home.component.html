@@ -39,4 +39,5 @@
 <app-create-car-drawer
   [isOpen]="drawerOpen"
   (closeDrawer)="drawerOpen = false"
+  (carsUpdated)="onSearch(searchForm.get('name')?.value)"
 />
