@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.profileForm.valid) {
+    if (this.profileForm.invalid) {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }

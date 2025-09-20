@@ -4,11 +4,36 @@
   >
     Editar perfil
   </h2>
-  <form class="flex flex-col gap-4 px-9 max-w-md mx-auto">
-    <app-input placeholder="Nome" />
-    <app-input placeholder="E-mail" type="email" />
-    <app-input placeholder="Senha" type="password" />
-    <app-input placeholder="Confime a senha" type="password" />
-    <app-button className="uppercase">Salvar</app-button>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4 px-9 max-w-md mx-auto"
+  >
+    <app-input placeholder="Nome" name="name" formControlName="name" />
+    <app-input
+      placeholder="E-mail"
+      type="email"
+      name="email"
+      formControlName="email"
+    />
+    <app-input
+      placeholder="Senha"
+      type="password"
+      name="password"
+      formControlName="password"
+    />
+    <app-input
+      placeholder="Confime a senha"
+      type="password"
+      name="confirmPassword"
+      formControlName="confirmPassword"
+    />
+    <app-button
+      className="uppercase"
+      [type]="'submit'"
+      [disabled]="profileForm.invalid"
+      [isLoading]="isLoading"
+      >Salvar</app-button
+    >
   </form>
 </section>
