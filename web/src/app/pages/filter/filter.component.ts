@@ -50,10 +50,10 @@ export class FilterComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.previousQueryParams = { ...params };
       this.filtersForm = this.formBuilder.group({
-        name: [params['name'] || defaultCarFilters.name],
-        type: [params['type'] || defaultCarFilters.type],
-        engine: [params['engine'].map(Number) || defaultCarFilters.engine],
-        size: [params['size'].map(Number) || defaultCarFilters.size],
+        name: [params?.['name'] || defaultCarFilters.name],
+        type: [params?.['type'] || defaultCarFilters.type],
+        engine: [params?.['engine']?.map(Number) || defaultCarFilters.engine],
+        size: [params?.['size']?.map(Number) || defaultCarFilters.size],
       });
     });
   }
