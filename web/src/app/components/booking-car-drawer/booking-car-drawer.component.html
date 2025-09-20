@@ -54,7 +54,7 @@
       Reservar Carro
     </app-button>
     <app-button
-      *ngIf="car.isReserved"
+      *ngIf="car.isReserved && carReservation?.userId == userId"
       className="uppercase font-medium"
       (click)="onReleaseCar()"
       [isLoading]="isLoading"
