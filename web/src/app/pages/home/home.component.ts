@@ -5,7 +5,7 @@ import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +23,11 @@ import { Router, RouterLink } from '@angular/router';
 export class HomeComponent implements OnInit {
   greeting!: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.getGreeting();
@@ -38,6 +42,15 @@ export class HomeComponent implements OnInit {
     this.router.navigate([], {
       queryParams: { name: value || null },
       queryParamsHandling: 'merge',
+    });
+  }
+
+  onNavigateFilters(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.router.navigate(['/inicio/filtrar'], {
+        queryParams: params,
+        queryParamsHandling: 'merge',
+      });
     });
   }
 }

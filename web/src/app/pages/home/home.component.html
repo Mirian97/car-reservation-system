@@ -11,13 +11,14 @@
       [debounceTime]="700"
     />
   </label>
-  <a
+  <button
     routerLink="/inicio/filtrar"
+    (click)="onNavigateFilters()"
     class="bg-white w-26 max-w-full px-4.5 cursor-pointer font-poppins min-h-14 rounded-lg text-sm gap-2 flex items-center justify-center shadow-lg"
   >
     <app-svg-icon iconName="filter" class="text-secondary" [height]="20" />
     Filtrar
-  </a>
+  </button>
 </div>
 <!-- <app-last-reservations /> -->
 <app-list-cars />

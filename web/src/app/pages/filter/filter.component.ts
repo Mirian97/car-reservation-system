@@ -49,12 +49,12 @@ export class FilterComponent implements OnInit {
     this.getCarTypeList();
     this.route.queryParams.subscribe((params) => {
       this.previousQueryParams = { ...params };
-    });
-    this.filtersForm = this.formBuilder.group({
-      name: [defaultCarFilters.name],
-      type: [defaultCarFilters.type],
-      engine: [defaultCarFilters.engine],
-      size: [defaultCarFilters.size],
+      this.filtersForm = this.formBuilder.group({
+        name: [params['name'] || defaultCarFilters.name],
+        type: [params['type'] || defaultCarFilters.type],
+        engine: [params['engine'].map(Number) || defaultCarFilters.engine],
+        size: [params['size'].map(Number) || defaultCarFilters.size],
+      });
     });
   }
 
@@ -104,11 +104,17 @@ export class FilterComponent implements OnInit {
 
   applyFilters(): void {
     const filters = this.filtersForm.value;
-    this.router.navigate(['/inicio'], { queryParams: filters });
+    this.router.navigate(['/inicio'], {
+      queryParams: filters,
+      queryParamsHandling: 'merge',
+    });
   }
 
   clearFilters(): void {
     this.filtersForm.reset(defaultCarFilters);
+    this.router.navigate([], {
+      queryParams: {},
+    });
   }
 
   quitFilters() {
