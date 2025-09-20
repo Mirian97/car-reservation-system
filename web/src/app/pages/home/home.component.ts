@@ -3,6 +3,7 @@ import { DebouncedInputComponent } from '@/app/components/debounced-input/deboun
 import { LastReservationsComponent } from '@/app/components/last-reservations/last-reservations.component';
 import { ListCarsComponent } from '@/app/components/list-cars/list-cars.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
+import { objectHasValidProperties } from '@/app/helpers/objectHasValidProperties';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +26,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class HomeComponent implements OnInit {
   greeting!: string;
   searchForm!: FormGroup;
+  hasFilterActive!: boolean;
 
   constructor(
     private authService: AuthService,
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getGreeting();
     this.route.queryParams.subscribe((params) => {
+      this.hasFilterActive = objectHasValidProperties(params);
       const name = params?.['name'] ?? '';
       this.searchForm = this.formBuilder.group({
         name,

@@ -21,7 +21,7 @@
     Filtrar
   </button>
 </div>
-@if (searchForm.get('name')?.value) {
+@if (hasFilterActive) {
 <app-list-cars />
 } @else {
 <app-last-reservations />
