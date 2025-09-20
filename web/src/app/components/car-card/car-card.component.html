@@ -16,4 +16,13 @@
     <p>Motor {{ car.engine }}</p>
     <p>{{ car.size }} {{ car.size | pluralize : 'lugar' : 'lugares' }}</p>
   </div>
+  <span
+    *ngIf="showStatus"
+    [ngClass]="[
+      'text-white uppercase rounded-full text-[11px] px-2 py-1 font-bold',
+      car.isReserved ? 'bg-green-600' : 'bg-tertiary'
+    ]"
+  >
+    {{ car.isReserved ? 'Ativa' : 'Inativa' }}
+  </span>
 </div>

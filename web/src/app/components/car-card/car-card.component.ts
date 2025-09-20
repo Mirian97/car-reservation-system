@@ -12,6 +12,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class CarCardComponent {
   @Input() car!: Car;
   @Input() disabled?: boolean = false;
+  @Input() showStatus: boolean = false;
   @Output() click = new EventEmitter<void>();
 
   onClick() {

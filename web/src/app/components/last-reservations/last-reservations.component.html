@@ -12,6 +12,7 @@
       <app-car-card
         *ngFor="let carReservation of reservations"
         [car]="carReservation.carId"
+        [showStatus]="true"
         (click)="openDrawer(carReservation.carId)"
       />
     </div>

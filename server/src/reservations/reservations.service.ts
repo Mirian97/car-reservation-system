@@ -21,7 +21,7 @@ export class ReservationsService {
       userId: createReservationDto.userId,
       isActive: true,
     });
-    if (user) {
+    if (user !== null) {
       throw new ActiveUserReservationException();
     }
     const car = await this.carsService.findOne(createReservationDto.carId);
@@ -43,6 +43,7 @@ export class ReservationsService {
     return await this.reservationModel
       .find({
         userId: new Types.ObjectId(id).toHexString(),
+        isActive: true,
       })
       .populate('carId')
       .select('carId userId');
