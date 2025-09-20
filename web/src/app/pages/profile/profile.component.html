@@ -1,1 +1,14 @@
-<p>profile works!</p>
+<section class="space-y-5 mt-8">
+  <h2
+    class="text-primary text-[18px] font-bold px-9 sm:px-12 transition-all text-center"
+  >
+    Editar perfil
+  </h2>
+  <form class="flex flex-col gap-4 px-9 max-w-md mx-auto">
+    <app-input placeholder="Nome" />
+    <app-input placeholder="E-mail" type="email" />
+    <app-input placeholder="Senha" type="password" />
+    <app-input placeholder="Confime a senha" type="password" />
+    <app-button className="uppercase">Salvar</app-button>
+  </form>
+</section>

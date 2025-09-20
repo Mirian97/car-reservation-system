@@ -4,7 +4,13 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { errorMessages } from '../constants/error-messages.constant';
-import { AuthResponse, LoginForm, SignUpForm, User } from '../types/auth.type';
+import {
+  AuthResponse,
+  LoginForm,
+  SignUpForm,
+  UpdateProfileForm,
+  User,
+} from '../types/auth.type';
 
 @Injectable({
   providedIn: 'root',
@@ -74,5 +80,17 @@ export class AuthService {
         throwError(() => error.error.message || errorMessages.unexpected),
       ),
     );
+  }
+
+  updateProfile(form: UpdateProfileForm) {
+    const userId = this.getUser()?._id;
+    if (!userId) return;
+    return this.http
+      .patch(`${this.BASE_PATH}edit/${userId}`, form)
+      .pipe(
+        catchError((error) =>
+          throwError(() => error.error.message || errorMessages.unexpected),
+        ),
+      );
   }
 }

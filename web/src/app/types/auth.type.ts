@@ -21,3 +21,7 @@ export type AuthResponse = {
   token: string;
   user: User;
 };
+
+export type UpdateProfileForm = Pick<User, 'name' | 'email' | 'password'> & {
+  confirmPassword: string;
+};
