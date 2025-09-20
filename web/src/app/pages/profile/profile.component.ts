@@ -1,6 +1,8 @@
 import { AuthService } from '@/app/auth/auth.service';
 import { ButtonComponent } from '@/app/components/button/button.component';
 import { InputComponent } from '@/app/components/input/input.component';
+import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
+import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
 import { errorMessages } from '@/app/constants/error-messages.constant';
 import { toast } from '@/app/helpers/toast';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +16,13 @@ import {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent, ButtonComponent],
+  imports: [
+    ReactiveFormsModule,
+    InputComponent,
+    ButtonComponent,
+    ToggleButtonComponent,
+    SvgIconComponent,
+  ],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
