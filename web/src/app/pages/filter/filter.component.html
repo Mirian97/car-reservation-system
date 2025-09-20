@@ -25,9 +25,11 @@
             class="text-primary text-sm flex items-baseline gap-2 cursor-pointer w-fit"
           >
             <input
+              [value]="type"
               type="checkbox"
               class="accent-secondary"
               (change)="onTypeChange(type, $event)"
+              [checked]="filters.type?.includes(type)"
             />
             {{ type }}
           </label>
