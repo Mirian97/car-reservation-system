@@ -36,3 +36,8 @@ export type SearchCarsFilters = {
   type: CarType[];
   size: number[];
 };
+
+export type CreateCarForm = Pick<
+  Car,
+  'name' | 'year' | 'size' | 'type' | 'engine'
+>;

@@ -61,6 +61,13 @@
     >
       Liberar Carro
     </app-button>
+    <app-button
+      variant="secondary"
+      className="uppercase !font-medium !text-base mt-2"
+      *ngIf="showAdminActions"
+      (click)="onDeleteCar()"
+      >Excluir carro</app-button
+    >
   </section>
   <ng-template #noData>
     <p>Nenhum carro selecionado.</p>

@@ -11,7 +11,6 @@
     'font-poppins',
     'transition-all',
     'bg-white',
-    'text-[18px]',
     'px-8 py-2',
     'text-primary',
     'placeholder:text-tertiary',
@@ -21,7 +20,7 @@
     'focus:outline-2',
     'focus:outline-secondary/90',
     'rounded-full',
-    'min-h-[62px]',
+    size == 'sm' ? 'min-h-12 text-base' : 'min-h-[62px] text-[18px]',
     showError ? 'border-red-500' : 'border-gray-300',
     className
   ]"

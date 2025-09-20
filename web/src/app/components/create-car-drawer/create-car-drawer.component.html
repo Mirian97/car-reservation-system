@@ -1,0 +1,92 @@
+<div
+  *ngIf="isOpen"
+  (click)="onClose()"
+  class="fixed inset-0 bg-black/50 z-10"
+></div>
+<div
+  [ngClass]="[
+    'fixed top-0 w-96 max-w-full bg-white sm:rounded-l-lg rounded-none inset-y-0 shadow-card transition-[right_0.3s_ease-in-out] z-10 py-4 px-6 flex flex-col',
+    isOpen ? 'right-0' : '-right-96'
+  ]"
+>
+  <header class="flex justify-between items-center mb-4">
+    <h2
+      class="text-primary text-[18px] font-bold transition-all md:text-center"
+    >
+      Registrar Carro
+    </h2>
+    <button
+      class="cursor-pointer text-gray-500 hover:text-secondary"
+      (click)="onClose()"
+    >
+      <app-svg-icon iconName="close" />
+    </button>
+  </header>
+  <form
+    [formGroup]="createCarForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4"
+  >
+    <app-input
+      placeholder="Nome do carro"
+      type="text"
+      formControlName="name"
+      name="car-name"
+      size="sm"
+    />
+    <app-input
+      placeholder="Ano"
+      type="number"
+      formControlName="year"
+      name="year"
+      size="sm"
+    />
+    <ng-container *ngIf="carTypeList$ | async as types">
+      <div class="space-y-3">
+        <h2 class="text-primary font-bold transition-all">Tipos</h2>
+        <div class="grid grid-cols-2 gap-1">
+          <label
+            *ngFor="let type of types"
+            class="text-primary text-sm flex items-baseline gap-2 cursor-pointer w-fit"
+          >
+            <input
+              [value]="type"
+              type="radio"
+              class="accent-secondary"
+              (change)="onTypeChange(type)"
+              [checked]="createCarForm.get('type')?.value === type"
+            />
+            {{ type }}
+          </label>
+        </div>
+      </div>
+    </ng-container>
+    <div class="space-y-3">
+      <h2 class="text-primary font-bold transition-all">Motor</h2>
+      <div class="flex flex-wrap gap-x-4.5 gap-y-3">
+        <app-toggle-button
+          *ngFor="let engine of engineList"
+          className="min-w-[106px]"
+          [isActive]="createCarForm.get('engine')?.value === engine"
+          (toggle)="onEngineChange(engine)"
+        >
+          {{ 'Motor ' + engine }}
+        </app-toggle-button>
+      </div>
+    </div>
+    <div class="space-y-3">
+      <h2 class="text-primary font-bold transition-all">Lugares</h2>
+      <div class="flex flex-wrap gap-x-4.5 gap-y-3">
+        <app-toggle-button
+          *ngFor="let size of seatList"
+          className="min-w-12"
+          [isActive]="createCarForm.get('size')?.value === size"
+          (toggle)="onSizeChange(size)"
+        >
+          {{ size | padStartTwoDigits }}
+        </app-toggle-button>
+      </div>
+    </div>
+    <app-button className="uppercase mt-8" type="submit">Salvar</app-button>
+  </form>
+</div>

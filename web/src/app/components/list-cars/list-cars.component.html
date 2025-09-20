@@ -24,4 +24,5 @@
   [isOpen]="drawerOpen"
   (closeDrawer)="drawerOpen = false"
   (reservationUpdated)="searchCars()"
+  [showAdminActions]="isAdmin && !selectedCar?.isReserved"
 />

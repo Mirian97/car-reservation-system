@@ -8,6 +8,7 @@ import { errorMessages } from '../constants/error-messages.constant';
 import {
   AuthResponse,
   LoginForm,
+  Role,
   SignUpForm,
   UpdateProfileForm,
   User,
@@ -54,6 +55,10 @@ export class AuthService {
   setUser(user: User): void {
     if (!this.isBrowser) return;
     localStorage.setItem(this.AUTHENTICATED_USER, JSON.stringify(user));
+  }
+
+  isAdmin(): boolean {
+    return this.getUser()?.roles?.includes(Role.Admin) || false;
   }
 
   login(form: LoginForm): Observable<any> {
