@@ -8,9 +8,10 @@ import { defaultCarFilters } from '@/app/constants/default-car-filters.constant'
 import { engineListValues } from '@/app/constants/engine-list.constant';
 import { seatListValues } from '@/app/constants/seat-list.constants';
 import { CarService } from '@/app/services/car.service';
-import { CarType, SearchCarsFilters } from '@/app/types/car.type';
+import { CarType } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -19,6 +20,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     PadStartTwoDigitsPipe,
     ButtonComponent,
     SvgIconComponent,
@@ -33,12 +35,22 @@ export class FilterComponent implements OnInit {
   carTypeList$!: Observable<CarType[]>;
   engineList = engineListValues;
   seatList = seatListValues;
-  filters: Partial<SearchCarsFilters> = defaultCarFilters;
+  filtersForm!: FormGroup;
 
-  constructor(private carService: CarService, private router: Router) {}
+  constructor(
+    private carService: CarService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.getCarTypeList();
+    this.filtersForm = this.formBuilder.group({
+      name: [defaultCarFilters.name],
+      type: [defaultCarFilters.type],
+      engine: [defaultCarFilters.engine],
+      size: [defaultCarFilters.size],
+    });
   }
 
   getCarTypeList() {
@@ -47,45 +59,51 @@ export class FilterComponent implements OnInit {
 
   onTypeChange(type: CarType, event: Event): void {
     const input = event.target as HTMLInputElement;
+    const currentTypes: CarType[] = this.filtersForm.get('type')?.value || [];
+
     if (input.checked) {
-      this.filters.type = [...(this.filters.type || []), type];
+      this.filtersForm.get('type')?.setValue([...currentTypes, type]);
     } else {
-      this.filters.type = this.filters.type?.filter((t) => t !== type);
+      this.filtersForm
+        .get('type')
+        ?.setValue(currentTypes.filter((t) => t !== type));
     }
   }
 
   onEngineToggle(engine: number): void {
-    const isEngineActive = this.filters?.engine?.includes(engine);
+    const currentEngines: number[] =
+      this.filtersForm.get('engine')?.value || [];
+    const isEngineActive = currentEngines.includes(engine);
+
     if (isEngineActive) {
-      this.filters.engine = this.filters.engine?.filter((e) => e !== engine);
+      this.filtersForm
+        .get('engine')
+        ?.setValue(currentEngines.filter((e) => e !== engine));
     } else {
-      this.filters.engine = [...(this.filters.engine || []), engine];
+      this.filtersForm.get('engine')?.setValue([...currentEngines, engine]);
     }
   }
 
   onSizeToggle(size: number): void {
-    const isSizeActive = this.filters?.size?.includes(size);
+    const currentSizes: number[] = this.filtersForm.get('size')?.value || [];
+    const isSizeActive = currentSizes.includes(size);
+
     if (isSizeActive) {
-      this.filters.size = this.filters.size?.filter((e) => e !== size);
+      this.filtersForm
+        .get('size')
+        ?.setValue(currentSizes.filter((s) => s !== size));
     } else {
-      this.filters.size = [...(this.filters.size || []), size];
+      this.filtersForm.get('size')?.setValue([...currentSizes, size]);
     }
   }
 
   applyFilters(): void {
-    const queryParams: any = {};
-    if (this.filters.name) queryParams.name = this.filters.name;
-    if (this.filters.type?.length)
-      queryParams.type = this.filters.type.join(',');
-    if (this.filters.engine?.length)
-      queryParams.engine = this.filters.engine.join(',');
-    if (this.filters.size?.length)
-      queryParams.size = this.filters.size.join(',');
-    this.router.navigate(['/inicio'], { queryParams });
+    const filters = this.filtersForm.value;
+    this.router.navigate(['/inicio'], { queryParams: filters });
   }
 
   clearFilters(): void {
-    this.filters = defaultCarFilters;
+    this.filtersForm.reset(defaultCarFilters);
     this.router.navigate(['/inicio'], { queryParams: {} });
   }
 }

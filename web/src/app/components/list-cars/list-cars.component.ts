@@ -2,7 +2,7 @@ import { CarService } from '@/app/services/car.service';
 import { Car, SearchCarsFilters } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CarCardComponent } from '../car-card/car-card.component';
 import { NoCarResultsComponent } from '../no-car-results/no-car-results.component';
@@ -23,12 +23,12 @@ export class ListCarsComponent {
   }
 
   searchCars(): void {
-    this.route.queryParams.subscribe((params: any) => {
+    this.route.queryParams.subscribe((params: Params) => {
       const filters: Partial<SearchCarsFilters> = {
         name: params['name'] || '',
-        type: params['type'] ? params['type'].split(',') : [],
-        engine: params['engine'] ? params['engine'].split(',').map(Number) : [],
-        size: params['size'] ? params['size'].split(',').map(Number) : [],
+        type: params['type'] || [],
+        engine: params['engine'] || [],
+        size: params['size'] || [],
       };
       this.cars$ = this.carService.searchCars(filters);
     });

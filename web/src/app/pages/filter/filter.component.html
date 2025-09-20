@@ -29,7 +29,7 @@
               type="checkbox"
               class="accent-secondary"
               (change)="onTypeChange(type, $event)"
-              [checked]="filters.type?.includes(type)"
+              [checked]="filtersForm.get('type')?.value?.includes(type)"
             />
             {{ type }}
           </label>
@@ -41,7 +41,7 @@
         <app-toggle-button
           *ngFor="let engine of engineList"
           className="min-w-[106px]"
-          [isActive]="filters.engine?.includes(engine)"
+          [isActive]="filtersForm.get('engine')?.value?.includes(engine)"
           (toggle)="onEngineToggle(engine)"
         >
           {{ 'Motor ' + engine }}
@@ -53,7 +53,7 @@
         <app-toggle-button
           *ngFor="let size of seatList"
           className="min-w-12"
-          [isActive]="filters.size?.includes(size)"
+          [isActive]="filtersForm.get('size')?.value?.includes(size)"
           (toggle)="onSizeToggle(size)"
         >
           {{ size | padStartTwoDigits }}
