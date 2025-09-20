@@ -53,6 +53,7 @@ export class CreateCarDrawerComponent implements OnInit {
 
   onClose() {
     this.closeDrawer.emit();
+    this.createCarForm.reset();
   }
 
   ngOnInit(): void {
@@ -95,7 +96,6 @@ export class CreateCarDrawerComponent implements OnInit {
           toast.success({ text: 'Carro cadastrado!' });
           this.onClose();
           this.carsUpdated.emit();
-          this.createCarForm.reset();
         },
         error: (error) => toast.error({ text: error }),
       })

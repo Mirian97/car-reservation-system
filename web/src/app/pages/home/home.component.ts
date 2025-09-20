@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   searchForm!: FormGroup;
   hasFilterActive!: boolean;
   drawerOpen = false;
+  isAdmin: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit {
         name,
       });
     });
+    this.isAdmin = this.authService.isAdmin();
   }
 
   getGreeting(): void {

@@ -2,6 +2,7 @@
   className="flex items-center gap-2 absolute top-4 right-4 text-sm"
   [isActive]="false"
   (toggle)="openCreateCarDrawer()"
+  *ngIf="isAdmin"
 >
   <span class="rotate-45">
     <app-svg-icon class="text-secondary" iconName="close" />
