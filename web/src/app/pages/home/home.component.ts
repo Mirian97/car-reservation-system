@@ -31,6 +31,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGreeting();
+    this.route.queryParams.subscribe((params) => {
+      const name = params?.['name'];
+      this.onSearch(name);
+    });
   }
 
   getGreeting(): void {
