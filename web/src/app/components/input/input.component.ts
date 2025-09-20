@@ -16,12 +16,13 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class InputComponent {
-  @Input() type?: 'text' | 'password' | 'email' = 'text';
+  @Input() type?: 'text' | 'password' | 'email' | 'number' = 'text';
   @Input() placeholder?: string = '';
   @Input() disabled?: boolean = false;
   @Input() className?: string = '';
   @Input() showError?: boolean = false;
   @Input() name?: string = '';
+  @Input() size?: 'md' | 'sm' = 'md';
   value: string = '';
 
   private onChange: (value: string) => void = () => {};

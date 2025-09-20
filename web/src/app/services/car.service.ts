@@ -2,7 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { errorMessages } from '../constants/error-messages.constant';
-import { Car, CarType, SearchCarsFilters } from '../types/car.type';
+import {
+  Car,
+  CarType,
+  CreateCarForm,
+  SearchCarsFilters,
+} from '../types/car.type';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +30,16 @@ export class CarService {
   getCarType(): Observable<CarType[]> {
     return this.http
       .get<CarType[]>(`${this.BASE_PATH}type`)
+      .pipe(
+        catchError((error) =>
+          throwError(() => error.error.message || errorMessages.unexpected),
+        ),
+      );
+  }
+
+  create(form: CreateCarForm) {
+    return this.http
+      .post(this.BASE_PATH, form)
       .pipe(
         catchError((error) =>
           throwError(() => error.error.message || errorMessages.unexpected),
