@@ -1,0 +1,655 @@
+type: spec.insomnia.rest/5.0
+name: Challenges
+meta:
+  id: wrk_3247e1eaa9ea44a09e5ac90536049eeb
+  created: 1757888018774
+  modified: 1757888036396
+  description: ""
+collection:
+  - name: Car reservation
+    meta:
+      id: fld_7f68dce2b7a54f62874ba45beafea8f0
+      created: 1757888105947
+      modified: 1757888105947
+      sortKey: -1757888105947
+      description: ""
+    children:
+      - url: "{{ _.BASE_URL }}"
+        name: health check
+        meta:
+          id: req_7848628d9c4541638b66c330199323c8
+          created: 1757888111357
+          modified: 1757888160711
+          isPrivate: false
+          description: ""
+          sortKey: -1757888157442
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - name: User
+        meta:
+          id: fld_91592d9136de435cb41058c9487a573a
+          created: 1757888157342
+          modified: 1757888157342
+          sortKey: -1757888157342
+          description: ""
+        children:
+          - url: "{{ _.BASE_URL }}users"
+            name: get all
+            meta:
+              id: req_39dc66186c6544d6b79ad7bd9f44eaed
+              created: 1757888166850
+              modified: 1757949310816
+              isPrivate: false
+              description: ""
+              sortKey: -1757888170490
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_4f8e6fb4e2e34c85936f2829e6337c23
+              - id: pair_8be7147b1db044ebb96bfe0a50bf7632
+                name: Authorization
+                value: Bearer
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzgyY2Y2OGU2YWNlYjFiZWM2YzNiMCIsImlhdCI6MTc1Nzk0OTE4MiwiZXhwIjoxNzU4NTUzOTgyfQ.aayAriUl6D-P7DBOkKKBd91faId8M3YQ4J7vrIHmP8U
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}auth/sign-up"
+            name: sign up
+            meta:
+              id: req_1c17c4f3e4ef4ba68157def6d860b1b6
+              created: 1757889189962
+              modified: 1758412396587
+              isPrivate: false
+              description: ""
+              sortKey: -1757888163966
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"name": "Teste",
+                	"email": "teste@gamil.com",
+                	"password": "123456"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}auth/login"
+            name: login
+            meta:
+              id: req_93e6b98fa5a44cdfa54a16b06e78a90f
+              created: 1757890893621
+              modified: 1758412369261
+              isPrivate: false
+              description: ""
+              sortKey: -1757888160704
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"email": "teste@gmail.com",
+                	"password": "123456"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_fcaf2de33d724dd7a2066c9541ac1053
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_44bc47a77f404f89aa41e53abf20def9
+              - id: pair_b460ce93b9974608b1c763560124476b
+                name: Acce
+                value: pt
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}auth/edit/68c9e0a9e8385b5defcd2e99"
+            name: edit
+            meta:
+              id: req_1524d27217464ef1be5b41c2ebe6bb24
+              created: 1757890927414
+              modified: 1758409830954
+              isPrivate: false
+              description: ""
+              sortKey: -1757888159073
+            method: PATCH
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"roles" : ["admin", "user"]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_6aa4e61d767e47bd835abce04b419c6d
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_57e4d8545baf4c8584b5acedd70524ee
+              - id: pair_e144cf5335a441178fd64f2ea084bea1
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}users/68c74965c49d2b3cd911873d"
+            name: get by id
+            meta:
+              id: req_f98038390a3d45f6970a892c7cc81aad
+              created: 1757891073268
+              modified: 1757964880183
+              isPrivate: false
+              description: ""
+              sortKey: -1757888167228
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_95d406326e174f37bcf2a72c92ff4da9
+              - id: pair_7adc23c25a644e8c9f1533a26b0e3cc9
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}users/68c74965c49d2b3cd911873d"
+            name: delete
+            meta:
+              id: req_7ea6b4a20d7c4fbbb3b5edc7e8afad61
+              created: 1757891295284
+              modified: 1757891298123
+              isPrivate: false
+              description: ""
+              sortKey: -1757888165597
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Cars
+        meta:
+          id: fld_95969cbcaaa44070a877f27d0e662c77
+          created: 1757891499056
+          modified: 1757891513908
+          sortKey: -1757888157367
+          description: ""
+        children:
+          - url: "{{ _.BASE_URL }}cars"
+            name: get all
+            meta:
+              id: req_b9b4bbe63d3741c184eba834b4c84e05
+              created: 1757891488842
+              modified: 1758239186230
+              isPrivate: false
+              description: ""
+              sortKey: -1757891525481
+            method: GET
+            parameters:
+              - id: pair_e23dc26dfb544d04a99f96c194853c42
+                name: engine
+                value: "1.8"
+                description: ""
+                disabled: true
+              - id: pair_632406adda83499e8151d9ddf348d189
+                name: engine
+                value: "2.4"
+                description: ""
+                disabled: true
+              - id: pair_a895dbfe538642b2a0d9692ad9a0ae1c
+                name: name
+                value: Ferrari
+                description: ""
+                disabled: true
+              - id: pair_706c0d4e8f62444784feb0e850489ea1
+                name: type
+                value: Minivan
+                description: ""
+                disabled: true
+              - id: pair_490683ca90e147a0afe35ad26c5253a0
+                name: type
+                value: Crossover
+                description: ""
+                disabled: false
+              - id: pair_a97862a2c183481c8467c6e45a18b322
+                name: size
+                value: "6"
+                description: ""
+                disabled: false
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_d81ada38295b480b9a76c135f9de1661
+              - id: pair_2a0a42ca790d4824bd73651c18345201
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}cars/68c74c3e221df93003f38f5d"
+            name: get by id
+            meta:
+              id: req_4f9787dca8ed4766bfcf388a8732a12e
+              created: 1757891540428
+              modified: 1757891654178
+              isPrivate: false
+              description: ""
+              sortKey: -1757889847985.5
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}cars"
+            name: create
+            meta:
+              id: req_0f95c3f72e734b6faa3b685d92a96c34
+              created: 1757891593859
+              modified: 1758412346817
+              isPrivate: false
+              description: ""
+              sortKey: -1757889009237.75
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                        "name": "Doblo",
+                        "year": "2018",
+                        "type": "Sedan",
+                        "engine": "1.8",
+                        "size": "7"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_3c3ffbe8e73e4390a22221cdf1e75afa
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_ff024bb1eb12427095832b4f95130aad
+              - id: pair_c60d351681014604aeda3bd118804eeb
+                name: Authorization
+                value: Bearer
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzgyY2Y2OGU2YWNlYjFiZWM2YzNiMCIsIm5hbWUiOiJNaXJpYW4gUXVpc3BlIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3NTc5NjI3NTYsImV4cCI6MTc1ODU2NzU1Nn0.XLcJGLVrN11pOWuAnUxQrR6lf-UPf3kgjEHO9lqlo30
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}cars/68c74c3d221df93003f38f57"
+            name: update
+            meta:
+              id: req_5ff2dc0618bd413db715ffc5e82e00d4
+              created: 1757891675655
+              modified: 1758238714998
+              isPrivate: false
+              description: ""
+              sortKey: -1757889009137.75
+            method: PATCH
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"name": "Ferrari",
+                	"engine": 2.4,
+                	"type": "Crossover"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_6da86b42c62d4d0487180372a1dbe512
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_714cdfef3da34e93a2805d4ce484b419
+              - id: pair_851c08b63c46441cb95d4e117f5eadd3
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}cars/68c74c3e221df93003f38f5a"
+            name: delete
+            meta:
+              id: req_ece61e11bd144c7ab3469a6a0ffd768e
+              created: 1757891797121
+              modified: 1757891814749
+              isPrivate: false
+              description: ""
+              sortKey: -1757889009037.75
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}cars/type"
+            name: get car types
+            meta:
+              id: req_29f099cab2044feabac553ff6248b818
+              created: 1758319831791
+              modified: 1758319855853
+              isPrivate: false
+              description: ""
+              sortKey: -1757890686733.25
+            method: GET
+            parameters:
+              - id: pair_e23dc26dfb544d04a99f96c194853c42
+                name: engine
+                value: "1.8"
+                description: ""
+                disabled: true
+              - id: pair_632406adda83499e8151d9ddf348d189
+                name: engine
+                value: "2.4"
+                description: ""
+                disabled: true
+              - id: pair_a895dbfe538642b2a0d9692ad9a0ae1c
+                name: name
+                value: Ferrari
+                description: ""
+                disabled: true
+              - id: pair_706c0d4e8f62444784feb0e850489ea1
+                name: type
+                value: Minivan
+                description: ""
+                disabled: true
+              - id: pair_490683ca90e147a0afe35ad26c5253a0
+                name: type
+                value: Crossover
+                description: ""
+                disabled: true
+              - id: pair_a97862a2c183481c8467c6e45a18b322
+                name: size
+                value: "6"
+                description: ""
+                disabled: true
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_d81ada38295b480b9a76c135f9de1661
+              - id: pair_2a0a42ca790d4824bd73651c18345201
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Reservation
+        meta:
+          id: fld_2b1024b977e54e228390ddd0b89f028f
+          created: 1757891924835
+          modified: 1757891944140
+          sortKey: -1757888157404.5
+          description: ""
+        children:
+          - url: "{{ _.BASE_URL }}reservations"
+            name: get all
+            meta:
+              id: req_9408e40e839b46c7bc3012a3c04baaca
+              created: 1757891937654
+              modified: 1757891956278
+              isPrivate: false
+              description: ""
+              sortKey: -1757891948634
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}reservations/68c74fe6221df93003f38f7d"
+            name: get by id
+            meta:
+              id: req_cd6949b693df4726b40ef6c5e4de10c0
+              created: 1757892390446
+              modified: 1757894168056
+              isPrivate: false
+              description: ""
+              sortKey: -1757891737057.5
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}reservations"
+            name: create
+            meta:
+              id: req_85e114ddbfb844d6baa1f89e47088804
+              created: 1757892431352
+              modified: 1757892580457
+              isPrivate: false
+              description: ""
+              sortKey: -1757891736957.5
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"userId": "68c74925c49d2b3cd9118738",
+                	"carId": "68c74c39221df93003f38f54"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}reservations/68c74fe6221df93003f38f7d"
+            name: update
+            meta:
+              id: req_afd3c38628e545489c578d7cd34e13a1
+              created: 1757892646569
+              modified: 1758412324209
+              isPrivate: false
+              description: ""
+              sortKey: -1757891631219.25
+            method: PATCH
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                	"isActive": false
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.6.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}reservations/user/68c9e0a9e8385b5defcd2e99"
+            name: get by user
+            meta:
+              id: req_da5b13b0217245228d3c24696a60bb16
+              created: 1757894106882
+              modified: 1758403376076
+              isPrivate: false
+              description: ""
+              sortKey: -1757891631119.25
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_b0632d5b62fc47bfbc05ae45e97b24cd
+              - id: pair_0e50245e0d584e67b25584373514c0f5
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ _.BASE_URL }}reservations/car/68c74c3e221df93003f38f5d"
+            name: get by car and reservation active
+            meta:
+              id: req_8504c38c4b864d348e3492d72770ac98
+              created: 1758401509190
+              modified: 1758401514852
+              isPrivate: false
+              description: ""
+              sortKey: -1757891578300.125
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.6.0
+                id: pair_b0632d5b62fc47bfbc05ae45e97b24cd
+              - id: pair_0e50245e0d584e67b25584373514c0f5
+                name: Authorization
+                value: "{{ _.TOKEN }}"
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_991756a826d9e2056e4c9c1332673250df806ac8
+    created: 1757888018807
+    modified: 1757888018807
+environments:
+  name: Base Environment
+  meta:
+    id: env_991756a826d9e2056e4c9c1332673250df806ac8
+    created: 1757888018806
+    modified: 1758226187700
+    isPrivate: false
+  data:
+    BASE_URL: http://localhost:3005/
+    TOKEN: Bearer {% response 'body', 'req_93e6b98fa5a44cdfa54a16b06e78a90f',
+      'b64::JC50b2tlbg==::46b', 'never', 60 %}
+spec:
+  meta:
+    id: spc_309f7b31301f4935ac4e85d69b46d9f8
+    created: 1757888018784
+    modified: 1757888036394
