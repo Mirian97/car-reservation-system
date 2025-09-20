@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { errorMessages } from '../constants/error-messages.constant';
-import { Car, CarType } from '../types/car.type';
+import { Car, CarType, SearchCarsFilters } from '../types/car.type';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +12,9 @@ export class CarService {
 
   constructor(private http: HttpClient) {}
 
-  searchCars(): Observable<Car[]> {
+  searchCars(filters: Partial<SearchCarsFilters> = {}): Observable<Car[]> {
     return this.http
-      .get<Car[]>(this.BASE_PATH)
+      .get<Car[]>(this.BASE_PATH, { params: filters })
       .pipe(
         catchError((error) =>
           throwError(() => error.error.message || errorMessages.unexpected),

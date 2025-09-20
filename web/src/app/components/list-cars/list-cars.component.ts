@@ -1,7 +1,8 @@
 import { CarService } from '@/app/services/car.service';
-import { Car } from '@/app/types/car.type';
+import { Car, SearchCarsFilters } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CarCardComponent } from '../car-card/car-card.component';
 import { NoCarResultsComponent } from '../no-car-results/no-car-results.component';
@@ -15,13 +16,21 @@ import { NoCarResultsComponent } from '../no-car-results/no-car-results.componen
 export class ListCarsComponent {
   cars$!: Observable<Car[]>;
 
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.searchCars();
   }
 
   searchCars(): void {
-    this.cars$ = this.carService.searchCars();
+    this.route.queryParams.subscribe((params: any) => {
+      const filters: Partial<SearchCarsFilters> = {
+        name: params['name'] || '',
+        type: params['type'] ? params['type'].split(',') : [],
+        engine: params['engine'] ? params['engine'].split(',').map(Number) : [],
+        size: params['size'] ? params['size'].split(',').map(Number) : [],
+      };
+      this.cars$ = this.carService.searchCars(filters);
+    });
   }
 }
