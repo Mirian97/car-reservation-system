@@ -46,7 +46,6 @@ export class FilterComponent implements OnInit {
   }
 
   onTypeChange(type: CarType, event: Event): void {
-    console.log(this.filters);
     const input = event.target as HTMLInputElement;
     if (input.checked) {
       this.filters.type = [...(this.filters.type || []), type];
@@ -57,7 +56,6 @@ export class FilterComponent implements OnInit {
 
   onEngineToggle(engine: number): void {
     const isEngineActive = this.filters?.engine?.includes(engine);
-    console.log('hellou');
     if (isEngineActive) {
       this.filters.engine = this.filters.engine?.filter((e) => e !== engine);
     } else {
