@@ -9,7 +9,7 @@ import { engineListValues } from '@/app/constants/engine-list.constant';
 import { seatListValues } from '@/app/constants/seat-list.constants';
 import { CarService } from '@/app/services/car.service';
 import { CarType } from '@/app/types/car.type';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -39,8 +39,9 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private carService: CarService,
-    private router: Router,
     private formBuilder: FormBuilder,
+    private location: Location,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -104,6 +105,9 @@ export class FilterComponent implements OnInit {
 
   clearFilters(): void {
     this.filtersForm.reset(defaultCarFilters);
-    this.router.navigate(['/inicio'], { queryParams: {} });
+  }
+
+  quitFilters() {
+    this.location.back();
   }
 }
