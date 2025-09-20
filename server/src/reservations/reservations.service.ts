@@ -70,4 +70,11 @@ export class ReservationsService {
       },
     );
   }
+
+  async findOneCarAndActiveReservation(carId: string) {
+    return await this.reservationModel.findOne({
+      carId: carId.toString(),
+      isActive: true,
+    });
+  }
 }

@@ -31,6 +31,11 @@ export class ReservationsController {
     return this.reservationsService.findByUserId(id);
   }
 
+  @Get('car/:id')
+  findOneCarAndActiveReservation(@Param('id', ParseObjectIdPipe) id: string) {
+    return this.reservationsService.findOneCarAndActiveReservation(id);
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseObjectIdPipe) id: string) {
     return this.reservationsService.findOne(id);

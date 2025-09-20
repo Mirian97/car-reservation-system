@@ -5,6 +5,7 @@ import { errorMessages } from '../constants/error-messages.constant';
 import { CarReservationByUser } from '../types/car.type';
 import {
   CreateReservation,
+  Reservation,
   UpdateReservation,
 } from '../types/reservation.type';
 
@@ -19,6 +20,16 @@ export class ReservationService {
   getReservationsByUser(userId: string): Observable<CarReservationByUser[]> {
     return this.http
       .get<CarReservationByUser[]>(`${this.BASE_PATH}user/${userId}`)
+      .pipe(
+        catchError((error) =>
+          throwError(() => error.error.message || errorMessages.unexpected),
+        ),
+      );
+  }
+
+  getCarWithActiveReservation(carId: string): Observable<Reservation | null> {
+    return this.http
+      .get<Reservation | null>(`${this.BASE_PATH}car/${carId}`)
       .pipe(
         catchError((error) =>
           throwError(() => error.error.message || errorMessages.unexpected),
