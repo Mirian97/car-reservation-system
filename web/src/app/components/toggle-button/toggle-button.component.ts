@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toggle-button',
@@ -11,6 +11,12 @@ export class ToggleButtonComponent {
   @Input() disabled: boolean = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() className: string = '';
-  @Input() onClick?: () => void = () => {};
   @Input() isActive?: boolean = false;
+  @Output() toggle = new EventEmitter<void>();
+
+  handleClick() {
+    if (!this.disabled) {
+      this.toggle.emit();
+    }
+  }
 }
