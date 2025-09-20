@@ -1,13 +1,15 @@
 <button
   [type]="type"
-  [disabled]="disabled"
-  (click)="onClick()"
+  [disabled]="disabled || isLoading"
+  (click)="onClick($event)"
   [ngClass]="[
     'text-white py-2 px-6 rounded-full w-full cursor-pointer disabled:cursor-default disabled:opacity-75 transition-all duration-300',
     isLoading ? 'pointer-events-none cursor-default' : '',
     variant === 'primary'
       ? 'bg-primary text-[18px] min-h-[56px]'
-      : 'bg-secondary text-xl font-bold min-h-[60px]',
+      : variant === 'secondary'
+      ? 'bg-secondary text-xl font-bold min-h-[60px]'
+      : 'bg-green-600 hover:bg-green-700 text-[18px] min-h-[56px]',
     className
   ]"
 >

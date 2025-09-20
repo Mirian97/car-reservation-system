@@ -1,13 +1,23 @@
 import { PluralizePipe } from '@/app/common/pipes/pluralize.pipe';
 import { Car } from '@/app/types/car.type';
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-car-card',
   standalone: true,
-  imports: [PluralizePipe],
+  imports: [PluralizePipe, CommonModule],
   templateUrl: './car-card.component.html',
 })
 export class CarCardComponent {
   @Input() car!: Car;
+  @Input() disabled?: boolean = false;
+  @Input() showStatus: boolean = false;
+  @Output() click = new EventEmitter<void>();
+
+  onClick() {
+    if (!this.disabled) {
+      this.click.emit();
+    }
+  }
 }

@@ -54,11 +54,13 @@ export class ProfileComponent implements OnInit {
       return;
     }
     const formValues = this.profileForm.value;
-    this.authService.updateProfile(formValues)?.subscribe({
-      next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
-      error: (error) => toast.error({ text: error }),
-      complete: () => (this.isLoading = false),
-    });
+    this.authService
+      .updateProfile(formValues)
+      ?.subscribe({
+        next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
+        error: (error) => toast.error({ text: error }),
+      })
+      .add(() => (this.isLoading = false));
   }
 
   onLogoutUser(): void {

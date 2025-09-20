@@ -7,7 +7,11 @@
         Resultados
       </h2>
       <div class="flex overflow-x-auto gap-4 px-6 py-1 sm:px-12 transition-all">
-        <app-car-card *ngFor="let car of cars" [car]="car" />
+        <app-car-card
+          *ngFor="let car of cars"
+          [car]="car"
+          (click)="openDrawer(car)"
+        />
       </div>
     </div>
     <ng-template #emptyState>
@@ -15,3 +19,9 @@
     </ng-template>
   </ng-container>
 </div>
+<app-booking-car-drawer
+  [car]="selectedCar"
+  [isOpen]="drawerOpen"
+  (closeDrawer)="drawerOpen = false"
+  (reservationUpdated)="searchCars()"
+/>

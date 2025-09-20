@@ -11,12 +11,13 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() className: string = '';
-  @Input() variant: 'primary' | 'secondary' = 'primary';
+  @Input() variant: 'primary' | 'secondary' | 'success' = 'primary';
   @Input() isLoading?: boolean = false;
   @Output() click = new EventEmitter<void>();
 
-  onClick() {
-    if (!this.disabled) {
+  onClick(event: Event) {
+    event.stopPropagation();
+    if (!this.disabled && !this.isLoading) {
       this.click.emit();
     }
   }
