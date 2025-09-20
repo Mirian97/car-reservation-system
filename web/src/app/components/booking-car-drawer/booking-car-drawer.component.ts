@@ -25,6 +25,7 @@ export class BookingCarDrawerComponent implements OnInit {
   @Input() isOpen = false;
   @Input() car?: Car;
   @Output() closeDrawer = new EventEmitter<void>();
+  @Output() reservationUpdated = new EventEmitter<void>();
   userId!: string;
   isLoading: boolean = false;
   carReservation: Reservation | null = null;
@@ -69,6 +70,7 @@ export class BookingCarDrawerComponent implements OnInit {
       .subscribe({
         next: () => {
           toast.success({ text: 'Carro reservado com sucesso!' });
+          this.reservationUpdated.emit();
           this.onClose();
         },
         error: (error) => toast.error({ text: error }),
@@ -87,6 +89,7 @@ export class BookingCarDrawerComponent implements OnInit {
       .subscribe({
         next: () => {
           toast.success({ text: 'Carro liberado!' });
+          this.reservationUpdated.emit();
           this.onClose();
         },
         error: (error) => toast.error({ text: error }),
