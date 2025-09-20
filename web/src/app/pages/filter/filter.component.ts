@@ -8,11 +8,11 @@ import { defaultCarFilters } from '@/app/constants/default-car-filters.constant'
 import { engineListValues } from '@/app/constants/engine-list.constant';
 import { seatListValues } from '@/app/constants/seat-list.constants';
 import { CarService } from '@/app/services/car.service';
-import { CarType } from '@/app/types/car.type';
-import { CommonModule, Location } from '@angular/common';
+import { CarType, SearchCarsFilters } from '@/app/types/car.type';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -36,16 +36,20 @@ export class FilterComponent implements OnInit {
   engineList = engineListValues;
   seatList = seatListValues;
   filtersForm!: FormGroup;
+  previousQueryParams: Partial<SearchCarsFilters> = {};
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private carService: CarService,
     private formBuilder: FormBuilder,
-    private location: Location,
-    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.getCarTypeList();
+    this.route.queryParams.subscribe((params) => {
+      this.previousQueryParams = { ...params };
+    });
     this.filtersForm = this.formBuilder.group({
       name: [defaultCarFilters.name],
       type: [defaultCarFilters.type],
@@ -108,6 +112,8 @@ export class FilterComponent implements OnInit {
   }
 
   quitFilters() {
-    this.location.back();
+    this.router.navigate(['/inicio'], {
+      queryParams: this.previousQueryParams,
+    });
   }
 }
