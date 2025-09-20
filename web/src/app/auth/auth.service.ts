@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { errorMessages } from '../constants/error-messages.constant';
@@ -24,6 +25,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -92,5 +94,12 @@ export class AuthService {
           throwError(() => error.error.message || errorMessages.unexpected),
         ),
       );
+  }
+
+  logout() {
+    if (!this.isBrowser) return;
+    localStorage.removeItem(this.AUTHENTICATION_TOKEN);
+    localStorage.removeItem(this.AUTHENTICATED_USER);
+    this.router.navigate(['/login']);
   }
 }

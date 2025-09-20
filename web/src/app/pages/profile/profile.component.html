@@ -1,4 +1,8 @@
-<app-toggle-button className="flex items-center gap-2 absolute top-4 right-4">
+<app-toggle-button
+  className="flex items-center gap-2 absolute top-4 right-4"
+  [isActive]="false"
+  (toggle)="onLogoutUser()"
+>
   <app-svg-icon class="text-secondary" iconName="logout" />
   Sair
 </app-toggle-button>

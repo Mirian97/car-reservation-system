@@ -60,4 +60,8 @@ export class ProfileComponent implements OnInit {
       complete: () => (this.isLoading = false),
     });
   }
+
+  onLogoutUser(): void {
+    this.authService.logout();
+  }
 }
