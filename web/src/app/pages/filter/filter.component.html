@@ -12,9 +12,9 @@
     >
   </div>
   <div class="flex min-h-[60px] items-center justify-evenly">
-    <app-filter-button (onClick)="clearFilters()">Cancelar</app-filter-button>
+    <app-filter-button (click)="clearFilters()">Cancelar</app-filter-button>
     <app-filter-button [disabled]="true">Filtros</app-filter-button>
-    <app-filter-button (onClick)="clearFilters()">Limpar</app-filter-button>
+    <app-filter-button (click)="clearFilters()">Limpar</app-filter-button>
   </div>
   <div class="flex-1">
     <app-dropdown title="Tipos de carrocerias">
@@ -63,7 +63,9 @@
     class="bg-white shadow-navbar min-h-24 sticky inset-x-0 grid place-items-center z-[1] bottom-0 px-9 w-full"
   >
     <div class="max-w-md w-full">
-      <app-button className="uppercase">Aplicar Filtro</app-button>
+      <app-button className="uppercase" (click)="applyFilters()"
+        >Aplicar Filtro</app-button
+      >
     </div>
   </div>
 </main>

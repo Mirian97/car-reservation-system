@@ -13,11 +13,11 @@ export class ButtonComponent {
   @Input() className: string = '';
   @Input() variant: 'primary' | 'secondary' = 'primary';
   @Input() isLoading?: boolean = false;
-  @Output() toggle = new EventEmitter<void>();
+  @Output() click = new EventEmitter<void>();
 
   onClick() {
     if (!this.disabled) {
-      this.toggle.emit();
+      this.click.emit();
     }
   }
 }

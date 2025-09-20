@@ -11,11 +11,11 @@ export class FilterButtonComponent {
   @Input() disabled: boolean = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() className: string = '';
-  @Output() toggle = new EventEmitter<void>();
+  @Output() click = new EventEmitter<void>();
 
   onClick() {
     if (!this.disabled) {
-      this.toggle.emit();
+      this.click.emit();
     }
   }
 }
