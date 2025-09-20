@@ -50,10 +50,12 @@ export class LoginComponent {
       return;
     }
     const formValues = this.loginForm.value;
-    this.authService.login(formValues).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      error: (error) => toast.error({ text: error }),
-      complete: () => (this.isLoading = false),
-    });
+    this.authService
+      .login(formValues)
+      .subscribe({
+        next: () => this.router.navigate(['/inicio']),
+        error: (error) => toast.error({ text: error }),
+      })
+      .add(() => (this.isLoading = false));
   }
 }

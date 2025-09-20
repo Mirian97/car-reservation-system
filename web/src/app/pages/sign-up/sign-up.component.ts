@@ -11,7 +11,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { InputComponent } from '../../components/input/input.component';
-import { LogoComponent } from '../../components/logo/logo.component';
 import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
 
 @Component({
@@ -22,7 +21,6 @@ import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
     RouterLink,
     ButtonComponent,
     InputComponent,
-    LogoComponent,
     SvgIconComponent,
   ],
   templateUrl: './sign-up.component.html',
@@ -51,10 +49,12 @@ export class SignUpComponent {
       return;
     }
     const formValues = this.signUpForm.value;
-    this.authService.signUp(formValues).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      error: (error) => toast.error({ text: error }),
-      complete: () => (this.isLoading = false),
-    });
+    this.authService
+      .signUp(formValues)
+      .subscribe({
+        next: () => this.router.navigate(['/inicio']),
+        error: (error) => toast.error({ text: error }),
+      })
+      .add(() => (this.isLoading = false));
   }
 }

@@ -15,7 +15,8 @@ export class ButtonComponent {
   @Input() isLoading?: boolean = false;
   @Output() click = new EventEmitter<void>();
 
-  onClick() {
+  onClick(event: Event) {
+    event.stopPropagation();
     if (!this.disabled && !this.isLoading) {
       this.click.emit();
     }
