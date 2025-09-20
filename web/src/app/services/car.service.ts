@@ -46,4 +46,14 @@ export class CarService {
         ),
       );
   }
+
+  delete(carId: string) {
+    return this.http
+      .delete(`${this.BASE_PATH}${carId}`)
+      .pipe(
+        catchError((error) =>
+          throwError(() => error.error.message || errorMessages.unexpected),
+        ),
+      );
+  }
 }

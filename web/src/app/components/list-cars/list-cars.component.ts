@@ -1,3 +1,4 @@
+import { AuthService } from '@/app/auth/auth.service';
 import { CarService } from '@/app/services/car.service';
 import { Car, SearchCarsFilters } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
@@ -23,11 +24,17 @@ export class ListCarsComponent {
   cars$!: Observable<Car[]>;
   drawerOpen = false;
   selectedCar?: Car;
+  isAdmin: boolean = false;
 
-  constructor(private carService: CarService, private route: ActivatedRoute) {}
+  constructor(
+    private carService: CarService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.searchCars();
+    this.isAdmin = this.authService.isAdmin();
   }
 
   searchCars(): void {
