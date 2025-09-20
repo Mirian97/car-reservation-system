@@ -1,1 +1,47 @@
-<p>profile works!</p>
+<app-toggle-button
+  className="flex items-center gap-2 absolute top-4 right-4"
+  [isActive]="false"
+  (toggle)="onLogoutUser()"
+>
+  <app-svg-icon class="text-secondary" iconName="logout" />
+  Sair
+</app-toggle-button>
+<section class="space-y-5 mt-8">
+  <h2
+    class="text-primary text-[18px] font-bold px-9 sm:px-12 transition-all text-center"
+  >
+    Editar perfil
+  </h2>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4 px-9 max-w-md mx-auto"
+  >
+    <app-input placeholder="Nome" name="name" formControlName="name" />
+    <app-input
+      placeholder="E-mail"
+      type="email"
+      name="email"
+      formControlName="email"
+    />
+    <app-input
+      placeholder="Senha"
+      type="password"
+      name="password"
+      formControlName="password"
+    />
+    <app-input
+      placeholder="Confime a senha"
+      type="password"
+      name="confirmPassword"
+      formControlName="confirmPassword"
+    />
+    <app-button
+      className="uppercase"
+      [type]="'submit'"
+      [disabled]="profileForm.invalid"
+      [isLoading]="isLoading"
+      >Salvar</app-button
+    >
+  </form>
+</section>
