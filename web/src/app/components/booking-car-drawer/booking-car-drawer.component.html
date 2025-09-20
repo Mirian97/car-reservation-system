@@ -22,22 +22,25 @@
       <app-svg-icon iconName="close" />
     </button>
   </header>
-  <section
-    *ngIf="car; else noData"
-    class="grid grid-cols-2 gap-2 bg-tertiary/10 p-4 text-primary"
-  >
-    <h6 class="font-semibold">Nome:</h6>
-    <p>{{ car.name }}</p>
-    <h6 class="font-semibold">Ano:</h6>
-    <p>{{ car.year }}</p>
-    <h6 class="font-semibold">Tipo:</h6>
-    <p>{{ car.type }}</p>
-    <h6 class="font-semibold">Motor:</h6>
-    <p>{{ car.engine }}</p>
-    <h6 class="font-semibold">Qtd. lugares</h6>
-    <p>{{ car.size }}</p>
-    <h6 class="font-semibold">Reservado:</h6>
-    <p>{{ car.isReserved ? 'Sim' : 'Não' }}</p>
+  <section *ngIf="car; else noData" class="space-y-8">
+    <div class="grid grid-cols-2 gap-2 bg-tertiary/10 p-4 text-primary">
+      <h6 class="font-semibold">Nome:</h6>
+      <p>{{ car.name }}</p>
+      <h6 class="font-semibold">Ano:</h6>
+      <p>{{ car.year }}</p>
+      <h6 class="font-semibold">Tipo:</h6>
+      <p>{{ car.type }}</p>
+      <h6 class="font-semibold">Motor:</h6>
+      <p>{{ car.engine }}</p>
+      <h6 class="font-semibold">Qtd. lugares</h6>
+      <p>{{ car.size }}</p>
+      <h6 class="font-semibold">Reservado:</h6>
+      <p>{{ car.isReserved ? 'Sim' : 'Não' }}</p>
+    </div>
+    <app-button variant="success" className="uppercase font-medium"
+      >Reservar Carro</app-button
+    >
+    <!-- <app-button className="uppercase">Liberar Carro</app-button> -->
   </section>
   <ng-template #noData>
     <p>Nenhum carro selecionado.</p>

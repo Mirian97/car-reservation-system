@@ -7,7 +7,9 @@
     isLoading ? 'pointer-events-none cursor-default' : '',
     variant === 'primary'
       ? 'bg-primary text-[18px] min-h-[56px]'
-      : 'bg-secondary text-xl font-bold min-h-[60px]',
+      : variant === 'secondary'
+      ? 'bg-secondary text-xl font-bold min-h-[60px]'
+      : 'bg-green-600 hover:bg-green-700 text-[18px] min-h-[56px]',
     className
   ]"
 >
