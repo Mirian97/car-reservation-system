@@ -19,6 +19,7 @@ import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 export class DebouncedInputComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
   @Input() debounceTime: number = 500;
+  @Input() value: string = '';
   @Input() name?: string = '';
   @Input() className?: string = '';
   @Input() placeholder?: string = '';
@@ -26,6 +27,7 @@ export class DebouncedInputComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   ngOnInit() {
+    this.searchControl.setValue(this.value, { emitEvent: false });
     this.searchControl.valueChanges
       .pipe(
         debounceTime(this.debounceTime),

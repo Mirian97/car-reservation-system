@@ -9,6 +9,7 @@
       className="max-w-40 sm:max-w-96"
       (onChange)="onSearch($event)"
       [debounceTime]="700"
+      [value]="searchForm.get('name')?.value"
     />
   </label>
   <button

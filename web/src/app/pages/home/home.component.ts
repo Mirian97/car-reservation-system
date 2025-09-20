@@ -4,7 +4,7 @@ import { ListCarsComponent } from '@/app/components/list-cars/list-cars.componen
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -22,18 +22,22 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   greeting!: string;
+  searchForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
     this.getGreeting();
     this.route.queryParams.subscribe((params) => {
-      const name = params?.['name'];
-      this.onSearch(name);
+      const name = params?.['name'] ?? '';
+      this.searchForm = this.formBuilder.group({
+        name,
+      });
     });
   }
 
