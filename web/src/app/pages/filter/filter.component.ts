@@ -64,7 +64,7 @@ export class FilterComponent implements OnInit {
   }
 
   onSizeToggle(size: number): void {
-    const isSizeActive = this.filters?.engine?.includes(size);
+    const isSizeActive = this.filters?.size?.includes(size);
     if (isSizeActive) {
       this.filters.size = this.filters.size?.filter((e) => e !== size);
     } else {
