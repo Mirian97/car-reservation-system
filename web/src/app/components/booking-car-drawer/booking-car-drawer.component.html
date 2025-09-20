@@ -35,12 +35,32 @@
       <h6 class="font-semibold">Qtd. lugares</h6>
       <p>{{ car.size }}</p>
       <h6 class="font-semibold">Reservado:</h6>
-      <p>{{ car.isReserved ? 'Sim' : 'Não' }}</p>
+      <p
+        [ngClass]="[
+          'uppercase font-semibold',
+          car.isReserved ? 'text-green-600' : 'text-red-600'
+        ]"
+      >
+        {{ car.isReserved ? 'Sim' : 'Não' }}
+      </p>
     </div>
-    <app-button variant="success" className="uppercase font-medium"
-      >Reservar Carro</app-button
+    <app-button
+      variant="success"
+      className="uppercase font-medium"
+      (click)="onCreateReservation()"
+      *ngIf="!car.isReserved"
+      [isLoading]="isLoading"
     >
-    <!-- <app-button className="uppercase">Liberar Carro</app-button> -->
+      Reservar Carro
+    </app-button>
+    <app-button
+      *ngIf="car.isReserved"
+      className="uppercase font-medium"
+      (click)="onReleaseCar()"
+      [isLoading]="isLoading"
+    >
+      Liberar Carro
+    </app-button>
   </section>
   <ng-template #noData>
     <p>Nenhum carro selecionado.</p>
