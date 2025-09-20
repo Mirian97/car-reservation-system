@@ -1,7 +1,7 @@
 <button
   [type]="type"
   [disabled]="disabled"
-  (click)="onClick?.()"
+  (click)="onClick()"
   [ngClass]="[
     'text-white py-2 px-6 rounded-full w-full cursor-pointer disabled:cursor-default disabled:opacity-75 transition-all duration-300',
     isLoading ? 'pointer-events-none cursor-default' : '',

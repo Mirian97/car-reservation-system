@@ -1,5 +1,18 @@
-<main class="min-h-dvh w-full flex flex-col bg-white">
-  <router-outlet class="flex-1"></router-outlet>
-  <app-navbar></app-navbar>
+<main class="min-h-dvh w-full flex flex-col bg-white pb-24">
+  <div
+    class="bg-primary bg-[url('/assets/images/bg-cars.png')] min-h-60 bg-blend-overlay w-full flex items-center justify-center"
+  >
+    <div class="mx-auto flex flex-col items-center justify-center gap-2.5">
+      <img
+        alt="Foto de perfil do usuário"
+        src="https://avatar.iran.liara.run/public"
+        class="rounded-full border-2 border-secondary bg-gray-300 size-24"
+      />
+      <h4 class="font-poppins text-[22px] text-white tracking-wide">
+        {{ greeting }}
+      </h4>
+    </div>
+  </div>
+  <router-outlet />
+  <app-navbar />
 </main>
->

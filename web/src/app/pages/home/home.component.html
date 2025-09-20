@@ -1,1 +1,28 @@
-<p>home works!</p>
+<div class="flex px-8 gap-3.5 -mt-5 justify-center mb-8">
+  <label
+    class="bg-white max-w-full px-4.5 py-2 font-poppins min-h-14 items-center gap-2.5 rounded-lg text-sm flex shadow-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+  >
+    <app-svg-icon iconName="search" class="text-secondary" />
+    <app-debounced-input
+      name="search"
+      placeholder="Buscar carro"
+      className="max-w-40 sm:max-w-96"
+      (onChange)="onSearch($event)"
+      [debounceTime]="700"
+      [value]="searchForm.get('name')?.value"
+    />
+  </label>
+  <button
+    routerLink="/inicio/filtrar"
+    (click)="onNavigateFilters()"
+    class="bg-white w-26 max-w-full px-4.5 cursor-pointer font-poppins min-h-14 rounded-lg text-sm gap-2 flex items-center justify-center shadow-lg"
+  >
+    <app-svg-icon iconName="filter" class="text-secondary" [height]="20" />
+    Filtrar
+  </button>
+</div>
+@if (searchForm.get('name')?.value) {
+<app-list-cars />
+} @else {
+<app-last-reservations />
+}

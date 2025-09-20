@@ -1,0 +1,31 @@
+<div [ngClass]="['w-full', clasName]">
+  <ng-container *ngIf="reservations$ | async as reservations" class="space-y-5">
+    <h2
+      class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all md:text-center"
+    >
+      {{ title }}
+    </h2>
+    <div
+      *ngIf="reservations.length > 0; else emptyState"
+      class="flex overflow-x-auto gap-4 px-6 py-1 sm:px-12 transition-all"
+    >
+      <app-car-card
+        *ngFor="let carReservation of reservations"
+        [car]="carReservation.carId"
+      />
+    </div>
+    <ng-template #emptyState>
+      <div class="flex flex-col w-full mt-16">
+        <app-svg-icon
+          iconName="empty-inbox"
+          class="text-gray-400 mx-auto"
+          [height]="80"
+          [width]="80"
+        ></app-svg-icon>
+        <p class="text-gray-500 text-sm italic text-center">
+          Sem reservas de carro recentes.
+        </p>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

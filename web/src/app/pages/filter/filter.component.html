@@ -1,0 +1,73 @@
+<main class="min-h-dvh w-full flex flex-col bg-white font-poppins">
+  <div
+    class="bg-primary min-h-36 w-full flex items-center justify-center font-inter"
+  >
+    <button
+      (click)="quitFilters()"
+      title="Volta a Busca"
+      class="text-white text-xl flex justify-center items-center gap-2 uppercase font-poppins cursor-pointer"
+    >
+      <app-svg-icon iconName="manage-search" class="text-secondary" />
+      Busca
+    </button>
+  </div>
+  <div class="flex min-h-[60px] items-center justify-evenly">
+    <app-filter-button (click)="quitFilters()">Cancelar</app-filter-button>
+    <app-filter-button [disabled]="true">Filtros</app-filter-button>
+    <app-filter-button (click)="clearFilters()">Limpar</app-filter-button>
+  </div>
+  <div class="flex-1">
+    <app-dropdown title="Tipos de carrocerias">
+      <ng-container *ngIf="carTypeList$ | async as types">
+        <div class="grid grid-cols-2 gap-1">
+          <label
+            *ngFor="let type of types"
+            class="text-primary text-sm flex items-baseline gap-2 cursor-pointer w-fit"
+          >
+            <input
+              [value]="type"
+              type="checkbox"
+              class="accent-secondary"
+              (change)="onTypeChange(type, $event)"
+              [checked]="filtersForm.get('type')?.value?.includes(type)"
+            />
+            {{ type }}
+          </label>
+        </div>
+      </ng-container>
+    </app-dropdown>
+    <app-dropdown title="Tipos de motores">
+      <div class="flex flex-wrap gap-x-4.5 gap-y-3">
+        <app-toggle-button
+          *ngFor="let engine of engineList"
+          className="min-w-[106px]"
+          [isActive]="filtersForm.get('engine')?.value?.includes(engine)"
+          (toggle)="onEngineToggle(engine)"
+        >
+          {{ 'Motor ' + engine }}
+        </app-toggle-button>
+      </div>
+    </app-dropdown>
+    <app-dropdown title="Quantidade de lugares">
+      <div class="flex flex-wrap gap-x-4.5 gap-y-3">
+        <app-toggle-button
+          *ngFor="let size of seatList"
+          className="min-w-12"
+          [isActive]="filtersForm.get('size')?.value?.includes(size)"
+          (toggle)="onSizeToggle(size)"
+        >
+          {{ size | padStartTwoDigits }}
+        </app-toggle-button>
+      </div>
+    </app-dropdown>
+  </div>
+  <div
+    class="bg-white shadow-navbar min-h-24 sticky inset-x-0 grid place-items-center z-[1] bottom-0 px-9 w-full"
+  >
+    <div class="max-w-md w-full">
+      <app-button className="uppercase" (click)="applyFilters()"
+        >Aplicar Filtro</app-button
+      >
+    </div>
+  </div>
+</main>

@@ -1,0 +1,17 @@
+<div class="w-full">
+  <ng-container *ngIf="cars$ | async as cars">
+    <div *ngIf="cars.length > 0; else emptyState" class="space-y-5">
+      <h2
+        class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all md:text-center"
+      >
+        Resultados
+      </h2>
+      <div class="flex overflow-x-auto gap-4 px-6 py-1 sm:px-12 transition-all">
+        <app-car-card *ngFor="let car of cars" [car]="car" />
+      </div>
+    </div>
+    <ng-template #emptyState>
+      <app-no-car-results />
+    </ng-template>
+  </ng-container>
+</div>
