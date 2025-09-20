@@ -29,3 +29,10 @@ export interface CarReservationByUser {
   carId: Car;
   userId: string;
 }
+
+export type SearchCarsFilters = {
+  name: string;
+  engine: number[];
+  type: CarType[];
+  size: number[];
+};
