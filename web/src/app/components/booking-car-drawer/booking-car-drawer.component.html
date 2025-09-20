@@ -1,0 +1,45 @@
+<div
+  *ngIf="isOpen"
+  (click)="onClose()"
+  class="fixed inset-0 bg-black/50 z-10"
+></div>
+<div
+  [ngClass]="[
+    'fixed top-0 w-96 max-w-full bg-white rounded-l-lg inset-y-0 shadow-card transition-[right_0.3s_ease-in-out] z-10 py-4 px-6 flex flex-col',
+    isOpen ? 'right-0' : '-right-96'
+  ]"
+>
+  <header class="flex justify-between items-center mb-4">
+    <h2
+      class="text-primary text-[18px] font-bold transition-all md:text-center"
+    >
+      Detalhes
+    </h2>
+    <button
+      class="cursor-pointer text-gray-500 hover:text-secondary"
+      (click)="onClose()"
+    >
+      <app-svg-icon iconName="close" />
+    </button>
+  </header>
+  <section
+    *ngIf="car; else noData"
+    class="grid grid-cols-2 gap-2 bg-tertiary/10 p-4 text-primary"
+  >
+    <h6 class="font-semibold">Nome:</h6>
+    <p>{{ car.name }}</p>
+    <h6 class="font-semibold">Ano:</h6>
+    <p>{{ car.year }}</p>
+    <h6 class="font-semibold">Tipo:</h6>
+    <p>{{ car.type }}</p>
+    <h6 class="font-semibold">Motor:</h6>
+    <p>{{ car.engine }}</p>
+    <h6 class="font-semibold">Qtd. lugares</h6>
+    <p>{{ car.size }}</p>
+    <h6 class="font-semibold">Reservado:</h6>
+    <p>{{ car.isReserved ? 'Sim' : 'Não' }}</p>
+  </section>
+  <ng-template #noData>
+    <p>Nenhum carro selecionado.</p>
+  </ng-template>
+</div>

@@ -12,6 +12,7 @@
       <app-car-card
         *ngFor="let carReservation of reservations"
         [car]="carReservation.carId"
+        (click)="openDrawer(carReservation.carId)"
       />
     </div>
     <ng-template #emptyState>
@@ -29,3 +30,8 @@
     </ng-template>
   </ng-container>
 </div>
+<app-booking-car-drawer
+  [car]="selectedCar"
+  [isOpen]="drawerOpen"
+  (closeDrawer)="drawerOpen = false"
+/>
