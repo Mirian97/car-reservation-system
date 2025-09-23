@@ -13,7 +13,6 @@ A full-stack car reservation system built with **NestJS** (backend) and **Angula
 - **Database**: MongoDB with Mongoose ODM
 - **Security**: Password hashing with bcrypt, CORS enabled
 - **Validation**: Class-validator for request validation
-- **Internationalization**: i18n support
 
 ### Frontend (Angular)
 
@@ -49,7 +48,6 @@ A full-stack car reservation system built with **NestJS** (backend) and **Angula
 
 - **Package Manager**: pnpm
 - **Linting**: ESLint with Prettier
-- **Testing**: Jest (backend), Karma (frontend)
 - **Containerization**: Docker & Docker Compose
 
 ## 🚀 Getting Started
@@ -89,13 +87,14 @@ A full-stack car reservation system built with **NestJS** (backend) and **Angula
    Create a `.env` file in the `server` directory:
 
    ```env
-   # Se estiver rodando no Docker Compose, use:
+   # If you are running on Docker Compose, use:
    MONGODB_URI=mongodb://mongodb:27017/car-reservation
 
-   # Se estiver rodando localmente (sem Docker), use:
+   # If you are running locally (without Docker), use:
    # MONGODB_URI=mongodb://localhost:27017/car-reservation
 
    JWT_SECRET=your-jwt-secret-key
+   JWT_EXPIRES=7d
    PORT=3000
    ```
 
@@ -145,12 +144,11 @@ Make sure MongoDB is running locally or update the `MONGODB_URI` in your environ
 
 - `POST /auth/login` - User login
 - `POST /auth/register` - User registration
-- `PUT /auth/profile` - Update user profile
+- `PUT /auth/edit/:id` - Update user profile
 
 ### Car Management
 
 - `GET /cars` - Get all available cars
-- `GET /cars/search` - Search cars with filters
 - `POST /cars` - Create new car (Admin only)
 - `PUT /cars/:id` - Update car (Admin only)
 - `DELETE /cars/:id` - Delete car (Admin only)
