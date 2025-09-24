@@ -34,7 +34,7 @@ export class AuthService {
     email,
     password,
   }: CreateUserDto): Promise<AuthResponse> {
-    const existingUser = await this.userModel.findOne({ email });
+    const existingUser = await this.userModel.findOne({ email }).exec();
     if (existingUser) {
       throw new EmailInUseException();
     }
@@ -50,7 +50,10 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginDto): Promise<AuthResponse> {
-    const user = await this.userModel.findOne({ email }).select('+password');
+    const user = await this.userModel
+      .findOne({ email })
+      .select('+password')
+      .exec();
     if (!user) {
       throw new InvalidCredentialsException();
     }
@@ -69,9 +72,11 @@ export class AuthService {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
     if (updateUserDto.email) {
-      const existingUser = await this.userModel.findOne({
-        email: updateUserDto.email,
-      });
+      const existingUser = await this.userModel
+        .findOne({
+          email: updateUserDto.email,
+        })
+        .exec();
       if (existingUser && !existingUser._id.equals(id)) {
         throw new EmailInUseException();
       }
