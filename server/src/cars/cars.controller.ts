@@ -42,6 +42,7 @@ export class CarsController {
   }
 
   @Patch(':id')
+  @Roles(Role.Admin)
   update(
     @Param('id', ParseObjectIdPipe) id: string,
     @Body() updateCarDto: UpdateCarDto,
@@ -49,6 +50,7 @@ export class CarsController {
     return this.carsService.update(id, updateCarDto);
   }
 
+  @Roles(Role.Admin)
   @Delete(':id')
   remove(@Param('id', ParseObjectIdPipe) id: string) {
     return this.carsService.remove(id);
