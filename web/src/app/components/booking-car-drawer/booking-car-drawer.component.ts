@@ -7,12 +7,14 @@ import { Reservation } from '@/app/types/reservation.type';
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from '../button/button.component';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 
@@ -36,6 +38,7 @@ export class BookingCarDrawerComponent implements OnInit {
     private authService: AuthService,
     private carService: CarService,
     private reservationService: ReservationService,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit(): void {
@@ -55,12 +58,15 @@ export class BookingCarDrawerComponent implements OnInit {
   getCarReservation() {
     const carId = this.car?._id;
     if (!carId) return;
-    this.reservationService.getCarWithActiveReservation(carId).subscribe({
-      next: (response) => {
-        this.carReservation = response;
-      },
-      error: () => (this.carReservation = null),
-    });
+    this.reservationService
+      .getCarWithActiveReservation(carId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          this.carReservation = response;
+        },
+        error: () => (this.carReservation = null),
+      });
   }
 
   private onSuccess(message: string) {
@@ -77,6 +83,7 @@ export class BookingCarDrawerComponent implements OnInit {
         userId: this.userId,
         carId: this.car?._id,
       })
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.onSuccess('Carro reservado com sucesso!'),
         error: (error) => toast.error({ text: error }),
@@ -92,6 +99,7 @@ export class BookingCarDrawerComponent implements OnInit {
       .update(carReservationId, {
         isActive: false,
       })
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.onSuccess('Carro liberado!'),
         error: (error) => toast.error({ text: error }),
@@ -105,6 +113,7 @@ export class BookingCarDrawerComponent implements OnInit {
     this.isLoading = true;
     this.carService
       .delete(carId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.onSuccess('Carro excluído com sucesso!'),
         error: (error) => toast.error({ text: error }),
