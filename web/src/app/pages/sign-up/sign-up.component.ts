@@ -44,7 +44,7 @@ export class SignUpComponent {
   }
 
   onSubmit(): void {
-    if (!this.signUpForm.valid) {
+    if (this.signUpForm.invalid) {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
