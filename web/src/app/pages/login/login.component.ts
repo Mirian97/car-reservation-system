@@ -45,7 +45,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (!this.loginForm.valid) {
+    if (this.loginForm.invalid) {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
