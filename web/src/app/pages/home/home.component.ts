@@ -28,7 +28,6 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  greeting!: string;
   searchForm!: FormGroup;
   hasFilterActive!: boolean;
   drawerOpen = false;
@@ -42,7 +41,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getGreeting();
     this.route.queryParams.subscribe((params) => {
       this.hasFilterActive = objectHasValidProperties(params);
       const name = params?.['name'] ?? '';
@@ -51,11 +49,6 @@ export class HomeComponent implements OnInit {
       });
     });
     this.isAdmin = this.authService.isAdmin();
-  }
-
-  getGreeting(): void {
-    const userName = this.authService.getUser()?.name;
-    this.greeting = userName ? `Olá, ${userName}` : 'Olá!';
   }
 
   onSearch(value: string) {
