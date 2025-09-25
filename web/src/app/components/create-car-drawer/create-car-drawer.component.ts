@@ -84,7 +84,7 @@ export class CreateCarDrawerComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.createCarForm.valid) {
+    if (this.createCarForm.invalid) {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
