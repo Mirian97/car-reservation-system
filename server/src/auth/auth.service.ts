@@ -50,19 +50,19 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginDto): Promise<AuthResponse> {
-    const user = await this.userModel
+    const existingUser = await this.userModel
       .findOne({ email })
       .select('+password')
       .exec();
-    if (!user) {
+    if (!existingUser) {
       throw new InvalidCredentialsException();
     }
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(password, existingUser.password);
     if (!passwordMatch) {
       throw new InvalidCredentialsException();
     }
-    const token = await this.generateToken(user);
-    const { password: _, ...userWithoutPassword } = user.toObject();
+    const token = await this.generateToken(existingUser);
+    const { password: _, ...userWithoutPassword } = existingUser.toObject();
     return { token, user: userWithoutPassword };
   }
 
