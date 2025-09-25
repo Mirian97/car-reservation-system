@@ -28,7 +28,7 @@ export class BookingCarDrawerComponent implements OnInit {
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() reservationUpdated = new EventEmitter<void>();
   @Input() showAdminActions?: boolean = false;
-  userId!: string;
+  userId: string | null = null;
   isLoading: boolean = false;
   carReservation: Reservation | null = null;
 
@@ -70,11 +70,12 @@ export class BookingCarDrawerComponent implements OnInit {
   }
 
   onCreateReservation() {
+    if (!this.userId || !this.car?._id) return;
     this.isLoading = true;
     this.reservationService
       .create({
         userId: this.userId,
-        carId: this.car?._id || '',
+        carId: this.car?._id,
       })
       .subscribe({
         next: () => this.onSuccess('Carro reservado com sucesso!'),
