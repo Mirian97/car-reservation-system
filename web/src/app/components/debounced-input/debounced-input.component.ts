@@ -1,14 +1,15 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-debounced-input',
@@ -16,7 +17,7 @@ import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
   imports: [ReactiveFormsModule, NgClass],
   templateUrl: './debounced-input.component.html',
 })
-export class DebouncedInputComponent implements OnInit, OnDestroy {
+export class DebouncedInputComponent implements OnInit {
   searchControl = new FormControl('');
   @Input() debounceTime: number = 500;
   @Input() value: string = '';
@@ -24,7 +25,8 @@ export class DebouncedInputComponent implements OnInit, OnDestroy {
   @Input() className?: string = '';
   @Input() placeholder?: string = '';
   @Output() onChange = new EventEmitter<string>();
-  private destroy$ = new Subject<void>();
+
+  constructor(private destroyRef: DestroyRef) {}
 
   ngOnInit() {
     this.searchControl.setValue(this.value, { emitEvent: false });
@@ -32,15 +34,10 @@ export class DebouncedInputComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(this.debounceTime),
         distinctUntilChanged(),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((value) => {
         this.onChange.emit(value || '');
       });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }
