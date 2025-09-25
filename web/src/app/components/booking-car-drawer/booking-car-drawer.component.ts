@@ -63,6 +63,12 @@ export class BookingCarDrawerComponent implements OnInit {
     });
   }
 
+  private onSuccess(message: string) {
+    toast.success({ text: message });
+    this.reservationUpdated.emit();
+    this.onClose();
+  }
+
   onCreateReservation() {
     this.isLoading = true;
     this.reservationService
@@ -71,11 +77,7 @@ export class BookingCarDrawerComponent implements OnInit {
         carId: this.car?._id || '',
       })
       .subscribe({
-        next: () => {
-          toast.success({ text: 'Carro reservado com sucesso!' });
-          this.reservationUpdated.emit();
-          this.onClose();
-        },
+        next: () => this.onSuccess('Carro reservado com sucesso!'),
         error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
@@ -90,11 +92,7 @@ export class BookingCarDrawerComponent implements OnInit {
         isActive: false,
       })
       .subscribe({
-        next: () => {
-          toast.success({ text: 'Carro liberado!' });
-          this.reservationUpdated.emit();
-          this.onClose();
-        },
+        next: () => this.onSuccess('Carro liberado!'),
         error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
@@ -107,11 +105,7 @@ export class BookingCarDrawerComponent implements OnInit {
     this.carService
       .delete(carId)
       .subscribe({
-        next: () => {
-          toast.success({ text: 'Carro excluído com sucesso!' });
-          this.reservationUpdated.emit();
-          this.onClose();
-        },
+        next: () => this.onSuccess('Carro excluído com sucesso!'),
         error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
