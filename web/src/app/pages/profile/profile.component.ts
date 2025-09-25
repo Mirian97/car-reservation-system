@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
     const formValues = this.profileForm.value;
+    this.isLoading = true;
     this.authService
       .updateProfile(formValues)
       ?.subscribe({

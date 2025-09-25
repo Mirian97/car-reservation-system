@@ -49,6 +49,7 @@ export class LoginComponent {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
+    this.isLoading = true;
     const formValues = this.loginForm.value;
     this.authService
       .login(formValues)

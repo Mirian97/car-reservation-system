@@ -88,6 +88,7 @@ export class CreateCarDrawerComponent implements OnInit {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
+    this.isLoading = true;
     const formValues = this.createCarForm.value;
     this.carService
       .create(formValues)

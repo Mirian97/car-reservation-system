@@ -48,6 +48,7 @@ export class SignUpComponent {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
+    this.isLoading = true;
     const formValues = this.signUpForm.value;
     this.authService
       .signUp(formValues)
