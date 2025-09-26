@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
     const user = this.authService.getUser();
     this.profileForm = this.formBuilder.group({
       name: [user?.name || ''],
-      email: [user?.email || '', [Validators.required, Validators.email]],
+      email: [user?.email || '', [Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required, Validators.minLength(6)],
     });
