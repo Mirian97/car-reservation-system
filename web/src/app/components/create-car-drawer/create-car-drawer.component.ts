@@ -7,7 +7,15 @@ import { toast } from '@/app/helpers/toast';
 import { CarService } from '@/app/services/car.service';
 import { CarType } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormGroup,
@@ -49,6 +57,7 @@ export class CreateCarDrawerComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private carService: CarService,
+    private destroyRef: DestroyRef,
   ) {}
 
   onClose() {
@@ -92,6 +101,7 @@ export class CreateCarDrawerComponent implements OnInit {
     const formValues = this.createCarForm.value;
     this.carService
       .create(formValues)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           toast.success({ text: 'Carro cadastrado!' });
