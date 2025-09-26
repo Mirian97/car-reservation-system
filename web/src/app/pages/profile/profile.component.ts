@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
       name: [user?.name || ''],
       email: [user?.email || '', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: [''],
+      confirmPassword: ['', Validators.required, Validators.minLength(6)],
     });
   }
 
