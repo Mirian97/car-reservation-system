@@ -10,10 +10,7 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 })
 export class DropdownComponent {
   @Input() title: string = '';
-  @Input() options: { label: string; value: string }[] = [];
-
   isOpen = true;
-  selectedValues: string[] = [];
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
