@@ -5,7 +5,7 @@ import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
 import { errorMessages } from '@/app/constants/error-messages.constant';
 import { toast } from '@/app/helpers/toast';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -26,13 +26,10 @@ import {
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
+  formBuilder = inject(FormBuilder);
+  authService = inject(AuthService);
   profileForm!: FormGroup;
   isLoading: boolean = false;
-
-  constructor(
-    readonly formBuilder: FormBuilder,
-    private authService: AuthService,
-  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -55,12 +52,10 @@ export class ProfileComponent implements OnInit {
     }
     const formValues = this.profileForm.value;
     this.isLoading = true;
-    this.authService
-      .updateProfile(formValues)
-      ?.subscribe({
-        next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
-      })
-      .add(() => (this.isLoading = false));
+    this.authService.updateProfile(formValues)?.subscribe({
+      next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
+      complete: () => (this.isLoading = false),
+    });
   }
 
   onLogoutUser(): void {
