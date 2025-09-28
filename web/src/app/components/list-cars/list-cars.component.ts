@@ -2,9 +2,8 @@ import { AuthService } from '@/app/auth/auth.service';
 import { CarService } from '@/app/services/car.service';
 import { Car, SearchCarsFilters } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
 import { BookingCarDrawerComponent } from '../booking-car-drawer/booking-car-drawer.component';
 import { CarCardComponent } from '../car-card/car-card.component';
 import { NoCarResultsComponent } from '../no-car-results/no-car-results.component';
@@ -20,21 +19,15 @@ import { NoCarResultsComponent } from '../no-car-results/no-car-results.componen
   ],
   templateUrl: './list-cars.component.html',
 })
-export class ListCarsComponent {
-  cars$!: Observable<Car[]>;
+export class ListCarsComponent implements OnInit {
+  authService = inject(AuthService);
+  carService = inject(CarService);
+  route = inject(ActivatedRoute);
   drawerOpen = false;
   selectedCar?: Car;
-  isAdmin: boolean = false;
-
-  constructor(
-    private carService: CarService,
-    private authService: AuthService,
-    private route: ActivatedRoute,
-  ) {}
 
   ngOnInit(): void {
     this.searchCars();
-    this.isAdmin = this.authService.isAdmin();
   }
 
   searchCars(): void {
@@ -45,7 +38,7 @@ export class ListCarsComponent {
         engine: params['engine'] || [],
         size: params['size'] || [],
       };
-      this.cars$ = this.carService.searchCars(filters);
+      this.carService.searchCars(filters);
     });
   }
 

@@ -29,6 +29,7 @@ export class BookingCarDrawerComponent implements OnInit {
   @Input() car?: Car;
   @Input() showAdminActions?: boolean = false;
   @Output() closeDrawer = new EventEmitter<void>();
+  @Output() reservationUpdated = new EventEmitter<void>();
   userId: string | null = null;
   isLoading: boolean = false;
   carReservation: Reservation | null = null;
@@ -70,6 +71,7 @@ export class BookingCarDrawerComponent implements OnInit {
 
   private onSuccess(message: string) {
     toast.success({ text: message });
+    this.reservationUpdated.emit();
     this.onClose();
   }
 

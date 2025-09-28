@@ -1,5 +1,5 @@
 <div class="w-full">
-  <ng-container *ngIf="cars$ | async as cars">
+  <ng-container *ngIf="carService.cars$ | async as cars">
     <div *ngIf="cars.length > 0; else emptyState" class="space-y-5">
       <h2
         class="text-primary text-[18px] font-bold px-6 sm:px-12 transition-all md:text-center"
@@ -23,5 +23,6 @@
   [car]="selectedCar"
   [isOpen]="drawerOpen"
   (closeDrawer)="drawerOpen = false"
-  [showAdminActions]="isAdmin && !selectedCar?.isReserved"
+  [showAdminActions]="authService.isAdmin() && !selectedCar?.isReserved"
+  (reservationUpdated)="searchCars()"
 />

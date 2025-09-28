@@ -8,7 +8,6 @@ import {
   Reservation,
   UpdateReservation,
 } from '../types/reservation.type';
-import { CarService } from './car.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +20,7 @@ export class ReservationService {
   >([]);
   reservationsByUser$ = this.reservationsByUserSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private carService: CarService,
-  ) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.getReservationsByUser();
   }
 
@@ -34,9 +29,7 @@ export class ReservationService {
       .get<CarReservationByUser[]>(
         `${this.BASE_PATH}user/${this.authService.getUser()?._id}`,
       )
-      .subscribe((data) => {
-        this.reservationsByUserSubject.next(data);
-      });
+      .subscribe((data) => this.reservationsByUserSubject.next(data));
   }
 
   getCarWithActiveReservation(carId: string): Observable<Reservation | null> {
@@ -44,12 +37,9 @@ export class ReservationService {
   }
 
   create(form: CreateReservation) {
-    return this.http.post(this.BASE_PATH, form).pipe(
-      tap(() => {
-        this.getReservationsByUser();
-        this.carService.searchCars();
-      }),
-    );
+    return this.http
+      .post(this.BASE_PATH, form)
+      .pipe(tap(() => this.getReservationsByUser()));
   }
 
   update(reservationId: string, form: UpdateReservation) {
