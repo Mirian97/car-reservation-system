@@ -8,6 +8,7 @@ import {
   Reservation,
   UpdateReservation,
 } from '../types/reservation.type';
+import { CarService } from './car.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,11 @@ export class ReservationService {
   >([]);
   reservationsByUser$ = this.reservationsByUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private carService: CarService,
+  ) {
     this.getReservationsByUser();
   }
 
@@ -39,9 +44,12 @@ export class ReservationService {
   }
 
   create(form: CreateReservation) {
-    return this.http
-      .post(this.BASE_PATH, form)
-      .pipe(tap(() => this.getReservationsByUser()));
+    return this.http.post(this.BASE_PATH, form).pipe(
+      tap(() => {
+        this.getReservationsByUser();
+        this.carService.searchCars();
+      }),
+    );
   }
 
   update(reservationId: string, form: UpdateReservation) {
