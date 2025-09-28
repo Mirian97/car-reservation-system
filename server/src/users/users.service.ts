@@ -16,13 +16,14 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.userModel.find();
+    return await this.userModel.find().exec();
   }
 
   async findOne(id: string, withPassword: boolean = false) {
     const user = await this.userModel
       .findById(id)
-      .select(withPassword ? '+password' : '-password');
+      .select(withPassword ? '+password' : '-password')
+      .exec();
     if (!user) {
       throw new UserNotFoundException();
     }
@@ -30,13 +31,16 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.userModel.findByIdAndUpdate(id, updateUserDto, {
-      new: true,
-    });
+    await this.findOne(id);
+    return await this.userModel
+      .findByIdAndUpdate(id, updateUserDto, {
+        new: true,
+      })
+      .exec();
   }
 
   async remove(id: string) {
     await this.findOne(id);
-    return await this.userModel.findByIdAndDelete(id);
+    return await this.userModel.findByIdAndDelete(id).exec();
   }
 }

@@ -44,16 +44,16 @@ export class SignUpComponent {
   }
 
   onSubmit(): void {
-    if (!this.signUpForm.valid) {
+    if (this.signUpForm.invalid) {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
+    this.isLoading = true;
     const formValues = this.signUpForm.value;
     this.authService
       .signUp(formValues)
       .subscribe({
         next: () => this.router.navigate(['/inicio']),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }

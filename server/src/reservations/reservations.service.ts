@@ -17,10 +17,12 @@ export class ReservationsService {
   ) {}
 
   async create(createReservationDto: CreateReservationDto) {
-    const user = await this.reservationModel.findOne({
-      userId: createReservationDto.userId,
-      isActive: true,
-    });
+    const user = await this.reservationModel
+      .findOne({
+        userId: createReservationDto.userId,
+        isActive: true,
+      })
+      .exec();
     if (user !== null) {
       throw new ActiveUserReservationException();
     }
@@ -36,7 +38,7 @@ export class ReservationsService {
   }
 
   async findAll() {
-    return await this.reservationModel.find();
+    return await this.reservationModel.find().exec();
   }
 
   async findByUserId(id: string) {
@@ -46,11 +48,12 @@ export class ReservationsService {
         isActive: true,
       })
       .populate('carId')
-      .select('carId userId');
+      .select('carId userId')
+      .exec();
   }
 
   async findOne(id: string) {
-    const reservation = await this.reservationModel.findById(id);
+    const reservation = await this.reservationModel.findById(id).exec();
     if (!reservation) {
       throw new ReservationNotFoundException();
     }
@@ -63,19 +66,19 @@ export class ReservationsService {
       const carId = reservation?.carId?.toString();
       await this.carsService.setIsReserved(carId, false);
     }
-    return await this.reservationModel.findByIdAndUpdate(
-      id,
-      updateReservationDto,
-      {
+    return await this.reservationModel
+      .findByIdAndUpdate(id, updateReservationDto, {
         new: true,
-      },
-    );
+      })
+      .exec();
   }
 
   async findOneCarAndActiveReservation(carId: string) {
-    return await this.reservationModel.findOne({
-      carId: carId.toString(),
-      isActive: true,
-    });
+    return await this.reservationModel
+      .findOne({
+        carId: carId.toString(),
+        isActive: true,
+      })
+      .exec();
   }
 }

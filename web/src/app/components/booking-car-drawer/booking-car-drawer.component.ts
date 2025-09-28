@@ -7,12 +7,14 @@ import { Reservation } from '@/app/types/reservation.type';
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from '../button/button.component';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 
@@ -28,7 +30,7 @@ export class BookingCarDrawerComponent implements OnInit {
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() reservationUpdated = new EventEmitter<void>();
   @Input() showAdminActions?: boolean = false;
-  userId!: string;
+  userId: string | null = null;
   isLoading: boolean = false;
   carReservation: Reservation | null = null;
 
@@ -36,6 +38,7 @@ export class BookingCarDrawerComponent implements OnInit {
     private authService: AuthService,
     private carService: CarService,
     private reservationService: ReservationService,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit(): void {
@@ -55,28 +58,34 @@ export class BookingCarDrawerComponent implements OnInit {
   getCarReservation() {
     const carId = this.car?._id;
     if (!carId) return;
-    this.reservationService.getCarWithActiveReservation(carId).subscribe({
-      next: (response) => {
-        this.carReservation = response;
-      },
-      error: () => (this.carReservation = null),
-    });
+    this.reservationService
+      .getCarWithActiveReservation(carId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          this.carReservation = response;
+        },
+        error: () => (this.carReservation = null),
+      });
+  }
+
+  private onSuccess(message: string) {
+    toast.success({ text: message });
+    this.reservationUpdated.emit();
+    this.onClose();
   }
 
   onCreateReservation() {
+    if (!this.userId || !this.car?._id) return;
     this.isLoading = true;
     this.reservationService
       .create({
         userId: this.userId,
-        carId: this.car?._id || '',
+        carId: this.car?._id,
       })
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          toast.success({ text: 'Carro reservado com sucesso!' });
-          this.reservationUpdated.emit();
-          this.onClose();
-        },
-        error: (error) => toast.error({ text: error }),
+        next: () => this.onSuccess('Carro reservado com sucesso!'),
       })
       .add(() => (this.isLoading = false));
   }
@@ -89,13 +98,9 @@ export class BookingCarDrawerComponent implements OnInit {
       .update(carReservationId, {
         isActive: false,
       })
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          toast.success({ text: 'Carro liberado!' });
-          this.reservationUpdated.emit();
-          this.onClose();
-        },
-        error: (error) => toast.error({ text: error }),
+        next: () => this.onSuccess('Carro liberado!'),
       })
       .add(() => (this.isLoading = false));
   }
@@ -106,13 +111,9 @@ export class BookingCarDrawerComponent implements OnInit {
     this.isLoading = true;
     this.carService
       .delete(carId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          toast.success({ text: 'Carro excluído com sucesso!' });
-          this.reservationUpdated.emit();
-          this.onClose();
-        },
-        error: (error) => toast.error({ text: error }),
+        next: () => this.onSuccess('Carro excluído com sucesso!'),
       })
       .add(() => (this.isLoading = false));
   }

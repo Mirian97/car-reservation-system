@@ -20,7 +20,7 @@ export class CarsService {
   async findAll(query?: SearchCarsPartialDto) {
     const filters: Record<string, any> = { isReserved: false };
     if (!query) {
-      return await this.carModel.find({ isReserved: false });
+      return await this.carModel.find({ isReserved: false }).exec();
     }
     if (query.name) {
       filters.name = { $regex: query.name, $options: 'i' };
@@ -34,11 +34,11 @@ export class CarsService {
     if (query.size && query.size.length > 0) {
       filters.size = { $in: query.size };
     }
-    return this.carModel.find(filters);
+    return this.carModel.find(filters).exec();
   }
 
   async findOne(id: string) {
-    const car = await this.carModel.findById(id);
+    const car = await this.carModel.findById(id).exec();
     if (!car) {
       throw new CarNotFoundException();
     }
@@ -47,25 +47,29 @@ export class CarsService {
 
   async update(id: string, updateCarDto: UpdateCarDto) {
     await this.findOne(id);
-    return await this.carModel.findByIdAndUpdate(id, updateCarDto, {
-      new: true,
-    });
+    return await this.carModel
+      .findByIdAndUpdate(id, updateCarDto, {
+        new: true,
+      })
+      .exec();
   }
 
   async remove(id: string) {
     await this.findOne(id);
-    return await this.carModel.findByIdAndDelete(id);
+    return await this.carModel.findByIdAndDelete(id).exec();
   }
 
   async setIsReserved(id: string, isReserved: boolean) {
     await this.findOne(id);
-    return await this.carModel.findByIdAndUpdate(
-      id,
-      { isReserved },
-      {
-        new: true,
-      },
-    );
+    return await this.carModel
+      .findByIdAndUpdate(
+        id,
+        { isReserved },
+        {
+          new: true,
+        },
+      )
+      .exec();
   }
 
   getCarType() {

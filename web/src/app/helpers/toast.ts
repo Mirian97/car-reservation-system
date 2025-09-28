@@ -23,11 +23,11 @@ const showToast = (options: ToastOptions = {}) => {
 
 export const toast = {
   success: (options?: ToastOptions) =>
-    showToast({ ...options, title: 'Sucesso!', icon: 'success' }),
+    showToast({ title: 'Sucesso!', icon: 'success', ...options }),
   error: (options?: ToastOptions) =>
-    showToast({ ...options, title: 'Erro', icon: 'error' }),
+    showToast({ title: 'Erro', icon: 'error', ...options }),
   warning: (options?: ToastOptions) =>
-    showToast({ ...options, title: 'Atenção!', icon: 'warning' }),
+    showToast({ title: 'Atenção!', icon: 'warning', ...options }),
   info: (options?: ToastOptions) =>
-    showToast({ ...options, title: 'Info', icon: 'info' }),
+    showToast({ title: 'Info', icon: 'info', ...options }),
 };

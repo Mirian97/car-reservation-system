@@ -42,9 +42,9 @@ export class ProfileComponent implements OnInit {
     const user = this.authService.getUser();
     this.profileForm = this.formBuilder.group({
       name: [user?.name || ''],
-      email: [user?.email || '', [Validators.required, Validators.email]],
+      email: [user?.email || '', [Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: [''],
+      confirmPassword: ['', Validators.required, Validators.minLength(6)],
     });
   }
 
@@ -54,11 +54,11 @@ export class ProfileComponent implements OnInit {
       return;
     }
     const formValues = this.profileForm.value;
+    this.isLoading = true;
     this.authService
       .updateProfile(formValues)
       ?.subscribe({
         next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }

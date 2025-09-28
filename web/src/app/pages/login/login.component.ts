@@ -45,16 +45,16 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (!this.loginForm.valid) {
+    if (this.loginForm.invalid) {
       toast.error({ text: errorMessages.fillInCorrectly });
       return;
     }
+    this.isLoading = true;
     const formValues = this.loginForm.value;
     this.authService
       .login(formValues)
       .subscribe({
         next: () => this.router.navigate(['/inicio']),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }
