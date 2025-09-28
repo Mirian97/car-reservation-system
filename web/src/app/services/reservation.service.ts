@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { CarReservationByUser } from '../types/car.type';
 import {
   CreateReservation,
@@ -14,12 +15,23 @@ import {
 export class ReservationService {
   readonly BASE_PATH = 'reservations/';
 
-  constructor(private http: HttpClient) {}
+  private reservationsByUserSubject = new BehaviorSubject<
+    CarReservationByUser[]
+  >([]);
+  reservationsByUser$ = this.reservationsByUserSubject.asObservable();
 
-  getReservationsByUser(userId: string): Observable<CarReservationByUser[]> {
-    return this.http.get<CarReservationByUser[]>(
-      `${this.BASE_PATH}user/${userId}`,
-    );
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.getReservationsByUser();
+  }
+
+  getReservationsByUser(): void {
+    this.http
+      .get<CarReservationByUser[]>(
+        `${this.BASE_PATH}user/${this.authService.getUser()?._id}`,
+      )
+      .subscribe((data) => {
+        this.reservationsByUserSubject.next(data);
+      });
   }
 
   getCarWithActiveReservation(carId: string): Observable<Reservation | null> {
