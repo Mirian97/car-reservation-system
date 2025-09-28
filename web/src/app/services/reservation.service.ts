@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { CarReservationByUser } from '../types/car.type';
 import {
@@ -39,10 +39,14 @@ export class ReservationService {
   }
 
   create(form: CreateReservation) {
-    return this.http.post(this.BASE_PATH, form);
+    return this.http
+      .post(this.BASE_PATH, form)
+      .pipe(tap(() => this.getReservationsByUser()));
   }
 
   update(reservationId: string, form: UpdateReservation) {
-    return this.http.patch(`${this.BASE_PATH}${reservationId}`, form);
+    return this.http
+      .patch(`${this.BASE_PATH}${reservationId}`, form)
+      .pipe(tap(() => this.getReservationsByUser()));
   }
 }

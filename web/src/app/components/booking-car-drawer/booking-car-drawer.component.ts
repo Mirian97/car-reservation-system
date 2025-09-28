@@ -27,9 +27,9 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 export class BookingCarDrawerComponent implements OnInit {
   @Input() isOpen = false;
   @Input() car?: Car;
+  @Input() showAdminActions?: boolean = false;
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() reservationUpdated = new EventEmitter<void>();
-  @Input() showAdminActions?: boolean = false;
   userId: string | null = null;
   isLoading: boolean = false;
   carReservation: Reservation | null = null;
