@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
-import { errorMessages } from '../constants/error-messages.constant';
+import { Observable } from 'rxjs';
 import { CarReservationByUser } from '../types/car.type';
 import {
   CreateReservation,
@@ -18,42 +17,20 @@ export class ReservationService {
   constructor(private http: HttpClient) {}
 
   getReservationsByUser(userId: string): Observable<CarReservationByUser[]> {
-    return this.http
-      .get<CarReservationByUser[]>(`${this.BASE_PATH}user/${userId}`)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.get<CarReservationByUser[]>(
+      `${this.BASE_PATH}user/${userId}12312`,
+    );
   }
 
   getCarWithActiveReservation(carId: string): Observable<Reservation | null> {
-    return this.http
-      .get<Reservation | null>(`${this.BASE_PATH}car/${carId}`)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.get<Reservation | null>(`${this.BASE_PATH}car/${carId}`);
   }
 
   create(form: CreateReservation) {
-    return this.http
-      .post(this.BASE_PATH, form)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.post(this.BASE_PATH, form);
   }
 
   update(reservationId: string, form: UpdateReservation) {
-    return this.http
-      .patch(`${this.BASE_PATH}${reservationId}`, form)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.patch(`${this.BASE_PATH}${reservationId}`, form);
   }
 }

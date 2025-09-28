@@ -59,7 +59,6 @@ export class ProfileComponent implements OnInit {
       .updateProfile(formValues)
       ?.subscribe({
         next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }

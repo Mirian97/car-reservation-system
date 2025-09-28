@@ -2,9 +2,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { errorMessages } from '../constants/error-messages.constant';
 import {
   AuthResponse,
   LoginForm,
@@ -69,9 +68,6 @@ export class AuthService {
           this.setUser(response.user);
         }
       }),
-      catchError((error) =>
-        throwError(() => error.error.message || errorMessages.unexpected),
-      ),
     );
   }
 
@@ -83,22 +79,13 @@ export class AuthService {
           this.setUser(response.user);
         }
       }),
-      catchError((error) =>
-        throwError(() => error.error.message || errorMessages.unexpected),
-      ),
     );
   }
 
   updateProfile(form: UpdateProfileForm) {
     const userId = this.getUser()?._id;
     if (!userId) return;
-    return this.http
-      .patch(`${this.BASE_PATH}edit/${userId}`, form)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.patch(`${this.BASE_PATH}edit/${userId}`, form);
   }
 
   logout() {
