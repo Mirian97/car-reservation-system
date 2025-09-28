@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
-import { errorMessages } from '../constants/error-messages.constant';
+import { Observable } from 'rxjs';
 import {
   Car,
   CarType,
@@ -18,42 +17,18 @@ export class CarService {
   constructor(private http: HttpClient) {}
 
   searchCars(filters: Partial<SearchCarsFilters> = {}): Observable<Car[]> {
-    return this.http
-      .get<Car[]>(this.BASE_PATH, { params: filters })
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.get<Car[]>(this.BASE_PATH, { params: filters });
   }
 
   getCarType(): Observable<CarType[]> {
-    return this.http
-      .get<CarType[]>(`${this.BASE_PATH}type`)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.get<CarType[]>(`${this.BASE_PATH}type`);
   }
 
   create(form: CreateCarForm) {
-    return this.http
-      .post(this.BASE_PATH, form)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.post(this.BASE_PATH, form);
   }
 
   delete(carId: string) {
-    return this.http
-      .delete(`${this.BASE_PATH}${carId}`)
-      .pipe(
-        catchError((error) =>
-          throwError(() => error.error.message || errorMessages.unexpected),
-        ),
-      );
+    return this.http.delete(`${this.BASE_PATH}${carId}`);
   }
 }

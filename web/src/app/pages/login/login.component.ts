@@ -55,7 +55,6 @@ export class LoginComponent {
       .login(formValues)
       .subscribe({
         next: () => this.router.navigate(['/inicio']),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }

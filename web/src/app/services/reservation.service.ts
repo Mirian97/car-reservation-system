@@ -18,7 +18,7 @@ export class ReservationService {
 
   getReservationsByUser(userId: string): Observable<CarReservationByUser[]> {
     return this.http.get<CarReservationByUser[]>(
-      `${this.BASE_PATH}user/${userId}12312`,
+      `${this.BASE_PATH}user/${userId}`,
     );
   }
 

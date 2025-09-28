@@ -86,7 +86,6 @@ export class BookingCarDrawerComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.onSuccess('Carro reservado com sucesso!'),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }
@@ -102,7 +101,6 @@ export class BookingCarDrawerComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.onSuccess('Carro liberado!'),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }
@@ -116,7 +114,6 @@ export class BookingCarDrawerComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.onSuccess('Carro excluído com sucesso!'),
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }

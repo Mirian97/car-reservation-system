@@ -108,7 +108,6 @@ export class CreateCarDrawerComponent implements OnInit {
           this.onClose();
           this.carsUpdated.emit();
         },
-        error: (error) => toast.error({ text: error }),
       })
       .add(() => (this.isLoading = false));
   }
