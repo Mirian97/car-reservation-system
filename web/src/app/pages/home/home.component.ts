@@ -5,7 +5,7 @@ import { LastReservationsComponent } from '@/app/components/last-reservations/la
 import { ListCarsComponent } from '@/app/components/list-cars/list-cars.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
-import { objectHasValidProperties } from '@/app/helpers/objectHasValidProperties';
+import { objectHasValidProperties } from '@/app/helpers/object-has-valid-properties';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
