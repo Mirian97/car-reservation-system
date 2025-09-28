@@ -15,44 +15,37 @@ export const mapErrorMessageByStatusCode = (
     case 400:
       return {
         title: 'Requisição Inválida',
-        text:
-          messageParsed ||
-          'Por favor, verifique os dados inseridos e tente novamente.',
+        text: messageParsed || errorMessages.fillInCorrectly,
       };
     case 401:
       return {
-        title: 'Não Autorizado',
-        text: messageParsed || 'Faça login para acessar este recurso.',
+        title: 'Não Autenticado',
+        text: messageParsed || errorMessages.notAuthorized,
       };
     case 403:
       return {
         title: 'Acesso Proibido',
-        text:
-          messageParsed || 'Você não tem permissão para acessar este recurso.',
+        text: messageParsed || errorMessages.notAuthenticated,
       };
     case 404:
       return {
         title: 'Não Encontrado',
-        text: messageParsed || 'O recurso solicitado não foi encontrado.',
+        text: messageParsed || errorMessages.resourceNotFound,
       };
     case 500:
       return {
         title: 'Erro Interno do Servidor',
-        text: messageParsed || 'Tente novamente mais tarde.',
+        text: messageParsed || errorMessages.tryAgainLater,
       };
     case 503:
       return {
         title: 'Serviço Indisponível',
-        text:
-          messageParsed ||
-          'O serviço está temporariamente indisponível. Tente novamente mais tarde.',
+        text: messageParsed || errorMessages.unavailableService,
       };
     default:
       return {
         title: 'Erro Inesperado',
-        text:
-          messageParsed ||
-          'Ocorreu um erro inesperado. Por favor, tente novamente.',
+        text: messageParsed || errorMessages.unexpectedError,
       };
   }
 };
