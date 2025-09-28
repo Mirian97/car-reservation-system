@@ -1,8 +1,9 @@
 import { AuthService } from '@/app/auth/auth.service';
+import { mapParamsToCarFilters } from '@/app/helpers/map-params-to-car-filters.helper';
 import { CarService } from '@/app/services/car.service';
-import { Car, SearchCarsFilters } from '@/app/types/car.type';
+import { Car } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BookingCarDrawerComponent } from '../booking-car-drawer/booking-car-drawer.component';
@@ -20,7 +21,7 @@ import { NoCarResultsComponent } from '../no-car-results/no-car-results.componen
   ],
   templateUrl: './list-cars.component.html',
 })
-export class ListCarsComponent implements OnInit {
+export class ListCarsComponent {
   authService = inject(AuthService);
   carService = inject(CarService);
   route = inject(ActivatedRoute);
@@ -37,12 +38,7 @@ export class ListCarsComponent implements OnInit {
     this.route.queryParams
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params: Params) => {
-        const filters: Partial<SearchCarsFilters> = {
-          name: params['name'] || '',
-          type: params['type'] || [],
-          engine: params['engine'] || [],
-          size: params['size'] || [],
-        };
+        const filters = mapParamsToCarFilters(params);
         this.carService.searchCars(filters);
       });
   }
