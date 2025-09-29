@@ -1,13 +1,14 @@
 import { Params } from '@angular/router';
 import { SearchCarsFilters } from '../types/car.type';
+import { normalizeToArray } from './normalize-to-array.helper';
 
 export const mapParamsToCarFilters = (
   params: Params,
 ): Partial<SearchCarsFilters> => {
   return {
     name: params['name'] ?? '',
-    type: params['type'] ?? [],
-    engine: params?.['engine']?.map(Number) ?? [],
-    size: params?.['size']?.map(Number) ?? [],
+    type: normalizeToArray(params['type']),
+    engine: normalizeToArray(params['engine']).map(Number),
+    size: normalizeToArray(params['size']).map(Number),
   };
 };
