@@ -13,7 +13,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { ButtonComponent } from '../button/button.component';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 
@@ -24,9 +24,9 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
   templateUrl: './booking-car-drawer.component.html',
 })
 export class BookingCarDrawerComponent {
-  authService = inject(AuthService);
-  carService = inject(CarService);
-  reservationService = inject(ReservationService);
+  private authService = inject(AuthService);
+  private carService = inject(CarService);
+  private reservationService = inject(ReservationService);
 
   @Input() isOpen = false;
   @Input() car?: Car;
@@ -47,10 +47,22 @@ export class BookingCarDrawerComponent {
     this.closeDrawer.emit();
   }
 
-  private onSuccess(message: string) {
-    toast.success({ text: message });
-    this.reservationUpdated.emit();
-    this.onClose();
+  private handleAction<T>(
+    action: Observable<T>,
+    successMessage: string,
+    onSuccessCallback?: () => void,
+  ) {
+    this.isLoading = true;
+    action.pipe(first()).subscribe({
+      next: () => {
+        toast.success({ text: successMessage });
+        this.reservationUpdated.emit();
+        onSuccessCallback?.();
+        this.onClose();
+      },
+      error: (err) => console.error(err),
+      complete: () => (this.isLoading = false),
+    });
   }
 
   getCarReservation() {
@@ -69,44 +81,27 @@ export class BookingCarDrawerComponent {
 
   onCreateReservation() {
     if (!this.userId || !this.car?._id) return;
-    this.isLoading = true;
-    this.reservationService
-      .create({
+    this.handleAction(
+      this.reservationService.create({
         userId: this.userId,
-        carId: this.car?._id,
-      })
-      .pipe(first())
-      .subscribe({
-        next: () => this.onSuccess('Carro reservado'),
-      })
-      .add(() => (this.isLoading = false));
+        carId: this.car._id,
+      }),
+      'Carro reservado',
+    );
   }
 
   onReleaseCar() {
     const carReservationId = this.carReservation?._id;
     if (!carReservationId) return;
-    this.isLoading = true;
-    this.reservationService
-      .update(carReservationId, {
-        isActive: false,
-      })
-      .pipe(first())
-      .subscribe({
-        next: () => this.onSuccess('Carro liberado'),
-      })
-      .add(() => (this.isLoading = false));
+    this.handleAction(
+      this.reservationService.update(carReservationId, { isActive: false }),
+      'Carro liberado',
+    );
   }
 
   onDeleteCar() {
     const carId = this.car?._id;
     if (!carId) return;
-    this.isLoading = true;
-    this.carService
-      .delete(carId)
-      .pipe(first())
-      .subscribe({
-        next: () => this.onSuccess('Carro excluído!'),
-      })
-      .add(() => (this.isLoading = false));
+    this.handleAction(this.carService.delete(carId), 'Carro excluído!');
   }
 }
