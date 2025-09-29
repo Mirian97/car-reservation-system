@@ -4,6 +4,7 @@ import { InputComponent } from '@/app/components/input/input.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
 import { errorMessages } from '@/app/constants/error-messages.constant';
+import { passwordMatchValidator } from '@/app/helpers/password-match-validator.helper';
 import { toast } from '@/app/helpers/toast';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -37,12 +38,17 @@ export class ProfileComponent implements OnInit {
 
   initializeForm() {
     const user = this.authService.getUser();
-    this.profileForm = this.formBuilder.group({
-      name: [user?.name || ''],
-      email: [user?.email || '', [Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required, Validators.minLength(6)],
-    });
+    this.profileForm = this.formBuilder.group(
+      {
+        name: [user?.name || ''],
+        email: [user?.email || '', [Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      },
+      {
+        validators: [passwordMatchValidator],
+      },
+    );
   }
 
   onSubmit(): void {
