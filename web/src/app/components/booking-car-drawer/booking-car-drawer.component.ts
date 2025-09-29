@@ -77,7 +77,7 @@ export class BookingCarDrawerComponent {
       })
       .pipe(first())
       .subscribe({
-        next: () => this.onSuccess('Carro reservado com sucesso!'),
+        next: () => this.onSuccess('Carro reservado'),
       })
       .add(() => (this.isLoading = false));
   }
@@ -92,7 +92,7 @@ export class BookingCarDrawerComponent {
       })
       .pipe(first())
       .subscribe({
-        next: () => this.onSuccess('Carro liberado!'),
+        next: () => this.onSuccess('Carro liberado'),
       })
       .add(() => (this.isLoading = false));
   }
@@ -105,7 +105,7 @@ export class BookingCarDrawerComponent {
       .delete(carId)
       .pipe(first())
       .subscribe({
-        next: () => this.onSuccess('Carro excluído com sucesso!'),
+        next: () => this.onSuccess('Carro excluído!'),
       })
       .add(() => (this.isLoading = false));
   }
