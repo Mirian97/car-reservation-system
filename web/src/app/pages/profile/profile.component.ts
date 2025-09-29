@@ -58,9 +58,11 @@ export class ProfileComponent implements OnInit {
     }
     const formValues = this.profileForm.value;
     this.isLoading = true;
-    this.authService.updateProfile(formValues)?.subscribe({
-      next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
-      complete: () => (this.isLoading = false),
-    });
+    this.authService
+      .updateProfile(formValues)
+      ?.subscribe({
+        next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
+      })
+      .add(() => (this.isLoading = false));
   }
 }

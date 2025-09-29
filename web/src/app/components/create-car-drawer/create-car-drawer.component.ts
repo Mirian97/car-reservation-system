@@ -24,7 +24,6 @@ import {
   Validators,
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
@@ -53,16 +52,10 @@ export class CreateCarDrawerComponent implements OnInit {
   @Input() isOpen = false;
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() carsUpdated = new EventEmitter<void>();
-  carTypeList$!: Observable<CarType[]>;
   createCarForm!: FormGroup;
   isLoading: boolean = false;
   engineList = engineListValues;
   seatList = seatListValues;
-
-  onClose() {
-    this.closeDrawer.emit();
-    this.createCarForm.reset();
-  }
 
   ngOnInit(): void {
     this.createCarForm = this.formBuilder.group({
@@ -79,6 +72,11 @@ export class CreateCarDrawerComponent implements OnInit {
         ],
       ],
     });
+  }
+
+  onClose() {
+    this.closeDrawer.emit();
+    this.createCarForm.reset();
   }
 
   onTypeChange(type: CarType): void {

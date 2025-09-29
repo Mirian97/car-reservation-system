@@ -48,9 +48,11 @@ export class LoginComponent {
     }
     this.isLoading = true;
     const formValues = this.loginForm.value;
-    this.authService.login(formValues).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      complete: () => (this.isLoading = false),
-    });
+    this.authService
+      .login(formValues)
+      .subscribe({
+        next: () => this.router.navigate(['/inicio']),
+      })
+      .add(() => (this.isLoading = false));
   }
 }

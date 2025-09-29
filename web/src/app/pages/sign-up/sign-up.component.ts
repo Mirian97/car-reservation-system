@@ -47,9 +47,11 @@ export class SignUpComponent {
     }
     this.isLoading = true;
     const formValues = this.signUpForm.value;
-    this.authService.signUp(formValues).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      complete: () => (this.isLoading = false),
-    });
+    this.authService
+      .signUp(formValues)
+      .subscribe({
+        next: () => this.router.navigate(['/inicio']),
+      })
+      .add(() => (this.isLoading = false));
   }
 }
