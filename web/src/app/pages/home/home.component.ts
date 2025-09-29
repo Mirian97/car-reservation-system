@@ -49,9 +49,10 @@ export class HomeComponent implements OnInit {
   }
 
   onSearch(value: string) {
-    const queryParams = value ? { name: value } : {};
     this.router.navigate([], {
-      queryParams,
+      queryParams: {
+        name: value,
+      },
       queryParamsHandling: 'merge',
     });
   }

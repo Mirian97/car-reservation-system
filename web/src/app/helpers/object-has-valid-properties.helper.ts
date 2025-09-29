@@ -1,4 +1,4 @@
-export const objectHasValidProperties = (obj: Object) =>
+export const objectHasValidProperties = (obj: object) =>
   Object.values(obj).some(
-    (value) => value !== '' || value !== null || value !== undefined,
+    (value) => value !== null && value !== undefined && value !== '',
   );
