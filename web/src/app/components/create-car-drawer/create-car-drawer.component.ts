@@ -65,7 +65,6 @@ export class CreateCarDrawerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCarTypeList();
     this.createCarForm = this.formBuilder.group({
       name: [defaultCreateCar.name || '', [Validators.required]],
       engine: [defaultCreateCar.engine || '', [Validators.required]],
@@ -80,10 +79,6 @@ export class CreateCarDrawerComponent implements OnInit {
         ],
       ],
     });
-  }
-
-  getCarTypeList() {
-    this.carTypeList$ = this.carService.getCarType();
   }
 
   onTypeChange(type: CarType): void {

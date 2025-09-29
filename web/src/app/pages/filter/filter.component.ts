@@ -10,10 +10,9 @@ import { seatListValues } from '@/app/constants/seat-list.constants';
 import { CarService } from '@/app/services/car.service';
 import { CarType, SearchCarsFilters } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-filter',
@@ -31,21 +30,17 @@ import { Observable } from 'rxjs';
   templateUrl: './filter.component.html',
 })
 export class FilterComponent implements OnInit {
-  carTypeList$!: Observable<CarType[]>;
+  formBuilder = inject(FormBuilder);
+  carService = inject(CarService);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+
   engineList = engineListValues;
   seatList = seatListValues;
   filtersForm!: FormGroup;
   previousQueryParams: Partial<SearchCarsFilters> = {};
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private carService: CarService,
-    private formBuilder: FormBuilder,
-  ) {}
-
   ngOnInit(): void {
-    this.getCarTypeList();
     this.route.queryParams?.subscribe((params) => {
       this.previousQueryParams = { ...params };
       this.filtersForm = this.formBuilder.group({
@@ -55,10 +50,6 @@ export class FilterComponent implements OnInit {
         size: [params?.['size']?.map(Number) || defaultCarFilters.size],
       });
     });
-  }
-
-  getCarTypeList() {
-    this.carTypeList$ = this.carService.getCarType();
   }
 
   onTypeChange(type: CarType, event: Event): void {

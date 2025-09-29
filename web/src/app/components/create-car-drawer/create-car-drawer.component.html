@@ -41,7 +41,7 @@
       name="year"
       size="sm"
     />
-    <ng-container *ngIf="carTypeList$ | async as types">
+    <ng-container *ngIf="carService.carListType$ | async as types">
       <div class="space-y-3">
         <h2 class="text-primary font-bold transition-all">Tipos</h2>
         <div class="grid grid-cols-2 gap-1">

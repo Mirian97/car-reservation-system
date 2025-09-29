@@ -18,7 +18,7 @@
   </div>
   <div class="flex-1">
     <app-dropdown title="Tipos de carrocerias">
-      <ng-container *ngIf="carTypeList$ | async as types">
+      <ng-container *ngIf="carService.carListType$ | async as types">
         <div class="grid grid-cols-2 gap-1">
           <label
             *ngFor="let type of types"
