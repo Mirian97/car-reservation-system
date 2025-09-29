@@ -87,6 +87,13 @@
         </app-toggle-button>
       </div>
     </div>
-    <app-button className="uppercase mt-8" type="submit">Salvar</app-button>
+    <app-button
+      type="submit"
+      className="uppercase mt-8"
+      [isLoading]="isLoading"
+      [disabled]="createCarForm.invalid"
+    >
+      Salvar
+    </app-button>
   </form>
 </div>

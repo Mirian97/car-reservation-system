@@ -11,6 +11,7 @@ import {
   Component,
   DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
@@ -45,6 +46,10 @@ import { ToggleButtonComponent } from '../toggle-button/toggle-button.component'
   templateUrl: './create-car-drawer.component.html',
 })
 export class CreateCarDrawerComponent implements OnInit {
+  formBuilder = inject(FormBuilder);
+  carService = inject(CarService);
+  destroyRef = inject(DestroyRef);
+
   @Input() isOpen = false;
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() carsUpdated = new EventEmitter<void>();
@@ -54,12 +59,6 @@ export class CreateCarDrawerComponent implements OnInit {
   engineList = engineListValues;
   seatList = seatListValues;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private carService: CarService,
-    private destroyRef: DestroyRef,
-  ) {}
-
   onClose() {
     this.closeDrawer.emit();
     this.createCarForm.reset();
@@ -68,11 +67,18 @@ export class CreateCarDrawerComponent implements OnInit {
   ngOnInit(): void {
     this.getCarTypeList();
     this.createCarForm = this.formBuilder.group({
-      name: [defaultCreateCar.name || '', Validators.required],
-      engine: [defaultCreateCar.engine || '', Validators.required],
-      size: [defaultCreateCar.size || '', Validators.required],
-      type: [defaultCreateCar.type || '', Validators.required],
-      year: [defaultCreateCar.year || '', Validators.required],
+      name: [defaultCreateCar.name || '', [Validators.required]],
+      engine: [defaultCreateCar.engine || '', [Validators.required]],
+      size: [defaultCreateCar.size || '', [Validators.required]],
+      type: [defaultCreateCar.type || '', [Validators.required]],
+      year: [
+        defaultCreateCar.year || '',
+        [
+          Validators.required,
+          Validators.min(1900),
+          Validators.max(new Date().getFullYear()),
+        ],
+      ],
     });
   }
 
