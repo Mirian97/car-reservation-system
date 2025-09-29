@@ -7,7 +7,7 @@ export const mapParamsToCarFilters = (
   return {
     name: params['name'] ?? '',
     type: params['type'] ?? [],
-    engine: params['engine'] ?? [],
-    size: params['size'] ?? [],
+    engine: params?.['engine']?.map(Number) ?? [],
+    size: params?.['size']?.map(Number) ?? [],
   };
 };

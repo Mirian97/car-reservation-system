@@ -7,6 +7,7 @@ import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-but
 import { defaultCarFilters } from '@/app/constants/default-car-filters.constant';
 import { engineListValues } from '@/app/constants/engine-list.constant';
 import { seatListValues } from '@/app/constants/seat-list.constants';
+import { mapParamsToCarFilters } from '@/app/helpers/map-params-to-car-filters.helper';
 import { CarService } from '@/app/services/car.service';
 import { CarType, SearchCarsFilters } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
@@ -43,11 +44,12 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams?.subscribe((params) => {
       this.previousQueryParams = { ...params };
+      const filters = mapParamsToCarFilters(params);
       this.filtersForm = this.formBuilder.group({
-        name: [params?.['name'] || defaultCarFilters.name],
-        type: [params?.['type'] || defaultCarFilters.type],
-        engine: [params?.['engine']?.map(Number) || defaultCarFilters.engine],
-        size: [params?.['size']?.map(Number) || defaultCarFilters.size],
+        name: [filters.name],
+        type: [filters.type],
+        size: [filters.size],
+        engine: [filters.engine],
       });
     });
   }
