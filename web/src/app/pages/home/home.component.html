@@ -37,7 +37,7 @@
     Filtrar
   </button>
 </div>
-@if (hasFilterActive) {
+@if (hasFilterActive$ | async) {
 <app-list-cars />
 } @else {
 <app-last-reservations />
