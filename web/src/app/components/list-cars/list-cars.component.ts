@@ -1,10 +1,11 @@
 import { AuthService } from '@/app/auth/auth.service';
+import { mapParamsToCarFilters } from '@/app/helpers/map-params-to-car-filters.helper';
 import { CarService } from '@/app/services/car.service';
-import { Car, SearchCarsFilters } from '@/app/types/car.type';
+import { Car } from '@/app/types/car.type';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
 import { BookingCarDrawerComponent } from '../booking-car-drawer/booking-car-drawer.component';
 import { CarCardComponent } from '../car-card/car-card.component';
 import { NoCarResultsComponent } from '../no-car-results/no-car-results.component';
@@ -21,32 +22,25 @@ import { NoCarResultsComponent } from '../no-car-results/no-car-results.componen
   templateUrl: './list-cars.component.html',
 })
 export class ListCarsComponent {
-  cars$!: Observable<Car[]>;
+  authService = inject(AuthService);
+  carService = inject(CarService);
+  route = inject(ActivatedRoute);
+  destroyRef = inject(DestroyRef);
+
   drawerOpen = false;
   selectedCar?: Car;
-  isAdmin: boolean = false;
-
-  constructor(
-    private carService: CarService,
-    private authService: AuthService,
-    private route: ActivatedRoute,
-  ) {}
 
   ngOnInit(): void {
     this.searchCars();
-    this.isAdmin = this.authService.isAdmin();
   }
 
   searchCars(): void {
-    this.route.queryParams.subscribe((params: Params) => {
-      const filters: Partial<SearchCarsFilters> = {
-        name: params['name'] || '',
-        type: params['type'] || [],
-        engine: params['engine'] || [],
-        size: params['size'] || [],
-      };
-      this.cars$ = this.carService.searchCars(filters);
-    });
+    this.route.queryParams
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params: Params) => {
+        const filters = mapParamsToCarFilters(params);
+        this.carService.searchCars(filters);
+      });
   }
 
   openDrawer(car: Car) {

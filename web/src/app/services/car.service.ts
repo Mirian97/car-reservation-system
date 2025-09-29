@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   Car,
   CarType,
@@ -14,14 +14,26 @@ import {
 export class CarService {
   readonly BASE_PATH = 'cars/';
 
-  constructor(private http: HttpClient) {}
+  private carsSubject = new BehaviorSubject<Car[]>([]);
+  private carListTypeSubject = new BehaviorSubject<CarType[]>([]);
+  cars$ = this.carsSubject.asObservable();
+  carListType$ = this.carListTypeSubject.asObservable();
 
-  searchCars(filters: Partial<SearchCarsFilters> = {}): Observable<Car[]> {
-    return this.http.get<Car[]>(this.BASE_PATH, { params: filters });
+  constructor(private http: HttpClient) {
+    this.searchCars();
+    this.getCarType();
   }
 
-  getCarType(): Observable<CarType[]> {
-    return this.http.get<CarType[]>(`${this.BASE_PATH}type`);
+  searchCars(filters: Partial<SearchCarsFilters> = {}) {
+    this.http
+      .get<Car[]>(this.BASE_PATH, { params: filters })
+      .subscribe((data) => this.carsSubject.next(data));
+  }
+
+  getCarType(): void {
+    this.http.get<CarType[]>(`${this.BASE_PATH}type`).subscribe((data) => {
+      this.carListTypeSubject.next(data);
+    });
   }
 
   create(form: CreateCarForm) {

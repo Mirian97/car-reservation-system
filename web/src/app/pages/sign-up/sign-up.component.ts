@@ -1,6 +1,6 @@
 import { errorMessages } from '@/app/constants/error-messages.constant';
 import { toast } from '@/app/helpers/toast';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -26,14 +26,11 @@ import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
   templateUrl: './sign-up.component.html',
 })
 export class SignUpComponent {
+  formBuilder = inject(FormBuilder);
+  authService = inject(AuthService);
+  router = inject(Router);
   signUpForm!: FormGroup;
   isLoading: boolean = false;
-
-  constructor(
-    readonly formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-  ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({

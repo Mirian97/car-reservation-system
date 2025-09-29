@@ -11,6 +11,7 @@ import {
   Component,
   DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
@@ -23,7 +24,6 @@ import {
   Validators,
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
@@ -45,39 +45,38 @@ import { ToggleButtonComponent } from '../toggle-button/toggle-button.component'
   templateUrl: './create-car-drawer.component.html',
 })
 export class CreateCarDrawerComponent implements OnInit {
+  formBuilder = inject(FormBuilder);
+  carService = inject(CarService);
+  destroyRef = inject(DestroyRef);
+
   @Input() isOpen = false;
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() carsUpdated = new EventEmitter<void>();
-  carTypeList$!: Observable<CarType[]>;
   createCarForm!: FormGroup;
   isLoading: boolean = false;
   engineList = engineListValues;
   seatList = seatListValues;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private carService: CarService,
-    private destroyRef: DestroyRef,
-  ) {}
+  ngOnInit(): void {
+    this.createCarForm = this.formBuilder.group({
+      name: [defaultCreateCar.name || '', [Validators.required]],
+      engine: [defaultCreateCar.engine || '', [Validators.required]],
+      size: [defaultCreateCar.size || '', [Validators.required]],
+      type: [defaultCreateCar.type || '', [Validators.required]],
+      year: [
+        defaultCreateCar.year || '',
+        [
+          Validators.required,
+          Validators.min(1900),
+          Validators.max(new Date().getFullYear()),
+        ],
+      ],
+    });
+  }
 
   onClose() {
     this.closeDrawer.emit();
     this.createCarForm.reset();
-  }
-
-  ngOnInit(): void {
-    this.getCarTypeList();
-    this.createCarForm = this.formBuilder.group({
-      name: [defaultCreateCar.name || '', Validators.required],
-      engine: [defaultCreateCar.engine || '', Validators.required],
-      size: [defaultCreateCar.size || '', Validators.required],
-      type: [defaultCreateCar.type || '', Validators.required],
-      year: [defaultCreateCar.year || '', Validators.required],
-    });
-  }
-
-  getCarTypeList() {
-    this.carTypeList$ = this.carService.getCarType();
   }
 
   onTypeChange(type: CarType): void {

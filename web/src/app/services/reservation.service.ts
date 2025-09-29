@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { CarReservationByUser } from '../types/car.type';
 import {
   CreateReservation,
@@ -14,12 +15,21 @@ import {
 export class ReservationService {
   readonly BASE_PATH = 'reservations/';
 
-  constructor(private http: HttpClient) {}
+  private reservationsByUserSubject = new BehaviorSubject<
+    CarReservationByUser[]
+  >([]);
+  reservationsByUser$ = this.reservationsByUserSubject.asObservable();
 
-  getReservationsByUser(userId: string): Observable<CarReservationByUser[]> {
-    return this.http.get<CarReservationByUser[]>(
-      `${this.BASE_PATH}user/${userId}`,
-    );
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.getReservationsByUser();
+  }
+
+  getReservationsByUser(): void {
+    this.http
+      .get<CarReservationByUser[]>(
+        `${this.BASE_PATH}user/${this.authService.getUser()?._id}`,
+      )
+      .subscribe((data) => this.reservationsByUserSubject.next(data));
   }
 
   getCarWithActiveReservation(carId: string): Observable<Reservation | null> {
@@ -27,10 +37,14 @@ export class ReservationService {
   }
 
   create(form: CreateReservation) {
-    return this.http.post(this.BASE_PATH, form);
+    return this.http
+      .post(this.BASE_PATH, form)
+      .pipe(tap(() => this.getReservationsByUser()));
   }
 
   update(reservationId: string, form: UpdateReservation) {
-    return this.http.patch(`${this.BASE_PATH}${reservationId}`, form);
+    return this.http
+      .patch(`${this.BASE_PATH}${reservationId}`, form)
+      .pipe(tap(() => this.getReservationsByUser()));
   }
 }

@@ -7,9 +7,10 @@ import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
 import { objectHasValidProperties } from '@/app/helpers/object-has-valid-properties.helper';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -28,42 +29,39 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  searchForm!: FormGroup;
-  hasFilterActive!: boolean;
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  authService = inject(AuthService);
+  formBuilder = inject(FormBuilder);
   drawerOpen = false;
-  isAdmin: boolean = false;
-
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-  ) {}
+  searchForm!: FormGroup;
+  hasFilterActive$: Observable<boolean> = this.route.queryParams.pipe(
+    map((params) => objectHasValidProperties(params)),
+  );
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.hasFilterActive = objectHasValidProperties(params);
-      const name = params?.['name'] ?? '';
-      this.searchForm = this.formBuilder.group({
-        name,
-      });
+    this.searchForm = this.formBuilder.group({
+      name: [''],
     });
-    this.isAdmin = this.authService.isAdmin();
+    this.route.queryParams.subscribe((params) => {
+      this.searchForm.patchValue({ name: params?.['name'] ?? '' });
+    });
   }
 
   onSearch(value: string) {
     this.router.navigate([], {
-      queryParams: { name: value || null },
+      queryParams: {
+        name: value,
+      },
       queryParamsHandling: 'merge',
     });
   }
 
   onNavigateFilters(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.router.navigate(['/inicio/filtrar'], {
-        queryParams: params,
-        queryParamsHandling: 'merge',
-      });
+    const params = this.route.snapshot.queryParams;
+    this.router.navigate(['/inicio/filtrar'], {
+      queryParams: params,
+      queryParamsHandling: 'merge',
     });
   }
 

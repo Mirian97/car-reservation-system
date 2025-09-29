@@ -4,8 +4,9 @@ import { InputComponent } from '@/app/components/input/input.component';
 import { SvgIconComponent } from '@/app/components/svg-icon/svg-icon.component';
 import { ToggleButtonComponent } from '@/app/components/toggle-button/toggle-button.component';
 import { errorMessages } from '@/app/constants/error-messages.constant';
+import { passwordMatchValidator } from '@/app/helpers/password-match-validator.helper';
 import { toast } from '@/app/helpers/toast';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -26,13 +27,10 @@ import {
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
+  formBuilder = inject(FormBuilder);
+  authService = inject(AuthService);
   profileForm!: FormGroup;
   isLoading: boolean = false;
-
-  constructor(
-    readonly formBuilder: FormBuilder,
-    private authService: AuthService,
-  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -40,12 +38,17 @@ export class ProfileComponent implements OnInit {
 
   initializeForm() {
     const user = this.authService.getUser();
-    this.profileForm = this.formBuilder.group({
-      name: [user?.name || ''],
-      email: [user?.email || '', [Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required, Validators.minLength(6)],
-    });
+    this.profileForm = this.formBuilder.group(
+      {
+        name: [user?.name || ''],
+        email: [user?.email || '', [Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      },
+      {
+        validators: [passwordMatchValidator],
+      },
+    );
   }
 
   onSubmit(): void {
@@ -61,9 +64,5 @@ export class ProfileComponent implements OnInit {
         next: () => toast.success({ text: 'Seu dados foram atualizados!' }),
       })
       .add(() => (this.isLoading = false));
-  }
-
-  onLogoutUser(): void {
-    this.authService.logout();
   }
 }

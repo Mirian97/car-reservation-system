@@ -2,13 +2,18 @@
   className="flex items-center gap-2 absolute top-4 right-4 text-sm"
   [isActive]="false"
   (toggle)="openCreateCarDrawer()"
-  *ngIf="isAdmin"
+  *ngIf="authService.isAdmin()"
 >
   <span class="rotate-45">
     <app-svg-icon class="text-secondary" iconName="close" />
   </span>
   Registrar Carro
 </app-toggle-button>
+<app-create-car-drawer
+  [isOpen]="drawerOpen"
+  (closeDrawer)="drawerOpen = false"
+  (carsUpdated)="onSearch(searchForm.get('name')?.value)"
+/>
 <div class="flex px-8 gap-3.5 -mt-5 justify-center mb-8">
   <label
     class="bg-white max-w-full px-4.5 py-2 font-poppins min-h-14 items-center gap-2.5 rounded-lg text-sm flex shadow-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
@@ -32,13 +37,8 @@
     Filtrar
   </button>
 </div>
-@if (hasFilterActive) {
+@if (hasFilterActive$ | async) {
 <app-list-cars />
 } @else {
 <app-last-reservations />
 }
-<app-create-car-drawer
-  [isOpen]="drawerOpen"
-  (closeDrawer)="drawerOpen = false"
-  (carsUpdated)="onSearch(searchForm.get('name')?.value)"
-/>
