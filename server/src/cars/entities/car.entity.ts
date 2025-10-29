@@ -1,8 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 import { CarType } from '../enums/car-type.enum';
 
 @Schema({ timestamps: true })
 export class Car {
+  @Prop()
+  _id: Types.ObjectId;
+
   @Prop({ required: true })
   name: string;
 
