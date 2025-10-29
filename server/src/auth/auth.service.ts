@@ -77,7 +77,7 @@ export class AuthService {
           email: updateUserDto.email,
         })
         .exec();
-      if (existingUser && !existingUser._id.equals(id)) {
+      if (existingUser != null && !existingUser?._id?.equals(id)) {
         throw new EmailInUseException();
       }
     }
