@@ -30,7 +30,7 @@ export class ReservationsService {
     if (car.isReserved) {
       throw new CarIsAlreadyReservedException();
     }
-    const carId = car._id.toHexString();
+    const carId = car._id.toString();
     await this.carsService.setIsReserved(carId, true);
     const reservation =
       await this.reservationModel.create(createReservationDto);
@@ -44,7 +44,7 @@ export class ReservationsService {
   async findByUserId(id: string) {
     return await this.reservationModel
       .find({
-        userId: new Types.ObjectId(id).toHexString(),
+        userId: new Types.ObjectId(id).toString(),
         isActive: true,
       })
       .populate('carId')
