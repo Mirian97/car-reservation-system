@@ -48,6 +48,7 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@types/bson": "^4.2.4",
     "@types/express": "^5.0.0",
     "@types/express-serve-static-core": "^5.1.0",
     "@types/jest": "^30.0.0",

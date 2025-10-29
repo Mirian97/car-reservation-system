@@ -87,6 +87,9 @@ importers:
       '@nestjs/testing':
         specifier: ^11.0.1
         version: 11.1.6(@nestjs/common@11.1.6(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/platform-express@11.1.6)
+      '@types/bson':
+        specifier: ^4.2.4
+        version: 4.2.4
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.3
@@ -878,6 +881,10 @@ packages:
 
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
+
+  '@types/bson@4.2.4':
+    resolution: {integrity: sha512-SG23E3JDH6y8qF20a4G9txLuUl+TCV16gxsKyntmGiJez2V9VBJr1Y8WxTBBD6OgBVcvspQ7sxgdNMkXFVcaEA==}
+    deprecated: This is a stub types definition. bson provides its own type definitions, so you do not need this installed.
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
@@ -4275,6 +4282,10 @@ snapshots:
     dependencies:
       '@types/connect': 3.4.38
       '@types/node': 22.18.1
+
+  '@types/bson@4.2.4':
+    dependencies:
+      bson: 6.10.4
 
   '@types/connect@3.4.38':
     dependencies:
