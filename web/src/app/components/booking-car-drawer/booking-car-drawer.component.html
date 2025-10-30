@@ -22,8 +22,8 @@
       <app-svg-icon iconName="close" />
     </button>
   </header>
-  <section *ngIf="car; else noData" class="space-y-8">
-    <div class="grid grid-cols-2 gap-2 bg-tertiary/10 p-4 text-primary">
+  <section *ngIf="car; else noData">
+    <div class="grid grid-cols-2 gap-2 bg-tertiary/10 p-4 text-primary mb-8">
       <h6 class="font-semibold">Nome:</h6>
       <p>{{ car.name }}</p>
       <h6 class="font-semibold">Ano:</h6>
