@@ -42,7 +42,7 @@
       size="sm"
     />
     <ng-container *ngIf="carService.carListType$ | async as types">
-      <div class="space-y-3">
+      <div class="flex flex-col gap-3">
         <h2 class="text-primary font-bold transition-all">Tipos</h2>
         <div class="grid grid-cols-2 gap-1">
           <label
@@ -61,7 +61,7 @@
         </div>
       </div>
     </ng-container>
-    <div class="space-y-3">
+    <div class="flex flex-col gap-3">
       <h2 class="text-primary font-bold transition-all">Motor</h2>
       <div class="flex flex-wrap gap-x-4.5 gap-y-3">
         <app-toggle-button
@@ -74,7 +74,7 @@
         </app-toggle-button>
       </div>
     </div>
-    <div class="space-y-3">
+    <div class="flex flex-col gap-3">
       <h2 class="text-primary font-bold transition-all">Lugares</h2>
       <div class="flex flex-wrap gap-x-4.5 gap-y-3">
         <app-toggle-button
