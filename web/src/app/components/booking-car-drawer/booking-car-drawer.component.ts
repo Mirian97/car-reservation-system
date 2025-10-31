@@ -53,16 +53,18 @@ export class BookingCarDrawerComponent {
     onSuccessCallback?: () => void,
   ) {
     this.isLoading = true;
-    action.pipe(first()).subscribe({
-      next: () => {
-        toast.success({ text: successMessage });
-        this.reservationUpdated.emit();
-        onSuccessCallback?.();
-        this.onClose();
-      },
-      error: (err) => console.error(err),
-      complete: () => (this.isLoading = false),
-    });
+    action
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          toast.success({ text: successMessage });
+          this.reservationUpdated.emit();
+          onSuccessCallback?.();
+          this.onClose();
+        },
+        error: (err) => console.error(err),
+      })
+      .add(() => (this.isLoading = false));
   }
 
   getCarReservation() {
