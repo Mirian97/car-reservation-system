@@ -9,7 +9,7 @@
     </h2>
     <div
       *ngIf="reservations.length > 0; else emptyState"
-      class="flex overflow-x-auto gap-4 px-6 pb-14 sm:px-12 md:flex-wrap transition-all"
+      class="flex overflow-x-auto gap-4 px-6 pt-1 pb-14 sm:px-12 md:flex-wrap transition-all"
     >
       <app-car-card
         *ngFor="let carReservation of reservations"
