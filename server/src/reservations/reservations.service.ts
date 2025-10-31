@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CarsService } from 'src/cars/cars.service';
 import { CarIsAlreadyReservedException } from 'src/reservations/exception/car-is-already-reserved.exception';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -44,7 +44,7 @@ export class ReservationsService {
   async findByUserId(id: string) {
     return await this.reservationModel
       .find({
-        userId: id,
+        userId: new Types.ObjectId(id).toString(),
         isActive: true,
       })
       .populate('carId')
