@@ -7,8 +7,19 @@
         draggable="false"
         alt="Foto de perfil do usuário"
         src="https://avatar.iran.liara.run/public"
+        (load)="onImageLoad()"
+        [class.hidden]="!isImageLoaded"
         class="rounded-full border-2 border-secondary bg-gray-300 size-24"
       />
+      @if (!isImageLoaded) {
+        <div
+          class="rounded-full border-2 border-secondary bg-secondary size-24 flex items-center justify-center"
+        >
+          <span class="font-poppins text-3xl text-white">
+            {{ authService.getUser()?.name | initialsName }}
+          </span>
+        </div>
+      }
       <h4 class="font-poppins text-[22px] text-white tracking-wide">
         {{ greeting }}
       </h4>
